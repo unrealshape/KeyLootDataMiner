@@ -106,7 +106,8 @@ class BuildTest(unittest.TestCase):
     def test_builds_and_a_second_run_changes_nothing(self):
         self.put("a.json", dataset("a", [entry(7, 0.5, 10)], [drop(7)]))
         self.assertEqual(self.run_build(), 0)
-        self.assertEqual({p.name for p in self.out.glob("*.lua")}, {"paladin.lua", "Drops.lua", "Meta.lua"})
+        self.assertEqual({p.name for p in self.out.glob("*.lua")},
+                         {"paladin.lua", "Drops.lua", "Items.lua", "Specs.lua", "Meta.lua"})
         manifest = (self.out / "Data.xml").read_text(encoding="utf-8")
         self.assertLess(manifest.index("Meta.lua"), manifest.index("Drops.lua"))
         self.assertLess(manifest.index("Drops.lua"), manifest.index("paladin.lua"))

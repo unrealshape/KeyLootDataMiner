@@ -17,6 +17,8 @@ from .model import validate
 def merge(datasets: list) -> dict:
     entries: dict = {}
     drops: dict = {}
+    items: dict = {}
+    specs: dict = {}
     sources: list = []
     generated = ""
     for dataset in datasets:
@@ -36,6 +38,10 @@ def merge(datasets: list) -> dict:
         for drop in dataset.get("drops", []):
             key = (drop["item"], drop["kind"], str(drop["instance"]), str(drop["encounter"]))
             drops.setdefault(key, {**drop, "sources": set()})["sources"].add(dataset["source"])
+        for item in dataset.get("items", []):
+            items.setdefault(item["item"], item)
+        for spec_id, names in dataset.get("specs", {}).items():
+            specs.setdefault(spec_id, names)
     merged_entries = []
     for key in sorted(entries):
         held = entries[key]
@@ -49,7 +55,8 @@ def merge(datasets: list) -> dict:
         held["sources"] = sorted(held["sources"])
         merged_drops.append(held)
     return {"source": "merged", "generated": generated, "sources": sorted(set(sources)),
-            "entries": merged_entries, "drops": merged_drops}
+            "entries": merged_entries, "drops": merged_drops,
+            "items": [items[i] for i in sorted(items)], "specs": dict(sorted(specs.items(), key=lambda kv: int(kv[0])))}
 
 
 def top_per_slot(entries: list, limit: int) -> dict:

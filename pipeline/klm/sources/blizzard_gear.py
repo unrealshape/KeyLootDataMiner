@@ -104,6 +104,13 @@ def spec_names(client, spec_ids):
     return names
 
 
+def all_specs(client):
+    """{"66": ["paladin", "protection"], ...} for every playable specialization."""
+    index = client.get("/data/wow/playable-specialization/index", "static")
+    ids = [s["id"] for s in index["character_specializations"] if not s["name"].startswith("Initial")]
+    return {str(spec_id): list(key) for spec_id, key in spec_names(client, ids).items()}
+
+
 def read_equipment(client, character):
     """slot -> set of item ids the character wears, or None when it cannot be read."""
     path = ("/profile/wow/character/" + urllib.parse.quote(character["realm"]) + "/"
@@ -139,7 +146,8 @@ def entries_for(spec_key, players):
             for slot in sorted(counts) for item, count in sorted(counts[slot].items())]
 
 
-def fetch_entries(client, top_per_spec=50, periods=2, realm_limit=None, progress=log):
+def fetch_entries(client, top_per_spec=50, periods=2, realm_limit=None, progress=log, specs_out=None):
+    """The entries; `specs_out`, when given, receives {"66": ["paladin", "protection"], ...}."""
     season, period_ids = season_periods(client, count=periods)
     realms = connected_realms(client)
     if realm_limit:
@@ -149,6 +157,8 @@ def fetch_entries(client, top_per_spec=50, periods=2, realm_limit=None, progress
     characters = scan_leaderboards(client, realms, dungeons, period_ids, progress)
     chosen = pick_best(characters, top_per_spec)
     names = spec_names(client, chosen)
+    if specs_out is not None:
+        specs_out.update({str(spec_id): list(key) for spec_id, key in names.items()})
     entries = []
     for spec_id in sorted(chosen):
         players = []

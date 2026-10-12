@@ -42,6 +42,8 @@ def load_datasets(folder: Path) -> list:
 def render(merged: dict, top: int) -> dict:
     files = lua.class_files(merged, top)
     files["Drops.lua"] = lua.drops_file(merged)
+    files["Items.lua"] = lua.items_file(merged, top)
+    files["Specs.lua"] = lua.specs_file(merged)
     files["Meta.lua"] = lua.meta_file(merged, top)
     files["Data.xml"] = lua.manifest(sorted(files))
     return files

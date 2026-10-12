@@ -1,0 +1,4566 @@
+{
+"155940": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Dragonslayer's Brace",
+"set": null,
+"stats": "ch"
+},
+"155945": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Shackles of the Odalisque",
+"set": null,
+"stats": "ch"
+},
+"155954": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Flamestalker Boots",
+"set": null,
+"stats": "cv"
+},
+"155964": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Wristguards of the Firetender",
+"set": null,
+"stats": "ch"
+},
+"155970": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Handguards of the Enclave",
+"set": null,
+"stats": "ch"
+},
+"155971": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Runed Ironhide Boots",
+"set": null,
+"stats": "cv"
+},
+"155981": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Drape of Mortal Downfall",
+"set": null,
+"stats": "cv"
+},
+"155997": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Boots of Hasty Revival",
+"set": null,
+"stats": "hv"
+},
+"156003": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Malice",
+"set": null,
+"stats": "ch"
+},
+"156011": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Bracers of Unleashed Magic",
+"set": null,
+"stats": "ch"
+},
+"156029": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Bracers of the Smothering Inferno",
+"set": null,
+"stats": "ch"
+},
+"156035": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Ironscale Leggings",
+"set": null,
+"stats": "cv"
+},
+"156045": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Shawl of the Caretaker",
+"set": null,
+"stats": "ch"
+},
+"156046": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Drape of Fuming Anger",
+"set": null,
+"stats": "cv"
+},
+"156047": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Cloak of the Makers",
+"set": null,
+"stats": "ch"
+},
+"156056": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Greaves of Iron Intensity",
+"set": null,
+"stats": "cv"
+},
+"156059": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Belt of the Iron Servant",
+"set": null,
+"stats": "ch"
+},
+"156157": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Greaves of the Rockmender",
+"set": null,
+"stats": "hv"
+},
+"156167": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Breastplate of the Devoted",
+"set": null,
+"stats": "hv"
+},
+"156168": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Grasps of Reason",
+"set": null,
+"stats": "ch"
+},
+"156183": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Drape of Icy Intent",
+"set": null,
+"stats": "cv"
+},
+"156187": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Scale of Fates",
+"set": null,
+"stats": ""
+},
+"156203": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Drape of the Sullen Goddess",
+"set": null,
+"stats": "ch"
+},
+"156213": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Titanskin Cloak",
+"set": null,
+"stats": "ch"
+},
+"156251": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Shroud of Alteration",
+"set": null,
+"stats": "hv"
+},
+"156256": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Grips of Chaos",
+"set": null,
+"stats": "ch"
+},
+"156263": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Armbands of the Construct",
+"set": null,
+"stats": "cv"
+},
+"156271": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Shoulderguards of the Solemn Watch",
+"set": null,
+"stats": "hv"
+},
+"156272": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Sabatons of the Iron Watcher",
+"set": null,
+"stats": "ch"
+},
+"156310": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Mjolnir Runestone",
+"set": null,
+"stats": ""
+},
+"156322": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Stylish Power Cape",
+"set": null,
+"stats": "ch"
+},
+"156327": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Greaves of the Iron Army",
+"set": null,
+"stats": "ch"
+},
+"156328": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Tempered Mercury Greaves",
+"set": null,
+"stats": "cv"
+},
+"156334": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Bindings of the Depths",
+"set": null,
+"stats": "hv"
+},
+"156380": {
+"day": "2026-10-13",
+"ilvl": 35,
+"name": "Conqueror's Kirin Tor Gauntlets",
+"set": null,
+"stats": "hv"
+},
+"158366": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Charged Sandstone Band",
+"set": null,
+"stats": "cm"
+},
+"158369": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Galvanized Stormcrusher",
+"set": null,
+"stats": "hv"
+},
+"158370": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Twin-Strike Polearm",
+"set": null,
+"stats": "ch"
+},
+"158373": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Resonating Crystal Scimitar",
+"set": null,
+"stats": "ch"
+},
+"158714": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Swarm's Edge",
+"set": null,
+"stats": "mv"
+},
+"159136": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Jeweled Dagger of Subjugation",
+"set": null,
+"stats": "hm"
+},
+"159137": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Gilded Serpent's Tooth",
+"set": null,
+"stats": "hv"
+},
+"159234": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Down-Lined Breeches",
+"set": null,
+"stats": "cm"
+},
+"159243": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Sandals of Wise Voodoo",
+"set": null,
+"stats": "hv"
+},
+"159247": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Handwraps of Oscillating Polarity",
+"set": null,
+"stats": "ch"
+},
+"159255": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Ouroborial Sash",
+"set": null,
+"stats": "mv"
+},
+"159259": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Sandswept Sandals",
+"set": null,
+"stats": "ch"
+},
+"159263": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Bindings of the Slithering Current",
+"set": null,
+"stats": "cv"
+},
+"159288": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Cloak of the Restless Tribes",
+"set": null,
+"stats": "mv"
+},
+"159300": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Kula's Butchering Wristwraps",
+"set": null,
+"stats": "cv"
+},
+"159301": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Primal Dinomancer's Belt",
+"set": null,
+"stats": "ch"
+},
+"159304": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Goldfeather Boots",
+"set": null,
+"stats": "mv"
+},
+"159312": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Desiccator's Blessed Gloves",
+"set": null,
+"stats": "cm"
+},
+"159313": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Breeches of the Sacred Hall",
+"set": null,
+"stats": "hv"
+},
+"159317": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Whirling Dervish Sash",
+"set": null,
+"stats": "hm"
+},
+"159327": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Sand-Shined Snakeskin Sandals",
+"set": null,
+"stats": "cm"
+},
+"159329": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Leggings of the Galeforce Viper",
+"set": null,
+"stats": "mv"
+},
+"159337": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Grips of Electrified Defense",
+"set": null,
+"stats": "mv"
+},
+"159369": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Belt of the Consecrated Tomb",
+"set": null,
+"stats": "hv"
+},
+"159371": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Boots of the Headlong Conqueror",
+"set": null,
+"stats": "mv"
+},
+"159375": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Legguards of the Awakening Brood",
+"set": null,
+"stats": "ch"
+},
+"159380": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Arc-Glass Bindings",
+"set": null,
+"stats": "ch"
+},
+"159388": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Sabatons of Coruscating Energy",
+"set": null,
+"stats": "cm"
+},
+"159409": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Embalmer's Steadying Bracers",
+"set": null,
+"stats": "ch"
+},
+"159412": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Auric Puddle Stompers",
+"set": null,
+"stats": "cv"
+},
+"159413": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Gauntlets of the Avian Sentinel",
+"set": null,
+"stats": "cm"
+},
+"159418": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Girdle of Pestilent Purification",
+"set": null,
+"stats": "hm"
+},
+"159425": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Shard-Tipped Vambraces",
+"set": null,
+"stats": "hv"
+},
+"159435": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Legplates of Charged Duality",
+"set": null,
+"stats": "cv"
+},
+"159442": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Sand-Scoured Greatbelt",
+"set": null,
+"stats": "mv"
+},
+"159459": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Ritual Binder's Ring",
+"set": null,
+"stats": "hv"
+},
+"159617": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Lustrous Golden Plumage",
+"set": null,
+"stats": ""
+},
+"159636": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Staff of the Lightning Serpent",
+"set": null,
+"stats": "hm"
+},
+"159637": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Snakebite Recurve",
+"set": null,
+"stats": "ch"
+},
+"159644": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Geti'ikku, Cut of Death",
+"set": null,
+"stats": ""
+},
+"159664": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Bulwark of Brimming Potential",
+"set": null,
+"stats": "cv"
+},
+"159667": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Vessel of Last Rites",
+"set": null,
+"stats": "hv"
+},
+"160213": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Sepulchral Construct's Gloves",
+"set": null,
+"stats": "hm"
+},
+"160216": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Crackling Jade Kilij",
+"set": null,
+"stats": "cm"
+},
+"162544": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Jade Ophidian Band",
+"set": null,
+"stats": "mv"
+},
+"171523": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Waistguard of Deathly Dominion",
+"set": null,
+"stats": "ch"
+},
+"171524": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Greaves of the Saronite Citadel",
+"set": null,
+"stats": "ch"
+},
+"171530": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Leggings of the Awakening",
+"set": null,
+"stats": "ch"
+},
+"171533": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Boots of the Icy Floe",
+"set": null,
+"stats": "ch"
+},
+"171559": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Maiden's Favor",
+"set": null,
+"stats": "cv"
+},
+"171562": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Gloves of the Lifeless Touch",
+"set": null,
+"stats": "ch"
+},
+"171588": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Westfall Saber",
+"set": null,
+"stats": "ch"
+},
+"171618": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Amulet of Autopsy",
+"set": null,
+"stats": "cv"
+},
+"171619": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Cuffs of Dark Shadows",
+"set": null,
+"stats": "ch"
+},
+"171632": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Rage of Ages",
+"set": null,
+"stats": "cm"
+},
+"171634": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Akmin-Kurai, Dominion's Shield",
+"set": null,
+"stats": "mv"
+},
+"171637": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Shadow of Dread",
+"set": null,
+"stats": "cm"
+},
+"171651": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Flickering Wristbands",
+"set": null,
+"stats": ""
+},
+"171686": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Necklace of Fetishes",
+"set": null,
+"stats": "ch"
+},
+"171691": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Crystal Prison Band",
+"set": null,
+"stats": "cm"
+},
+"171708": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Sandals of Leaping Coals",
+"set": null,
+"stats": "cm"
+},
+"171711": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Molten Scream",
+"set": null,
+"stats": "ch"
+},
+"171720": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Flowform Choker",
+"set": null,
+"stats": "hm"
+},
+"171725": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Arathar, the Eye of Flame",
+"set": null,
+"stats": "ch"
+},
+"171726": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Choker of the Vanquished Lord",
+"set": null,
+"stats": "hm"
+},
+"171729": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Majordomo's Chain of Office",
+"set": null,
+"stats": "hm"
+},
+"171752": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Obsidian Arborweave Mantle",
+"set": null,
+"stats": "hv"
+},
+"171843": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Coil of Ten-Thousand Screams",
+"set": null,
+"stats": "ch"
+},
+"171878": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Stormrider's Helm",
+"set": null,
+"stats": "hv"
+},
+"173277": {
+"day": "2026-10-13",
+"ilvl": 60,
+"name": "Avool's Incendiary Shanker",
+"set": null,
+"stats": "ch"
+},
+"193691": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Sky Saddle Cord",
+"set": null,
+"stats": "hm"
+},
+"193728": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Scaleguard's Stalwart Greatboots",
+"set": null,
+"stats": "mv"
+},
+"193750": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Wind Soarer's Breeches",
+"set": null,
+"stats": "cm"
+},
+"193751": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Crown of Roaring Storms",
+"set": null,
+"stats": "cv"
+},
+"193752": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Galerattle Gauntlets",
+"set": null,
+"stats": "cm"
+},
+"193753": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Breastplate of Soaring Terror",
+"set": null,
+"stats": "hm"
+},
+"193754": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Drake Rider's Stecktarge",
+"set": null,
+"stats": "mv"
+},
+"193755": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Backdraft Cleaver",
+"set": null,
+"stats": "ch"
+},
+"193757": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Ruby Whelp Shell",
+"set": null,
+"stats": ""
+},
+"193758": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Subjugator's Chilling Grips",
+"set": null,
+"stats": "cv"
+},
+"193759": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Egg Tender's Leggings",
+"set": null,
+"stats": "hv"
+},
+"193761": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Chillworn's Infusion Staff",
+"set": null,
+"stats": "cm"
+},
+"193762": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Blazebinder's Hoof",
+"set": null,
+"stats": "h"
+},
+"193763": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Fireproof Drape",
+"set": null,
+"stats": "ch"
+},
+"193764": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Invader's Firestorm Chestguard",
+"set": null,
+"stats": "mv"
+},
+"193765": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Blazebound Lieutenant's Helm",
+"set": null,
+"stats": "mv"
+},
+"193766": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Kokia's Burnout Rod",
+"set": null,
+"stats": "cv"
+},
+"193767": {
+"day": "2026-10-13",
+"ilvl": 250,
+"name": "Havoc Crusher",
+"set": null,
+"stats": "ch"
+},
+"237828": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's March",
+"set": null,
+"stats": "mv"
+},
+"237829": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Shelter",
+"set": null,
+"stats": "hm"
+},
+"237830": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Girdle",
+"set": null,
+"stats": "cv"
+},
+"237831": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Rebuke",
+"set": null,
+"stats": "hv"
+},
+"237832": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Cover",
+"set": null,
+"stats": "ch"
+},
+"237833": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Legguards",
+"set": null,
+"stats": "ch"
+},
+"237834": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Bracers",
+"set": null,
+"stats": "cm"
+},
+"237835": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Mantle",
+"set": null,
+"stats": "mv"
+},
+"237836": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Resolve",
+"set": null,
+"stats": "hm"
+},
+"237837": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Farstrider's Mercy",
+"set": null,
+"stats": "hv"
+},
+"237838": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Magister's Ritual Knife",
+"set": null,
+"stats": "cm"
+},
+"237839": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Blade",
+"set": null,
+"stats": "cm"
+},
+"237840": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Warglaive",
+"set": null,
+"stats": "cm"
+},
+"237841": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Spellbreaker's Ultimatum",
+"set": null,
+"stats": "ch"
+},
+"237842": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Bloomforged Greataxe",
+"set": null,
+"stats": "hm"
+},
+"237843": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Magister's Mana Sword",
+"set": null,
+"stats": "cv"
+},
+"237844": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Magister's Cleaver",
+"set": null,
+"stats": "hm"
+},
+"237845": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Bloomforged Claw",
+"set": null,
+"stats": "cm"
+},
+"237846": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Blood Knight's Warblade",
+"set": null,
+"stats": "hv"
+},
+"237847": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Blood Knight's Impetus",
+"set": null,
+"stats": "cm"
+},
+"237848": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Blood Knight's Mercy",
+"set": null,
+"stats": "cv"
+},
+"237849": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Magister's Valediction",
+"set": null,
+"stats": "cm"
+},
+"237850": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Farstrider's Chopper",
+"set": null,
+"stats": "hm"
+},
+"237908": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Plate Armguards",
+"set": null,
+"stats": "mv"
+},
+"239031": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Brood Cleanser's Amice",
+"set": null,
+"stats": "ch"
+},
+"239032": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Robes of the Reborn Serpent",
+"set": null,
+"stats": "cm"
+},
+"239033": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Hood of the Slithering Loa",
+"set": null,
+"stats": "ch"
+},
+"239034": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Corrupted Hexxer's Vestments",
+"set": null,
+"stats": "mv"
+},
+"239035": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Sethraliss' Fanged Helm",
+"set": null,
+"stats": "cm"
+},
+"239036": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Desert Guardian's Breastplate",
+"set": null,
+"stats": "cm"
+},
+"239037": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "C'thraxxi Binders Pauldrons",
+"set": null,
+"stats": "ch"
+},
+"239045": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Mantle of Ceremonial Ascension",
+"set": null,
+"stats": "hm"
+},
+"239048": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Vest of Reverent Adoration",
+"set": null,
+"stats": "cm"
+},
+"239049": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Spaulders of Prime Emperor",
+"set": null,
+"stats": "ch"
+},
+"239050": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Helm of the Raptor King",
+"set": null,
+"stats": "hv"
+},
+"239051": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Pauldrons of the Great Unifier",
+"set": null,
+"stats": "mv"
+},
+"239648": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Martyr's Bindings",
+"set": null,
+"stats": "ch"
+},
+"239649": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Martyr's Waistwrap",
+"set": null,
+"stats": "cm"
+},
+"239650": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Martyr's Mantle",
+"set": null,
+"stats": "ch"
+},
+"239651": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Martyr's Leggings",
+"set": null,
+"stats": "cv"
+},
+"239652": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Martyr's Crown",
+"set": null,
+"stats": "cv"
+},
+"239653": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Martyr's Gloves",
+"set": null,
+"stats": "cv"
+},
+"239654": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Martyr's Slippers",
+"set": null,
+"stats": "cm"
+},
+"239655": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Martyr's Vestments",
+"set": null,
+"stats": "hv"
+},
+"239656": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Adherent's Silken Shroud",
+"set": null,
+"stats": "cv"
+},
+"239663": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Sunfire Sash",
+"set": null,
+"stats": "ch"
+},
+"239664": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Arcanoweave Cord",
+"set": null,
+"stats": "ch"
+},
+"239677": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Cloth Bands",
+"set": null,
+"stats": "cv"
+},
+"239678": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Cloth Cloak",
+"set": null,
+"stats": "mv"
+},
+"239680": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Cloth Hood",
+"set": null,
+"stats": "mv"
+},
+"239682": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Cloth Sash",
+"set": null,
+"stats": "ch"
+},
+"239684": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Cloth Treads",
+"set": null,
+"stats": "hv"
+},
+"240949": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Masterwork Sin'dorei Band",
+"set": null,
+"stats": "hm"
+},
+"240950": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Masterwork Sin'dorei Amulet",
+"set": null,
+"stats": "hv"
+},
+"240952": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Amulet",
+"set": null,
+"stats": "hm"
+},
+"244179": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Magister's Grand Focus",
+"set": null,
+"stats": "ch"
+},
+"244472": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Knight-Commander's Palisade",
+"set": null,
+"stats": "cv"
+},
+"244565": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Chain Girdle",
+"set": null,
+"stats": "ch"
+},
+"244567": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Chain Grips",
+"set": null,
+"stats": "hm"
+},
+"244568": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Chain Cuffs",
+"set": null,
+"stats": "mv"
+},
+"244569": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Silvermoon Agent's Sneakers",
+"set": null,
+"stats": "cv"
+},
+"244570": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Silvermoon Agent's Coat",
+"set": null,
+"stats": "cm"
+},
+"244571": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Silvermoon Agent's Cover",
+"set": null,
+"stats": "ch"
+},
+"244572": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Silvermoon Agent's Mantle",
+"set": null,
+"stats": "ch"
+},
+"244573": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Silvermoon Agent's Utility Belt",
+"set": null,
+"stats": "hm"
+},
+"244574": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Silvermoon Agent's Leggings",
+"set": null,
+"stats": "ch"
+},
+"244575": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Silvermoon Agent's Handwraps",
+"set": null,
+"stats": "cv"
+},
+"244576": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Silvermoon Agent's Deflectors",
+"set": null,
+"stats": "cv"
+},
+"244577": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Farstrider's Razor Talons",
+"set": null,
+"stats": "ch"
+},
+"244578": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Farstrider's Scouting Vest",
+"set": null,
+"stats": "hm"
+},
+"244579": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Farstrider's Unwavering Visage",
+"set": null,
+"stats": "hv"
+},
+"244580": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Farstrider's Brilliant Plumes",
+"set": null,
+"stats": "cv"
+},
+"244581": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Farstrider's Trophy Belt",
+"set": null,
+"stats": "mv"
+},
+"244582": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Farstrider's Reinforced Faulds",
+"set": null,
+"stats": "hm"
+},
+"244583": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Farstrider's Sharpened Claws",
+"set": null,
+"stats": "hm"
+},
+"244584": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Farstrider's Plated Bracers",
+"set": null,
+"stats": "hv"
+},
+"244601": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "World Tree Rootwraps",
+"set": null,
+"stats": "hm"
+},
+"244609": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "World Tender's Trunkplate",
+"set": "Root Warden's Regalia",
+"stats": "ch"
+},
+"244610": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "World Tender's Rootslippers",
+"set": "Root Warden's Regalia",
+"stats": "cv"
+},
+"244611": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "World Tender's Barkclasp",
+"set": "Root Warden's Regalia",
+"stats": "hm"
+},
+"244738": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Plate Guard",
+"set": null,
+"stats": "h"
+},
+"244745": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aetherlume Vision Shroud",
+"set": null,
+"stats": "v"
+},
+"244746": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aetherlume Sun Guard",
+"set": null,
+"stats": "c"
+},
+"244747": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aetherlume Silken Cuffs",
+"set": null,
+"stats": "h"
+},
+"244748": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aetherlume Bands",
+"set": null,
+"stats": "h"
+},
+"244749": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aetherlume Bracelets",
+"set": null,
+"stats": "h"
+},
+"244750": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aetherlume Guards",
+"set": null,
+"stats": "c"
+},
+"244772": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aetherlume Runners",
+"set": null,
+"stats": "c"
+},
+"244773": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aetherlume Clonkers",
+"set": null,
+"stats": "c"
+},
+"244774": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aetherlume Stompers",
+"set": null,
+"stats": "v"
+},
+"245769": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aln'hara Lantern",
+"set": null,
+"stats": "cm"
+},
+"245770": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aln'hara Cane",
+"set": null,
+"stats": "cm"
+},
+"245771": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aln'hara Pikestaff",
+"set": null,
+"stats": "hm"
+},
+"246304": {
+"day": "2026-10-13",
+"ilvl": 90,
+"name": "Darkmoon Dominion: Hunt",
+"set": null,
+"stats": ""
+},
+"246305": {
+"day": "2026-10-13",
+"ilvl": 90,
+"name": "Darkmoon Dominion: Blood",
+"set": null,
+"stats": ""
+},
+"248583": {
+"day": "2026-10-13",
+"ilvl": 100,
+"name": "Drum of Renewed Bonds",
+"set": null,
+"stats": ""
+},
+"249275": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Bulwark of Noble Resolve",
+"set": null,
+"stats": "cv"
+},
+"249315": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Voracious Wristwraps",
+"set": null,
+"stats": "hm"
+},
+"249343": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Gaze of the Alnseer",
+"set": null,
+"stats": "m"
+},
+"249344": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Light Company Guidon",
+"set": null,
+"stats": ""
+},
+"249346": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Vaelgor's Final Stare",
+"set": null,
+"stats": ""
+},
+"249808": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Litany of Lightblind Wrath",
+"set": null,
+"stats": ""
+},
+"249920": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Eye of Midnight",
+"set": null,
+"stats": "h"
+},
+"249959": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Luminant Verdict's Providence Watch",
+"set": "Luminant Verdict's Vestments",
+"stats": "cm"
+},
+"249964": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Luminant Verdict's Divine Warplate",
+"set": "Luminant Verdict's Vestments",
+"stats": "hm"
+},
+"249996": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Greaves of the Black Talon",
+"set": "Livery of the Black Talon",
+"stats": "hm"
+},
+"250013": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aurastones of Ra-den's Chosen",
+"set": "Way of Ra-den's Chosen",
+"stats": "hm"
+},
+"250144": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Emberwing Feather",
+"set": null,
+"stats": ""
+},
+"250214": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Lightspire Core",
+"set": null,
+"stats": ""
+},
+"250215": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Freightrunner's Flask",
+"set": null,
+"stats": ""
+},
+"250224": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Mindpiercer's Sigil",
+"set": null,
+"stats": ""
+},
+"250225": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Void Execution Mandate",
+"set": null,
+"stats": ""
+},
+"250228": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Resonant Bellowstone",
+"set": null,
+"stats": ""
+},
+"250229": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Idol of the War Loa",
+"set": null,
+"stats": "c"
+},
+"250245": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Tumor of the Swarm",
+"set": null,
+"stats": ""
+},
+"250248": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Mycolic Medicine",
+"set": null,
+"stats": ""
+},
+"250255": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Unstable Felheart Crystal",
+"set": null,
+"stats": ""
+},
+"250259": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Sapling of the Dawnroot",
+"set": null,
+"stats": ""
+},
+"251123": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Nibbles' Training Rod",
+"set": null,
+"stats": "ch"
+},
+"251124": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Gauntlets of Fevered Defense",
+"set": null,
+"stats": "ch"
+},
+"251125": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Felsoaked Soles",
+"set": null,
+"stats": "cv"
+},
+"251126": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Greathelm of Temptation",
+"set": null,
+"stats": "cm"
+},
+"251127": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Nibbling Armbands",
+"set": null,
+"stats": "ch"
+},
+"251128": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Bladesorrow",
+"set": null,
+"stats": "cm"
+},
+"251129": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Counterfeit Clutches",
+"set": null,
+"stats": "mv"
+},
+"251130": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Breeches of Deft Deals",
+"set": null,
+"stats": "cm"
+},
+"251131": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Jangling Felpaulets",
+"set": null,
+"stats": "cv"
+},
+"251132": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Speakeasy Shroud",
+"set": null,
+"stats": "cm"
+},
+"251133": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Overseer's Vambraces",
+"set": null,
+"stats": "ch"
+},
+"251134": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Xathuux's Cleave",
+"set": null,
+"stats": "ch"
+},
+"251135": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Fury-fletched Armlets",
+"set": null,
+"stats": "ch"
+},
+"251136": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Signet of Snarling Servitude",
+"set": null,
+"stats": "cm"
+},
+"251137": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Tempestuous Sandals",
+"set": null,
+"stats": "hm"
+},
+"251138": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Cinderfury Shoulderguards",
+"set": null,
+"stats": "hm"
+},
+"251139": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Summoner's Searing Shirt",
+"set": null,
+"stats": "ch"
+},
+"251141": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Lithiel's Linked Leggings",
+"set": null,
+"stats": "hv"
+},
+"251142": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Pendant of Malefic Fury",
+"set": null,
+"stats": "hm"
+},
+"251143": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Grim Harvest Gloves",
+"set": null,
+"stats": "hv"
+},
+"251144": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Autumn's Boon Belt",
+"set": null,
+"stats": "mv"
+},
+"251145": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Forgotten Tribe Footguards",
+"set": null,
+"stats": "hv"
+},
+"251146": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Scavenger's Spaulders",
+"set": null,
+"stats": "cv"
+},
+"251147": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Hoarded Harvest Wrap",
+"set": null,
+"stats": "mv"
+},
+"251148": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Pilfered Precious Band",
+"set": null,
+"stats": "cv"
+},
+"251150": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Tempest's Shelter",
+"set": null,
+"stats": "hm"
+},
+"251151": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Sentinel Challenger's Prize",
+"set": null,
+"stats": "cm"
+},
+"251152": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Season's Turn Gauntlets",
+"set": null,
+"stats": "hv"
+},
+"251153": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Arctic Explorer's Legwraps",
+"set": null,
+"stats": "ch"
+},
+"251154": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Winter's Embrace Bracers",
+"set": null,
+"stats": "cm"
+},
+"251155": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Tribal Defender's Cord",
+"set": null,
+"stats": "cm"
+},
+"251156": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Fallen Speaker's Staff",
+"set": null,
+"stats": "hv"
+},
+"251158": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Nalorakk's Nightmare",
+"set": null,
+"stats": "hv"
+},
+"251159": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "War Trial Vestments",
+"set": null,
+"stats": "hm"
+},
+"251160": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Forest Dream Leg-guards",
+"set": null,
+"stats": "ch"
+},
+"251165": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Pulverizing Pads",
+"set": null,
+"stats": "cv"
+},
+"251173": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Yoke of the Charging Bear",
+"set": null,
+"stats": "ch"
+},
+"251180": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Thornblade",
+"set": null,
+"stats": "hm"
+},
+"251182": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Bedrock Breeches",
+"set": null,
+"stats": "cv"
+},
+"251183": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Rootwarden Wraps",
+"set": null,
+"stats": "cm"
+},
+"251184": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Ironroot Collar",
+"set": null,
+"stats": "hv"
+},
+"251185": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Lightblossom Cinch",
+"set": null,
+"stats": "hm"
+},
+"251186": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Thorntalon Edge",
+"set": null,
+"stats": "cm"
+},
+"251188": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Doompetal",
+"set": null,
+"stats": "hm"
+},
+"251189": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Rootwalker Harness",
+"set": null,
+"stats": "cv"
+},
+"251190": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Bloodthorn Burnous",
+"set": null,
+"stats": "hm"
+},
+"251191": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Luminescent Sprout",
+"set": null,
+"stats": "hm"
+},
+"251192": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Branch of Pride",
+"set": null,
+"stats": "cv"
+},
+"251193": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Taproot Ribs",
+"set": null,
+"stats": "hv"
+},
+"251194": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Lightwarden's Bind",
+"set": null,
+"stats": "mv"
+},
+"251195": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Thorned Reply",
+"set": null,
+"stats": "ch"
+},
+"251196": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Teldrassil's Sacrifice",
+"set": null,
+"stats": "cv"
+},
+"251197": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Thornspike Gauntlets",
+"set": null,
+"stats": "mv"
+},
+"251198": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Lightspore Leggings",
+"set": null,
+"stats": "mv"
+},
+"251199": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Worldroot Canopy",
+"set": null,
+"stats": "cm"
+},
+"251200": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Saptorbane Guards",
+"set": null,
+"stats": "ch"
+},
+"251202": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Reflux Reflector",
+"set": null,
+"stats": "cv"
+},
+"251214": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Bonds of the Hash'ura",
+"set": null,
+"stats": "ch"
+},
+"251218": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Taz'Rah's Cosmic Edge",
+"set": null,
+"stats": "hm"
+},
+"251219": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Riftworn Stompers",
+"set": null,
+"stats": "ch"
+},
+"251220": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Voidscarred Crown",
+"set": null,
+"stats": "hm"
+},
+"251221": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Despondent's Gauntlets",
+"set": null,
+"stats": "mv"
+},
+"251222": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Ethereal Netherwrap",
+"set": null,
+"stats": "ch"
+},
+"251223": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Somber Spaulders",
+"set": null,
+"stats": "ch"
+},
+"251224": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Hulking Handaxe",
+"set": null,
+"stats": "hm"
+},
+"251225": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Fang of Contagion",
+"set": null,
+"stats": "mv"
+},
+"251226": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Hide of Pestilence",
+"set": null,
+"stats": "cv"
+},
+"251227": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Poisoner's Pauldrons",
+"set": null,
+"stats": "mv"
+},
+"251228": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Behemoth Waistband",
+"set": null,
+"stats": "hm"
+},
+"251229": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Visor of the Predator",
+"set": null,
+"stats": "cm"
+},
+"251231": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Singularity Slicer",
+"set": null,
+"stats": "ch"
+},
+"251232": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Overseer's Diadem",
+"set": null,
+"stats": "hm"
+},
+"251233": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Manipulator's Vest",
+"set": null,
+"stats": "ch"
+},
+"251234": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Graft of the Domanaar",
+"set": null,
+"stats": "cm"
+},
+"251235": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Gravitic Girdle",
+"set": null,
+"stats": "mv"
+},
+"251513": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Loa Worshiper's Band",
+"set": null,
+"stats": "cm"
+},
+"251792": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Glorious Crusader's Keepsake",
+"set": null,
+"stats": ""
+},
+"251884": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Abyss Sabre",
+"set": "Torment's Duality",
+"stats": "hm"
+},
+"252258": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Sickening Signet of Atroxus",
+"set": null,
+"stats": "hm"
+},
+"258956": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Tarnished Dawnlit Scepter",
+"set": null,
+"stats": "mv"
+},
+"265337": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Aln'hara Sprigshot",
+"set": null,
+"stats": "cm"
+},
+"265657": {
+"day": "2026-10-13",
+"ilvl": 100,
+"name": "Fiber of Living Agony",
+"set": null,
+"stats": ""
+},
+"266314": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Novice Combatant's Necklace",
+"set": null,
+"stats": "hm"
+},
+"268196": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Venom-Slashed Scuteward",
+"set": null,
+"stats": "ch"
+},
+"268197": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Spine of the Hissing Abyss",
+"set": null,
+"stats": "hm"
+},
+"268198": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Caustic Keeper-Crusher",
+"set": null,
+"stats": "ch"
+},
+"268199": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Tidepiercer's Bubble Popper",
+"set": null,
+"stats": "cv"
+},
+"268200": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Gebbo's Backup Blaster",
+"set": null,
+"stats": "hm"
+},
+"268201": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Venomous Boneglaive",
+"set": null,
+"stats": "cm"
+},
+"268202": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Jaw of the Shackled Goddess",
+"set": null,
+"stats": "h"
+},
+"268203": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Hexing Spiritrender",
+"set": null,
+"stats": "cm"
+},
+"268204": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Ancient Construct's Venomshiv",
+"set": null,
+"stats": "hv"
+},
+"268205": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Venomancer's Winged Channeler",
+"set": null,
+"stats": "hm"
+},
+"268206": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Slithering Savage's Gavel",
+"set": null,
+"stats": "cm"
+},
+"268207": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Caustic Repose Greatbow",
+"set": null,
+"stats": "c"
+},
+"268208": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Strongblood's Ceremonial Cleaver",
+"set": null,
+"stats": "cm"
+},
+"268209": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Aman'muso, Warlord's Vengeance",
+"set": "Bite of Zul'jan",
+"stats": "hm"
+},
+"268210": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Malevolent Spiritcudgel",
+"set": null,
+"stats": "cm"
+},
+"268211": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Baleful Hexblade",
+"set": null,
+"stats": "hm"
+},
+"268213": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Maze-roa, Warlord's Fury",
+"set": "Bite of Zul'jan",
+"stats": "cm"
+},
+"268214": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Malignant Toothed Edge",
+"set": null,
+"stats": "hm"
+},
+"268215": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Abyssal Broodfiend's Bardiche",
+"set": null,
+"stats": "m"
+},
+"268216": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cursed Reliquary Cincture",
+"set": null,
+"stats": "cv"
+},
+"268217": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Rising Tide Wristguards",
+"set": null,
+"stats": "cm"
+},
+"268218": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Nek'zali's Spiritwalkers",
+"set": null,
+"stats": "cm"
+},
+"268219": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Shadow Hunter's Warmask",
+"set": null,
+"stats": "mv"
+},
+"268220": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Scaleplate Strangulators",
+"set": null,
+"stats": "ch"
+},
+"268221": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Tidebound Sorcereress's Robes",
+"set": null,
+"stats": "cm"
+},
+"268222": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Reckless Spirit Breastplate",
+"set": null,
+"stats": "hm"
+},
+"268223": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Ophidian Fangmail",
+"set": null,
+"stats": "ch"
+},
+"268224": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Venom Warden's Greaves",
+"set": null,
+"stats": "hm"
+},
+"268225": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Coiled Hex Legguards",
+"set": null,
+"stats": "hm"
+},
+"268226": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Swelling Sea Spaulders",
+"set": null,
+"stats": "cm"
+},
+"268227": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Unpossessed Skullsash",
+"set": null,
+"stats": "cm"
+},
+"268228": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Venom-Singed Cuffs",
+"set": null,
+"stats": "cm"
+},
+"268229": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Skullguard of the Risen Sacrifice",
+"set": null,
+"stats": "ch"
+},
+"268230": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Crown of the Eternal Fang",
+"set": null,
+"stats": "cm"
+},
+"268231": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Soulslither Spaulders",
+"set": null,
+"stats": "cm"
+},
+"268232": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cincture of the Abyssal Grotto",
+"set": null,
+"stats": "cv"
+},
+"268233": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Ferocious Scaleboots",
+"set": null,
+"stats": "hm"
+},
+"268234": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Ruthless Slaughtergrips",
+"set": null,
+"stats": "cm"
+},
+"268235": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Vestment of the Awakening",
+"set": null,
+"stats": "hm"
+},
+"268236": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Initiate's Sacrificial Tights",
+"set": null,
+"stats": "mv"
+},
+"268237": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cuisses of the Uncoiled Union",
+"set": null,
+"stats": "hm"
+},
+"268238": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Grips of Swirling Fury",
+"set": null,
+"stats": "ch"
+},
+"268239": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Shellbound Bracers",
+"set": null,
+"stats": "cm"
+},
+"268240": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Restless Spirit Shackles",
+"set": null,
+"stats": "ch"
+},
+"268241": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Ornaments of the Eternal Coil",
+"set": null,
+"stats": "hv"
+},
+"268242": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Errant Scrollsage's Hood",
+"set": null,
+"stats": "ch"
+},
+"268243": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Grasps of the Eternal Shadow",
+"set": null,
+"stats": "ch"
+},
+"268244": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Forgotten Grotto Girdle",
+"set": null,
+"stats": "hv"
+},
+"268245": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Entombed Cultist's Sabatons",
+"set": null,
+"stats": "ch"
+},
+"268246": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Frothing Venom Spaulders",
+"set": null,
+"stats": "cm"
+},
+"268247": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Breakwater Boots",
+"set": null,
+"stats": "hv"
+},
+"268248": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Amani Summoning Shawl",
+"set": null,
+"stats": "cv"
+},
+"268249": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Vile Alchemist's Band",
+"set": null,
+"stats": "cm"
+},
+"268250": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Sentinel's Vitriolic Chain",
+"set": null,
+"stats": "ch"
+},
+"268251": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Amulet of the Twin Fangs",
+"set": null,
+"stats": "hm"
+},
+"268252": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Apex Brute's Claw Ring",
+"set": null,
+"stats": "ch"
+},
+"268253": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Silken Voodoo Drape",
+"set": null,
+"stats": "hm"
+},
+"268254": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Serpentine Mixing Belt",
+"set": null,
+"stats": "hm"
+},
+"268255": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cackling Soultreads",
+"set": null,
+"stats": "hm"
+},
+"268256": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Sash of the Forlorn Vessel",
+"set": null,
+"stats": "hm"
+},
+"268257": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Caustic Chain-Wrapped Sash",
+"set": null,
+"stats": "hm"
+},
+"268258": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Boots of the Reckless Wayfarer",
+"set": null,
+"stats": "cm"
+},
+"268259": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Girdle of Toxic Regret",
+"set": null,
+"stats": "cm"
+},
+"268260": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Scaled Fiend's Warboots",
+"set": null,
+"stats": "hm"
+},
+"268261": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Bespittled Slitherslippers",
+"set": null,
+"stats": "ch"
+},
+"268262": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Bubblefin Splash Guard",
+"set": null,
+"stats": "hm"
+},
+"268263": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Frostscale's Mystic Frond",
+"set": null,
+"stats": "cm"
+},
+"268264": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Ravenous Feaster's Fang",
+"set": null,
+"stats": "cm"
+},
+"268265": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Aqirbane Reliquary",
+"set": null,
+"stats": "chmv"
+},
+"268266": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Alluring Bubbleband",
+"set": null,
+"stats": "hv"
+},
+"268290": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Sporecaller's Blooming Loop",
+"set": null,
+"stats": "hm"
+},
+"268291": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Rotmire's Sporeheart",
+"set": null,
+"stats": "cm"
+},
+"268477": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "P.O.W. x3",
+"set": null,
+"stats": "m"
+},
+"270160": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "First Mate's Shellward",
+"set": null,
+"stats": ""
+},
+"270161": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Fang of Umbral Malignance",
+"set": null,
+"stats": ""
+},
+"270162": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Soulcoiler Ritual Vessel",
+"set": null,
+"stats": ""
+},
+"270163": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Sszorak's Ferocity",
+"set": null,
+"stats": ""
+},
+"270164": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Gebbo's Bottomless Bag",
+"set": null,
+"stats": ""
+},
+"270165": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Keeper's Seething Core",
+"set": null,
+"stats": ""
+},
+"270166": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Vashnik's Sanguine Rancor",
+"set": null,
+"stats": ""
+},
+"270167": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Wavecaller's Seastone",
+"set": null,
+"stats": "h"
+},
+"270168": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Font of Venomous Rage",
+"set": null,
+"stats": "m"
+},
+"270169": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Hex Lord's Dooming Idol",
+"set": null,
+"stats": "h"
+},
+"270170": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Vexhul's Everflowing Gland",
+"set": null,
+"stats": ""
+},
+"270171": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Preternatural Antivenom",
+"set": null,
+"stats": "c"
+},
+"270173": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Zul'jin's Guillotine Technique",
+"set": "Bite of Zul'jan",
+"stats": ""
+},
+"270174": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Idol of the Howling Nexus",
+"set": null,
+"stats": "m"
+},
+"270175": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Voracious Heart of Ula'tek",
+"set": null,
+"stats": "c"
+},
+"270348": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Warmonger's Drape",
+"set": null,
+"stats": "mv"
+},
+"270353": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Warmonger's Gloves",
+"set": "Warmonger's Weave",
+"stats": "mv"
+},
+"270355": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Warmonger's Pants",
+"set": "Warmonger's Weave",
+"stats": "mv"
+},
+"270356": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Warmonger's Mantle",
+"set": "Warmonger's Weave",
+"stats": "cv"
+},
+"270358": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Warmonger's Bindings",
+"set": "Warmonger's Weave",
+"stats": "hv"
+},
+"270377": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Warmonger's Gauntlets",
+"set": "Warmonger's Ward",
+"stats": "cv"
+},
+"270378": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Warmonger's Faceplate",
+"set": "Warmonger's Ward",
+"stats": "hv"
+},
+"270380": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Warmonger's Spaulders",
+"set": "Warmonger's Ward",
+"stats": "mv"
+},
+"270470": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Aspirant's Plate Greatbelt",
+"set": null,
+"stats": "hv"
+},
+"270500": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Aspirant's Leather Armguards",
+"set": null,
+"stats": "mv"
+},
+"270511": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Aspirant's Leather Gloves",
+"set": null,
+"stats": "mv"
+},
+"270512": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Aspirant's Leather Footpads",
+"set": null,
+"stats": "hv"
+},
+"270528": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Aspirant's Silk Footwraps",
+"set": null,
+"stats": "mv"
+},
+"270532": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Aspirant's Pendant",
+"set": null,
+"stats": "mv"
+},
+"270540": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Aspirant's Cloak",
+"set": null,
+"stats": "hv"
+},
+"270580": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Shawl",
+"set": null,
+"stats": "mv"
+},
+"270587": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Necklace",
+"set": null,
+"stats": "hv"
+},
+"270589": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Amulet",
+"set": null,
+"stats": "mv"
+},
+"270602": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Badge of Ferocity",
+"set": "Gladiator's Distinction",
+"stats": "c"
+},
+"270603": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Insignia of Alacrity",
+"set": "Gladiator's Distinction",
+"stats": "h"
+},
+"270605": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Medallion",
+"set": "Gladiator's Distinction",
+"stats": ""
+},
+"270611": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Drape",
+"set": null,
+"stats": "hv"
+},
+"270644": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Silk Armbands",
+"set": null,
+"stats": "hv"
+},
+"270660": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Silk Armbands",
+"set": null,
+"stats": "hv"
+},
+"270686": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Leather Legwraps",
+"set": null,
+"stats": "mv"
+},
+"270688": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Leather Shoulderpads",
+"set": null,
+"stats": "mv"
+},
+"270755": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Chain Wristguards",
+"set": null,
+"stats": "mv"
+},
+"270839": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Spitter",
+"set": null,
+"stats": "mv"
+},
+"270845": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Staff",
+"set": null,
+"stats": "hv"
+},
+"270846": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Stave",
+"set": null,
+"stats": "mv"
+},
+"270851": {
+"day": "2026-10-13",
+"ilvl": 298,
+"name": "Venomous Gladiator's Claymore",
+"set": null,
+"stats": "hv"
+},
+"270930": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Tomb-Creeper's Claw",
+"set": null,
+"stats": "ch"
+},
+"271092": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Jan'thrazet, the Soul Fang",
+"set": null,
+"stats": "h"
+},
+"271093": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Zatha'tek, Breath of Corruption",
+"set": null,
+"stats": "c"
+},
+"271434": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Venom Rite Mantle",
+"set": null,
+"stats": "hm"
+},
+"271435": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Slippers of the Hissing Cult",
+"set": null,
+"stats": "cv"
+},
+"271436": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Slitherscale Girdle",
+"set": null,
+"stats": "cm"
+},
+"271438": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Temple Delver's Mystic Helm",
+"set": null,
+"stats": "ch"
+},
+"271440": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Greaves of the Noxious Depths",
+"set": null,
+"stats": "hv"
+},
+"271441": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Crushing Coiler Coif",
+"set": null,
+"stats": "ch"
+},
+"271444": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Pauldrons of the Forgotten Sacrifice",
+"set": null,
+"stats": "hv"
+},
+"271445": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Fanged Brute's Greatbelt",
+"set": null,
+"stats": "ch"
+},
+"271451": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cloak of the Jade Warlord",
+"set": null,
+"stats": "hv"
+},
+"271452": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Bracers of the Jade Warlord",
+"set": null,
+"stats": "cm"
+},
+"271453": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Greatbelt of the Jade Warlord",
+"set": null,
+"stats": "hm"
+},
+"271454": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Raging Pauldrons of the Jade Warlord",
+"set": "Jade Warlord's Dominion",
+"stats": "cm"
+},
+"271455": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Greaves of the Jade Warlord",
+"set": "Jade Warlord's Dominion",
+"stats": "mv"
+},
+"271456": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Tempered Horns of the Jade Warlord",
+"set": "Jade Warlord's Dominion",
+"stats": "ch"
+},
+"271457": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Jeweled Gauntlets of the Jade Warlord",
+"set": "Jade Warlord's Dominion",
+"stats": "ch"
+},
+"271458": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Vicious Kickers of the Jade Warlord",
+"set": null,
+"stats": "hm"
+},
+"271459": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cuirass of the Jade Warlord",
+"set": "Jade Warlord's Dominion",
+"stats": "cm"
+},
+"271460": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cloak of the Consecrated Flame",
+"set": null,
+"stats": "hv"
+},
+"271461": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Bracers of the Consecrated Flame",
+"set": null,
+"stats": "hv"
+},
+"271462": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Waistguard of the Consecrated Flame",
+"set": null,
+"stats": "hm"
+},
+"271463": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Pauldrons of the Consecrated Flame",
+"set": "Radiance of the Consecrated Flame",
+"stats": "cm"
+},
+"271464": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Greaves of the Consecrated Flame",
+"set": "Radiance of the Consecrated Flame",
+"stats": "ch"
+},
+"271465": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Warhelm of the Consecrated Flame",
+"set": "Radiance of the Consecrated Flame",
+"stats": "cm"
+},
+"271466": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Gauntlets of the Consecrated Flame",
+"set": "Radiance of the Consecrated Flame",
+"stats": "cm"
+},
+"271467": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Greatboots of the Consecrated Flame",
+"set": null,
+"stats": "ch"
+},
+"271468": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Bulwark of the Consecrated Flame",
+"set": "Radiance of the Consecrated Flame",
+"stats": "hm"
+},
+"271469": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Baleful Grave-Knight's Greatcloak",
+"set": null,
+"stats": "ch"
+},
+"271470": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Baleful Grave-Knight's Vambraces",
+"set": null,
+"stats": "hm"
+},
+"271471": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Baleful Grave-Knight's Girdle",
+"set": null,
+"stats": "hv"
+},
+"271472": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Baleful Grave-Knight's Gibbets",
+"set": "Baleful Grave-Knight's Crucible",
+"stats": "hv"
+},
+"271473": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Baleful Grave-Knight's Greaves",
+"set": "Baleful Grave-Knight's Crucible",
+"stats": "cm"
+},
+"271474": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Baleful Grave-Knight's Casque",
+"set": "Baleful Grave-Knight's Crucible",
+"stats": "cm"
+},
+"271475": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Baleful Grave-Knight's Deathgrips",
+"set": "Baleful Grave-Knight's Crucible",
+"stats": "cm"
+},
+"271476": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Baleful Grave-Knight's Sabatons",
+"set": null,
+"stats": "hv"
+},
+"271477": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Baleful Grave-Knight's Breastplate",
+"set": "Baleful Grave-Knight's Crucible",
+"stats": "cm"
+},
+"271478": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Ritual Drape of the Ophidian Oracle",
+"set": null,
+"stats": "hm"
+},
+"271479": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Wristbands of the Ophidian Oracle",
+"set": null,
+"stats": "cm"
+},
+"271480": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Venomous Belt of the Ophidian Oracle",
+"set": null,
+"stats": "mv"
+},
+"271481": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Hissing Mantle of the Ophidian Oracle",
+"set": "Ophidian Oracle's Prophecy",
+"stats": "cm"
+},
+"271482": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Leggings of the Ophidian Oracle",
+"set": "Ophidian Oracle's Prophecy",
+"stats": "hv"
+},
+"271483": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Serpent Crown of the Ophidian Oracle",
+"set": "Ophidian Oracle's Prophecy",
+"stats": "ch"
+},
+"271484": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Hexing Grips of the Ophidian Oracle",
+"set": "Ophidian Oracle's Prophecy",
+"stats": "cm"
+},
+"271485": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Scaled Shoes of the Ophidian Oracle",
+"set": null,
+"stats": "ch"
+},
+"271486": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Fanged Raiment of the Ophidian Oracle",
+"set": "Ophidian Oracle's Prophecy",
+"stats": "ch"
+},
+"271487": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Shroud of the Skulking Viper",
+"set": null,
+"stats": "cm"
+},
+"271488": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Skulking Viper's Hardened Wristscales",
+"set": null,
+"stats": "cm"
+},
+"271489": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Prized Fangs of the Skulking Viper",
+"set": null,
+"stats": "cv"
+},
+"271490": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Jaws of the Skulking Viper",
+"set": "Skulking Viper's Ambush",
+"stats": "ch"
+},
+"271491": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Skulking Viper's Coiled Legwraps",
+"set": "Skulking Viper's Ambush",
+"stats": "hm"
+},
+"271492": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Skulking Viper's Weeping Fangs",
+"set": "Skulking Viper's Ambush",
+"stats": "hm"
+},
+"271493": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Skulking Viper's Hidepiercers",
+"set": "Skulking Viper's Ambush",
+"stats": "hv"
+},
+"271494": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Skulking Viper's Tracks",
+"set": null,
+"stats": "cv"
+},
+"271495": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Skulking Viper's Scuteplate",
+"set": "Skulking Viper's Ambush",
+"stats": "hm"
+},
+"271496": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Fearsome Greatcloak of Calamity",
+"set": null,
+"stats": "hm"
+},
+"271497": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Calamitous Echo's Scalebands",
+"set": null,
+"stats": "cm"
+},
+"271498": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Calamitous Echo's Scarred Girdle",
+"set": null,
+"stats": "hm"
+},
+"271499": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Calamitous Echo's Sundered Peaks",
+"set": "Echo of Calamity",
+"stats": "cv"
+},
+"271500": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Earthen Pillars of Calamity",
+"set": "Echo of Calamity",
+"stats": "ch"
+},
+"271501": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Calamitous Echo's Magmashapers",
+"set": "Echo of Calamity",
+"stats": "hv"
+},
+"271502": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Calamitous Echo's Ebon Greathorns",
+"set": "Echo of Calamity",
+"stats": "hm"
+},
+"271503": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Calamitous Echo's Volcanic Stompers",
+"set": null,
+"stats": "cv"
+},
+"271504": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Searing Caldera of Calamity",
+"set": "Echo of Calamity",
+"stats": "cm"
+},
+"271505": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chosen Bloodslayer's Cloak",
+"set": null,
+"stats": "cv"
+},
+"271506": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chosen Bloodslayer's Wristguards",
+"set": null,
+"stats": "hm"
+},
+"271507": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chosen Bloodslayer's Trophy Belt",
+"set": null,
+"stats": "hm"
+},
+"271508": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chosen Bloodslayer's Voodoo Guards",
+"set": "Chosen Bloodslayer's Hexweave",
+"stats": "hv"
+},
+"271509": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chosen Bloodslayer's Reinforced Pants",
+"set": "Chosen Bloodslayer's Hexweave",
+"stats": "ch"
+},
+"271510": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chosen Bloodslayer's Spirit Shroud",
+"set": "Chosen Bloodslayer's Hexweave",
+"stats": "cm"
+},
+"271511": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chosen Bloodslayer's Fanged Grips",
+"set": "Chosen Bloodslayer's Hexweave",
+"stats": "cm"
+},
+"271512": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chosen Bloodslayer's Boots",
+"set": null,
+"stats": "cm"
+},
+"271513": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chosen Bloodslayer's Banded Poncho",
+"set": "Chosen Bloodslayer's Hexweave",
+"stats": "hv"
+},
+"271514": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cape of the Monkey King",
+"set": null,
+"stats": "cm"
+},
+"271515": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Wristguards of the Monkey King",
+"set": null,
+"stats": "ch"
+},
+"271516": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Agile Cord of the Monkey King",
+"set": null,
+"stats": "ch"
+},
+"271517": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Tassels of the Monkey King",
+"set": "Guile of the Monkey King",
+"stats": "hm"
+},
+"271518": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Pantaloons of the Monkey King",
+"set": "Guile of the Monkey King",
+"stats": "cv"
+},
+"271519": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Monkey King's Unyielding Visage",
+"set": "Guile of the Monkey King",
+"stats": "cm"
+},
+"271520": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Monkey King's Fighting Fists",
+"set": "Guile of the Monkey King",
+"stats": "hv"
+},
+"271521": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Shinguards of the Monkey King",
+"set": null,
+"stats": "cm"
+},
+"271522": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Battle Gi of the Monkey King",
+"set": "Guile of the Monkey King",
+"stats": "hm"
+},
+"271523": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Enigmatic Dreamwatcher's Cloak",
+"set": null,
+"stats": "cm"
+},
+"271524": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Enigmatic Dreamwatcher's Wraps",
+"set": null,
+"stats": "hm"
+},
+"271525": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Enigmatic Dreamwatcher's Sigiled Cincture",
+"set": null,
+"stats": "ch"
+},
+"271526": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Enigmatic Dreamwatcher's Plumage",
+"set": "Bark of the Enigmatic Dreamwatcher",
+"stats": "cm"
+},
+"271527": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Enigmatic Dreamwatcher's Leggings",
+"set": "Bark of the Enigmatic Dreamwatcher",
+"stats": "ch"
+},
+"271528": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Enigmatic Dreamwatcher's Somnolent Stare",
+"set": "Bark of the Enigmatic Dreamwatcher",
+"stats": "hv"
+},
+"271529": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Enigmatic Dreamwatcher's Gauntlets",
+"set": "Bark of the Enigmatic Dreamwatcher",
+"stats": "mv"
+},
+"271530": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Enigmatic Dreamwatcher's Sandals",
+"set": null,
+"stats": "mv"
+},
+"271531": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Enigmatic Dreamwatcher's Lunar Raiment",
+"set": "Bark of the Enigmatic Dreamwatcher",
+"stats": "ch"
+},
+"271532": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Abyssal Doomhound's Ornate Drape",
+"set": null,
+"stats": "hv"
+},
+"271533": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Abyssal Doomhound's Wristguards",
+"set": null,
+"stats": "hm"
+},
+"271534": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Abyssal Doomhound's Jeweled Cinch",
+"set": null,
+"stats": "ch"
+},
+"271535": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Abyssal Doomhound's Jaws",
+"set": "Abyssal Doomhound's Pursuit",
+"stats": "cv"
+},
+"271536": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Abyssal Doomhound's Legwraps",
+"set": "Abyssal Doomhound's Pursuit",
+"stats": "cm"
+},
+"271537": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Abyssal Doomhound's Relentless Stare",
+"set": "Abyssal Doomhound's Pursuit",
+"stats": "cm"
+},
+"271538": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Abyssal Doomhound's Studded Gauntlets",
+"set": "Abyssal Doomhound's Pursuit",
+"stats": "cm"
+},
+"271539": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Abyssal Doomhound's Footpads",
+"set": null,
+"stats": "hm"
+},
+"271540": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Abyssal Doomhound's Coreguard",
+"set": "Abyssal Doomhound's Pursuit",
+"stats": "hv"
+},
+"271541": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chaincloak of the Damned Necrolyte",
+"set": null,
+"stats": "ch"
+},
+"271542": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Damned Necrolyte's Shackles",
+"set": null,
+"stats": "ch"
+},
+"271543": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Damned Necrolyte's Clanging Cinch",
+"set": null,
+"stats": "cm"
+},
+"271544": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Spires of the Damned Necrolyte",
+"set": "Damned Necrolyte's Shattered Restraints",
+"stats": "hv"
+},
+"271545": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Damned Necrolyte's Leg Bindings",
+"set": "Damned Necrolyte's Shattered Restraints",
+"stats": "hm"
+},
+"271546": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Skull of the Damned Necrolyte",
+"set": "Damned Necrolyte's Shattered Restraints",
+"stats": "mv"
+},
+"271547": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Damned Necrolyte's Charred Grasps",
+"set": "Damned Necrolyte's Shattered Restraints",
+"stats": "ch"
+},
+"271548": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Soles of the Damned Necrolyte",
+"set": null,
+"stats": "cm"
+},
+"271549": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Damned Necrolyte's Rattling Robes",
+"set": "Damned Necrolyte's Shattered Restraints",
+"stats": "hm"
+},
+"271550": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Drape of the Cosmic Penitent",
+"set": null,
+"stats": "hm"
+},
+"271551": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Bandings of the Cosmic Penitent",
+"set": null,
+"stats": "hm"
+},
+"271552": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cosmic Penitent's Orbiting Cinch",
+"set": null,
+"stats": "cm"
+},
+"271553": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cosmic Penitent's Echoing Screams",
+"set": "Cosmic Penitent's Raiment",
+"stats": "ch"
+},
+"271554": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Enveloping Legwraps of the Cosmic Penitent",
+"set": "Cosmic Penitent's Raiment",
+"stats": "hv"
+},
+"271555": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cosmic Penitent's Truesight",
+"set": "Cosmic Penitent's Raiment",
+"stats": "cm"
+},
+"271556": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cosmic Penitent's Celestial Grips",
+"set": "Cosmic Penitent's Raiment",
+"stats": "cm"
+},
+"271557": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Trail of the Cosmic Penitent",
+"set": null,
+"stats": "hv"
+},
+"271558": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cosmic Penitent's Eclipsing Robes",
+"set": "Cosmic Penitent's Raiment",
+"stats": "cm"
+},
+"271559": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Spellcloak of the Primal Leywarden",
+"set": null,
+"stats": "cm"
+},
+"271560": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Cuffs of the Primal Leywarden",
+"set": null,
+"stats": "mv"
+},
+"271561": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Primal Leywarden's Bejeweled Buckle",
+"set": null,
+"stats": "mv"
+},
+"271562": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Primal Leywarden's Manaflux",
+"set": "Primal Leywarden's Attire",
+"stats": "ch"
+},
+"271563": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Primal Leywarden's Tailored Legwraps",
+"set": "Primal Leywarden's Attire",
+"stats": "cv"
+},
+"271564": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Crown of the Primal Leywarden",
+"set": "Primal Leywarden's Attire",
+"stats": "hm"
+},
+"271565": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Primal Leywarden's Manashapers",
+"set": "Primal Leywarden's Attire",
+"stats": "hm"
+},
+"271566": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Battleboots of the Primal Leywarden",
+"set": null,
+"stats": "ch"
+},
+"271567": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Crest of the Primal Leywarden",
+"set": "Primal Leywarden's Attire",
+"stats": "ch"
+},
+"271638": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Bound Serpent's Jade Eye",
+"set": null,
+"stats": "cv"
+},
+"271680": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Sinseared Repeater",
+"set": null,
+"stats": "cv"
+},
+"271681": {
+"day": "2026-10-13",
+"ilvl": 108,
+"name": "Perennial Frostbound Charm",
+"set": null,
+"stats": "cm"
+},
+"271874": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Venomkeeper's Horrific Cowl",
+"set": null,
+"stats": "m"
+},
+"271875": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Gaze of the Coiled Watcher",
+"set": null,
+"stats": "h"
+},
+"271876": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Awoken Dreadfang Cuirass",
+"set": null,
+"stats": "m"
+},
+"271878": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chausses of Unbound Rancor",
+"set": null,
+"stats": "c"
+},
+"272147": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Colubrine Band",
+"set": null,
+"stats": "hm"
+},
+"272148": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Anguine Gyre",
+"set": null,
+"stats": "cv"
+},
+"272149": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Hex Loop",
+"set": null,
+"stats": "cm"
+},
+"272150": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Ouroboric Signet",
+"set": null,
+"stats": "hm"
+},
+"272225": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pyrewalker's Mantle",
+"set": null,
+"stats": "ch"
+},
+"272226": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Miststalker's Shroud",
+"set": null,
+"stats": "cv"
+},
+"272227": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Galerider's Veil",
+"set": null,
+"stats": "cv"
+},
+"272228": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Whispering Periapt",
+"set": null,
+"stats": "mv"
+},
+"272229": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Serpentine Talisman",
+"set": null,
+"stats": "ch"
+},
+"272230": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pledgebearer's Pall",
+"set": null,
+"stats": "ch"
+},
+"272231": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pyrewalker's Doublet",
+"set": null,
+"stats": "cm"
+},
+"272232": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pyrewalker's Buskins",
+"set": null,
+"stats": "ch"
+},
+"272233": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pyrewalker's Gloves",
+"set": null,
+"stats": "cm"
+},
+"272235": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pyrewalker's Treads",
+"set": null,
+"stats": "hv"
+},
+"272236": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pyrewalker's Mantlet",
+"set": null,
+"stats": "hv"
+},
+"272237": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pyrewalker's Obi",
+"set": null,
+"stats": "mv"
+},
+"272238": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pyrewalker's Wraps",
+"set": null,
+"stats": "mv"
+},
+"272239": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Miststalker's Brigandine",
+"set": null,
+"stats": "cm"
+},
+"272240": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Miststalker's Striders",
+"set": null,
+"stats": "cv"
+},
+"272241": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Miststalker's Grips",
+"set": null,
+"stats": "hv"
+},
+"272243": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Miststalker's Cuisses",
+"set": null,
+"stats": "hm"
+},
+"272244": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Miststalker's Spaulders",
+"set": null,
+"stats": "ch"
+},
+"272245": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Miststalker's Cinch",
+"set": null,
+"stats": "cv"
+},
+"272246": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Miststalker's Wristbands",
+"set": null,
+"stats": "cm"
+},
+"272247": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Galerider's Byrnie",
+"set": null,
+"stats": "hm"
+},
+"272248": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Galerider's Chausses",
+"set": null,
+"stats": "cm"
+},
+"272249": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Galerider's Chain Clasps",
+"set": null,
+"stats": "ch"
+},
+"272250": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Galerider's Gaze",
+"set": null,
+"stats": "mv"
+},
+"272251": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Galerider's Chausses",
+"set": null,
+"stats": "hv"
+},
+"272252": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Galerider's Mantle",
+"set": null,
+"stats": "cm"
+},
+"272253": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Galerider's Mail Skirt",
+"set": null,
+"stats": "mv"
+},
+"272254": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Galerider's Mesh Wraps",
+"set": null,
+"stats": "ch"
+},
+"272255": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pledgebearer's Cuirass",
+"set": null,
+"stats": "hv"
+},
+"272256": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pledgebearer's Sabatons",
+"set": null,
+"stats": "ch"
+},
+"272257": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pledgebearer's Gauntlets",
+"set": null,
+"stats": "hm"
+},
+"272258": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pledgebearer's Mask",
+"set": null,
+"stats": "cm"
+},
+"272259": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pledgebearer's Poleyns",
+"set": null,
+"stats": "mv"
+},
+"272260": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pledgebearer's Pauldrons",
+"set": null,
+"stats": "cm"
+},
+"272261": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pledgebearer's Girdle",
+"set": null,
+"stats": "cv"
+},
+"272262": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Pledgebearer's Splints",
+"set": null,
+"stats": "ch"
+},
+"272266": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Forgotten Eidolon's Dagger",
+"set": null,
+"stats": "ch"
+},
+"272268": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Mask-Etcher",
+"set": null,
+"stats": "hm"
+},
+"272275": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Soulsinger's Horn",
+"set": null,
+"stats": "cv"
+},
+"272276": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Wailing Bulwark",
+"set": null,
+"stats": "hv"
+},
+"272277": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Spirit-Reaver",
+"set": null,
+"stats": "mv"
+},
+"272283": {
+"day": "2026-10-13",
+"ilvl": 206,
+"name": "Swordsman's Emanation",
+"set": null,
+"stats": "ch"
+},
+"273649": {
+"day": "2026-10-13",
+"ilvl": 59,
+"name": "Stormbound Emblem of Dazar",
+"set": null,
+"stats": ""
+},
+"273773": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Handwraps of Blasphemous Rites",
+"set": null,
+"stats": "cm"
+},
+"273774": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Snakeskin Spaulders",
+"set": null,
+"stats": "cv"
+},
+"273775": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Hydra Scale Wristguards",
+"set": null,
+"stats": "mv"
+},
+"273776": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Ancient General's Obsidian Pillars",
+"set": null,
+"stats": "ch"
+},
+"273777": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Poison-Proof Stompers",
+"set": null,
+"stats": "hv"
+},
+"273778": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Polished Lightwood Channeler",
+"set": null,
+"stats": "hm"
+},
+"273779": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Nocuous Focal Fang",
+"set": null,
+"stats": "ch"
+},
+"273780": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Venom-Etched Crescent",
+"set": null,
+"stats": "cm"
+},
+"273781": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Strand of Warding Fangs",
+"set": null,
+"stats": "ch"
+},
+"273783": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Toxin-Coated Warstaff",
+"set": null,
+"stats": "hm"
+},
+"273784": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Ancestral Amani Recurve",
+"set": null,
+"stats": "hm"
+},
+"273785": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Primordial Robe of Rites",
+"set": null,
+"stats": "hm"
+},
+"273786": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Leggings of Entwined Serpents",
+"set": null,
+"stats": "ch"
+},
+"273787": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Aged Interwoven Scaleplate",
+"set": null,
+"stats": "cv"
+},
+"273789": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Chestguard of Corroded Scales",
+"set": null,
+"stats": "ch"
+},
+"273791": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Spare Speaker's Hood",
+"set": null,
+"stats": "ch"
+},
+"273792": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Band of the Amani Warlord",
+"set": null,
+"stats": "ch"
+},
+"273793": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Hydraspine Twinblade",
+"set": null,
+"stats": "mv"
+},
+"273794": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Knot of Writhing Serpents",
+"set": null,
+"stats": ""
+},
+"273795": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Coiled Fangstone",
+"set": null,
+"stats": ""
+},
+"273796": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Vile Vial of Volatile Venom",
+"set": null,
+"stats": ""
+},
+"273797": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Tattered Amani War Banner",
+"set": null,
+"stats": ""
+},
+"274493": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Effigy of Ula'tek's Faithful",
+"set": null,
+"stats": ""
+},
+"275070": {
+"day": "2026-10-13",
+"ilvl": 219,
+"name": "Sharpened Lightwood Slasher",
+"set": null,
+"stats": "ch"
+},
+"275531": {
+"day": "2026-10-13",
+"ilvl": 100,
+"name": "Preyhunter's Choker",
+"set": null,
+"stats": "ch"
+},
+"277775": {
+"day": "2026-10-13",
+"ilvl": 279,
+"name": "Venom-Cursed Eagle's Legguards",
+"set": null,
+"stats": "ch"
+},
+"277792": {
+"day": "2026-10-13",
+"ilvl": 279,
+"name": "Venom-Cursed Dragonhawk's Plumage",
+"set": null,
+"stats": "ch"
+}
+}

@@ -1,7 +1,7 @@
 {
   "region": "eu",
   "journal_tier": 505,
-  "raids": [1320],
+  "raids": [1320, 1317],
   "dungeons": null,
   "mplus": {
     "top_per_spec": 50,
