@@ -1,0 +1,9 @@
+## Interface: 120100
+## Title: KeyLootMaster
+## Notes: Where the best gear of your class and specialization drops, from Mythic+ and the current raid.
+## Author: unrealshape
+## Version: 0.1.0
+## Category-enUS: Dungeons & Raids
+## Category-deDE: Dungeons & Schlachtzüge
+
+Data\Data.xml

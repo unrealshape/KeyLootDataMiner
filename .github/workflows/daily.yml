@@ -1,0 +1,38 @@
+name: Daily data
+
+# The cron line is added when the first source delivers a dataset: without one
+# the build has nothing to merge and stops with an error.
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "17 3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pipeline tests
+        run: python -m unittest discover -s pipeline/tests -v
+      # Sources go here, each writing one JSON file into build/datasets/ (shape: pipeline/klm/model.py).
+      # Credentials come from the repository secrets, never from the repo:
+      #   BLIZZARD_CLIENT_ID, BLIZZARD_CLIENT_SECRET, WCL_CLIENT_ID, WCL_CLIENT_SECRET
+      - name: Merge into the addon's Lua data
+        run: python pipeline/build.py --datasets build/datasets --out addon/KeyLootMaster/Data
+      - name: Commit the data when it changed
+        run: |
+          git config user.name "unrealshape"
+          git config user.email "18093073+unrealshape@users.noreply.github.com"
+          git add addon/KeyLootMaster/Data
+          if git diff --cached --quiet; then
+            echo "No new data."
+          else
+            git commit -m "Data: daily update"
+            git push
+          fi
