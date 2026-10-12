@@ -59,10 +59,21 @@ def merge(datasets: list) -> dict:
             "items": [items[i] for i in sorted(items)], "specs": dict(sorted(specs.items(), key=lambda kv: int(kv[0])))}
 
 
-def top_per_slot(entries: list, limit: int) -> dict:
-    """(class, spec, content, slot) -> the `limit` items most worn, best first."""
+MIN_PLAYERS = 2
+
+
+def top_per_slot(entries: list, limit: int, min_players: int = MIN_PLAYERS) -> dict:
+    """(class, spec, content, slot) -> the `limit` items most worn, best first.
+
+    An item worn by fewer than `min_players` players is noise (one odd character);
+    it is left out unless it is the most worn of its slot.
+    """
     grouped: dict = defaultdict(list)
     for entry in entries:
         grouped[(entry["class"], entry["spec"], entry["content"], entry["slot"])].append(entry)
-    return {key: sorted(rows, key=lambda r: (-r["share"], -r["sample"], r["item"]))[:limit]
-            for key, rows in grouped.items()}
+    result = {}
+    for key, rows in grouped.items():
+        ordered = sorted(rows, key=lambda r: (-r["share"], -r["sample"], r["item"]))
+        kept = [r for index, r in enumerate(ordered) if index == 0 or round(r["share"] * r["sample"]) >= min_players]
+        result[key] = kept[:limit]
+    return result

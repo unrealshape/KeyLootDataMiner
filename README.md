@@ -27,12 +27,27 @@ sources (Blizzard API, Warcraft Logs, ...)
 
 Season, raid and sample sizes are set in `pipeline/config.json`.
 
+| Blizzard item API | secondary stats, tier set, item level; names a source (Catalyst, crafted, other) for items the journal lacks | `pipeline/fetch_items.py` |
+
+## The addon
+
+`/klm` (or the addon list button next to the minimap) opens the window:
+
+- the best items per slot for your specialization (or any other), Mythic+ or raid;
+- where each drops (dungeon and boss, raid boss, Catalyst, crafted, other) and a button into the Adventure Guide;
+- **filters**: by source, by secondary stats (Crit, Haste, Mastery, Versatility; an item must carry all that are ticked), and "only missing" (hides what you wear);
+- a line in every item tooltip with the share of top players who wear it; `/klm tooltip` switches it off.
+
 ## Status
 
-Pipeline core and the three sources are in place and tested. The addon's
-interface (the window, the tooltip line) is not built yet; a design sketch
-exists. About half of the most-worn items have a journal drop location; tier
-pieces, crafted gear and vendor items still need their own source.
+Pipeline, sources and the addon are in place and tested outside the game (the addon against a
+stub of the game API with the real data). It has not been run in the game yet.
+Tier pieces are named by the set they belong to; items of other classes' sets may show as
+"other source".
+
+## Install for testing
+
+Copy `addon/KeyLootMaster` into `World of Warcraft/_retail_/Interface/AddOns/`.
 
 ## Develop
 

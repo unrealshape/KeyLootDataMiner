@@ -64,6 +64,14 @@ class MergeTest(unittest.TestCase):
         self.assertEqual(len(merged["drops"]), 1)
         self.assertEqual(merged["drops"][0]["sources"], ["a", "b"])
 
+    def test_one_odd_character_is_left_out_but_the_top_item_stays(self):
+        rows = [entry(1, 0.02, 50), entry(2, 0.6, 50), entry(3, 0.04, 50), entry(4, 0.02, 50, slot="neck")]
+        kept = top_per_slot(rows, 8)
+        head = next(v for k, v in kept.items() if k[3] == "head")
+        self.assertEqual([r["item"] for r in head], [2, 3])  # 1 player (item 1) dropped, 2 players (item 3) kept
+        neck = next(v for k, v in kept.items() if k[3] == "neck")
+        self.assertEqual([r["item"] for r in neck], [4])  # the only item of its slot stays
+
     def test_top_per_slot_keeps_the_most_worn(self):
         rows = [entry(1, 0.1, 10), entry(2, 0.6, 10), entry(3, 0.3, 10)]
         (kept,) = top_per_slot(rows, 2).values()

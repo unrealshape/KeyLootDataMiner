@@ -17,7 +17,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Pipeline tests
+      - name: Lua runtime for the addon tests
+        run: pip install lupa
+      - name: Pipeline and addon tests
         run: python -m unittest discover -s pipeline/tests -v
       # Sources, each writing one JSON file into build/datasets/ (shape: pipeline/klm/model.py).
       # Credentials come from the repository secrets, never from the repo:
@@ -32,13 +34,18 @@ jobs:
         env:
           WCL_CLIENT_ID: ${{ secrets.WCL_CLIENT_ID }}
           WCL_CLIENT_SECRET: ${{ secrets.WCL_CLIENT_SECRET }}
+      - name: Source - item facts and the sources the journal lacks (Catalyst, crafted)
+        run: python pipeline/fetch_items.py --datasets build/datasets
+        env:
+          BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
+          BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
       - name: Merge into the addon's Lua data
         run: python pipeline/build.py --datasets build/datasets --out addon/KeyLootMaster/Data
       - name: Commit the data when it changed
         run: |
           git config user.name "unrealshape"
           git config user.email "18093073+unrealshape@users.noreply.github.com"
-          git add addon/KeyLootMaster/Data
+          git add addon/KeyLootMaster/Data pipeline/cache
           if git diff --cached --quiet; then
             echo "No new data."
           else
