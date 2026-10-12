@@ -33,7 +33,9 @@ PAUSE = 0.05
 
 
 class BlizzardError(RuntimeError):
-    pass
+    def __init__(self, message, status=None):
+        super().__init__(message)
+        self.status = status
 
 
 def read_credentials(env=None, home=None):
@@ -77,7 +79,8 @@ class Client:
             except urllib.error.HTTPError as error:
                 retry = error.code == 429 or error.code >= 500
                 if not retry or attempt == RETRIES - 1:
-                    raise BlizzardError(f"HTTP {error.code} for {request.full_url.split('?')[0]}") from error
+                    raise BlizzardError(f"HTTP {error.code} for {request.full_url.split('?')[0]}",
+                                        status=error.code) from error
                 self.sleep(2 ** attempt)
             except urllib.error.URLError as error:
                 if attempt == RETRIES - 1:
@@ -135,6 +138,10 @@ def fetch_drops(client, expansion, raids, dungeons=None):
     return drops
 
 
-def dataset(drops, now=None):
+def make_dataset(source, entries=(), drops=(), now=None):
     stamp = (now or datetime.now(timezone.utc)).strftime("%Y-%m-%dT%H:%M:%SZ")
-    return {"source": "blizzard-journal", "generated": stamp, "entries": [], "drops": drops}
+    return {"source": source, "generated": stamp, "entries": list(entries), "drops": list(drops)}
+
+
+def dataset(drops, now=None):
+    return make_dataset("blizzard-journal", drops=drops, now=now)

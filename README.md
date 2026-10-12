@@ -17,10 +17,22 @@ sources (Blizzard API, Warcraft Logs, ...)
 - A new source only has to deliver the dataset shape in `pipeline/klm/model.py`;
   `merge.py` weights shares by sample size and keeps which source contributed.
 
+## Sources
+
+| Source | Delivers | Script |
+| --- | --- | --- |
+| Blizzard Adventure Journal | where the season's dungeon and raid items drop | `pipeline/fetch_blizzard.py --part drops` |
+| Blizzard leaderboards + profiles | what the best Mythic+ players wear (top 50 per specialization) | `pipeline/fetch_blizzard.py --part mplus` |
+| Warcraft Logs rankings | what the best raiders wear (top 100 per specialization) | `pipeline/fetch_wcl.py` |
+
+Season, raid and sample sizes are set in `pipeline/config.json`.
+
 ## Status
 
-Pipeline core (validate, merge, Lua output, tests) is in place. The sources and
-the addon's interface are not built yet.
+Pipeline core and the three sources are in place and tested. The addon's
+interface (the window, the tooltip line) is not built yet; a design sketch
+exists. About half of the most-worn items have a journal drop location; tier
+pieces, crafted gear and vendor items still need their own source.
 
 ## Develop
 

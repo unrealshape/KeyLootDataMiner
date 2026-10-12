@@ -1,11 +1,10 @@
 name: Daily data
 
-# The cron line is added when the first source delivers a dataset: without one
-# the build has nothing to merge and stops with an error.
+# A run takes about half an hour: the Mythic+ part reads ~2,000 characters.
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: "17 3 * * *"
+  schedule:
+    - cron: "17 3 * * *"
 
 permissions:
   contents: write
@@ -23,11 +22,16 @@ jobs:
       # Sources, each writing one JSON file into build/datasets/ (shape: pipeline/klm/model.py).
       # Credentials come from the repository secrets, never from the repo:
       #   BLIZZARD_CLIENT_ID, BLIZZARD_CLIENT_SECRET, WCL_CLIENT_ID, WCL_CLIENT_SECRET
-      - name: Source - Blizzard journal (drop locations)
+      - name: Source - Blizzard (drop locations, best Mythic+ players' gear)
         run: python pipeline/fetch_blizzard.py --out build/datasets
         env:
           BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
           BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
+      - name: Source - Warcraft Logs (best raiders' gear)
+        run: python pipeline/fetch_wcl.py --out build/datasets
+        env:
+          WCL_CLIENT_ID: ${{ secrets.WCL_CLIENT_ID }}
+          WCL_CLIENT_SECRET: ${{ secrets.WCL_CLIENT_SECRET }}
       - name: Merge into the addon's Lua data
         run: python pipeline/build.py --datasets build/datasets --out addon/KeyLootMaster/Data
       - name: Commit the data when it changed

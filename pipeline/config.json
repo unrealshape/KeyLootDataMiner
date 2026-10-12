@@ -2,5 +2,15 @@
   "region": "eu",
   "journal_tier": 505,
   "raids": [1320],
-  "dungeons": null
+  "dungeons": null,
+  "mplus": {
+    "top_per_spec": 50,
+    "periods": 2,
+    "realm_limit": null
+  },
+  "wcl": {
+    "zone": 53,
+    "difficulty": 5,
+    "top_per_spec": 100
+  }
 }
