@@ -28,7 +28,10 @@ local frame, rows, alternatives, widgets = nil, {}, {}, {}
 local shownKey, bisSet = nil, {}
 local TRACK_NAMES = { veteran = "Veteran", champion = "Champion", hero = "Hero", myth = "Myth" }
 local TIER_TEXT = { strong = "Good", option = "Decent" }
-local TIER_COLOR = { strong = "ffa335ee", option = "ff0070dd" }
+local TIER_COLOR = { strong = "ffa335ee", option = "ffffffff" }
+local BIS_COLOR = "ffffd100"
+local BAR_WIDTH = 44
+local SHARE_WIDTH = 78
 local MARK_STYLE = {
     must = { text = "Important", color = "ffff8c1a" },
     nice = { text = "Interesting", color = "ff52b7a8" },
@@ -84,6 +87,7 @@ local function showItemTooltip(owner, id)
             end
         end
     end
+    if owner.holdText then GameTooltip:AddLine(owner.holdText, 1, 1, 1) end
     GameTooltip:AddLine(L["Right-click marks the item."], 0.6, 0.6, 0.6)
     GameTooltip:Show()
 end
@@ -176,6 +180,17 @@ local function buildSpecPicker(parent)
     return button, function(label) button:SetText(label) end
 end
 
+--- The thin bar under the player count: how large a share of the top players wear the item.
+local function addBar(row, right, down)
+    row.barBack = row:CreateTexture(nil, "ARTWORK")
+    row.barBack:SetSize(BAR_WIDTH, 4)
+    row.barBack:SetPoint("RIGHT", row, "RIGHT", right, down)
+    row.barBack:SetColorTexture(1, 1, 1, 0.12)
+    row.barFill = row:CreateTexture(nil, "OVERLAY")
+    row.barFill:SetSize(BAR_WIDTH, 4)
+    row.barFill:SetPoint("LEFT", row.barBack, "LEFT", 0, 0)
+end
+
 local function buildRow(parent, index)
     local row = CreateFrame("Button", nil, parent)
     row:SetSize(LIST_WIDTH, ROW_HEIGHT)
@@ -204,9 +219,10 @@ local function buildRow(parent, index)
     row.where:SetWidth(280)
     row.where:SetJustifyH("LEFT")
     row.share = makeText(row, "GameFontHighlight")
-    row.share:SetPoint("RIGHT", -8, 0)
-    row.share:SetWidth(44)
+    row.share:SetPoint("RIGHT", -8, 5)
+    row.share:SetWidth(SHARE_WIDTH)
     row.share:SetJustifyH("RIGHT")
+    addBar(row, -8, -8)
     row:SetScript("OnEnter", function(self)
         self.highlight:Show()
         showItemTooltip(self, self.itemId)
@@ -237,16 +253,17 @@ local function buildAlternative(parent, index)
     row.icon:SetPoint("LEFT", 0, 0)
     row.name = makeText(row, "GameFontHighlight")
     row.name:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 8, -1)
-    row.name:SetWidth(190)
+    row.name:SetWidth(160)
     row.name:SetJustifyH("LEFT")
     row.where = makeText(row, "GameFontDisableSmall")
     row.where:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -1)
-    row.where:SetWidth(200)
+    row.where:SetWidth(160)
     row.where:SetJustifyH("LEFT")
     row.share = makeText(row, "GameFontHighlight")
-    row.share:SetPoint("RIGHT", 0, 0)
-    row.share:SetWidth(44)
+    row.share:SetPoint("RIGHT", 0, 5)
+    row.share:SetWidth(SHARE_WIDTH)
     row.share:SetJustifyH("RIGHT")
+    addBar(row, 0, -9)
     row:SetScript("OnEnter", function(self) showItemTooltip(self, self.itemId) end)
     row:SetScript("OnLeave", hideTooltip)
     row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
@@ -415,9 +432,16 @@ local function fillItem(target, entry, worn, slotKey)
     local levelLine = levelText(id, slotKey)
     local r, g, b = colorFor(levelLine and 4 or quality)
     target.name:SetTextColor(r, g, b)
-    target.name:SetText((name or ("[" .. id .. "]")) .. (worn[id] and ("  |cff52b7a8" .. L["Worn"] .. "|r") or "") .. tagsOf(id, entry.share))
+    target.name:SetText((name or ("[" .. id .. "]")) .. (worn[id] and ("  |cff52b7a8" .. L["Equipped"] .. "|r") or "") .. tagsOf(id, entry.share))
     target.where:SetText(levelLine and (levelLine .. "   " .. sourceText(id)) or sourceText(id))
-    target.share:SetText(ns.Percent(entry.share))
+    local count = math.floor(entry.share * entry.sample + 0.5)
+    local color = bisSet[id] and BIS_COLOR or (ns.TierOf(entry.share) and TIER_COLOR[ns.TierOf(entry.share)]) or "ffffffff"
+    target.share:SetText("|c" .. color .. count .. "|r |cff999999" .. ns.Percent(entry.share) .. "|r")
+    local red, green, blue = tonumber(color:sub(3, 4), 16) / 255, tonumber(color:sub(5, 6), 16) / 255, tonumber(color:sub(7, 8), 16) / 255
+    target.barFill:SetColorTexture(red, green, blue, 1)
+    target.barFill:SetWidth(math.max(2, BAR_WIDTH * entry.share))
+    target.barBack:Show(); target.barFill:Show()
+    target.holdText = string.format(L["%d of %d top players (%s)"], count, entry.sample, ns.Percent(entry.share))
 end
 
 function UI.Refresh()
@@ -462,7 +486,7 @@ function UI.Refresh()
             fillItem(row, top, worn, entry.slot)
         else
             row.itemId = nil
-            row.icon:Hide(); row.where:Hide(); row.share:Hide()
+            row.icon:Hide(); row.where:Hide(); row.share:Hide(); row.barBack:Hide(); row.barFill:Hide()
             row.name:SetTextColor(0.5, 0.5, 0.5)
             row.name:SetText("-")
         end
