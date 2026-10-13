@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 
-from .model import validate
+from .model import STAT_KEYS, validate
 
 
 def merge(datasets: list) -> dict:
@@ -19,6 +19,7 @@ def merge(datasets: list) -> dict:
     drops: dict = {}
     items: dict = {}
     specs: dict = {}
+    stats: dict = {}
     sources: list = []
     generated = ""
     for dataset in datasets:
@@ -42,6 +43,13 @@ def merge(datasets: list) -> dict:
             items.setdefault(item["item"], item)
         for spec_id, names in dataset.get("specs", {}).items():
             specs.setdefault(spec_id, names)
+        for record in dataset.get("stats", []):
+            held = stats.setdefault((record["class"], record["spec"]),
+                                    {"n": 0, "sum": {k: [0.0, 0.0] for k in STAT_KEYS}})
+            held["n"] += record["n"]
+            for stat in STAT_KEYS:
+                held["sum"][stat][0] += record[stat][0] * record["n"]
+                held["sum"][stat][1] += record[stat][1] * record["n"]
     merged_entries = []
     for key in sorted(entries):
         held = entries[key]
@@ -54,9 +62,16 @@ def merge(datasets: list) -> dict:
         held = drops[key]
         held["sources"] = sorted(held["sources"])
         merged_drops.append(held)
+    merged_stats = []
+    for (cls, spec), held in sorted(stats.items()):
+        record = {"class": cls, "spec": spec, "n": held["n"]}
+        for stat in STAT_KEYS:
+            record[stat] = [int(held["sum"][stat][0] / held["n"] + 0.5), round(held["sum"][stat][1] / held["n"], 1)]
+        merged_stats.append(record)
     return {"source": "merged", "generated": generated, "sources": sorted(set(sources)),
             "entries": merged_entries, "drops": merged_drops,
-            "items": [items[i] for i in sorted(items)], "specs": dict(sorted(specs.items(), key=lambda kv: int(kv[0])))}
+            "items": [items[i] for i in sorted(items)], "specs": dict(sorted(specs.items(), key=lambda kv: int(kv[0]))),
+            "stats": merged_stats}
 
 
 MIN_PLAYERS = 2

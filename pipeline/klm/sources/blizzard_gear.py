@@ -18,6 +18,7 @@ import sys
 import urllib.parse
 from collections import Counter, defaultdict
 
+from . import blizzard_stats
 from .blizzard import BlizzardError
 
 # The API's slot names, folded to the addon's: a ring or trinket counts for
@@ -146,8 +147,12 @@ def entries_for(spec_key, players):
             for slot in sorted(counts) for item, count in sorted(counts[slot].items())]
 
 
-def fetch_entries(client, top_per_spec=50, periods=2, realm_limit=None, progress=log, specs_out=None):
-    """The entries; `specs_out`, when given, receives {"66": ["paladin", "protection"], ...}."""
+def fetch_entries(client, top_per_spec=50, periods=2, realm_limit=None, progress=log, specs_out=None,
+                  stats_out=None, stats_cache=None):
+    """The entries; `specs_out`, when given, receives {"66": ["paladin", "protection"], ...}.
+
+    `stats_out`, when given, receives the `stats` records of the same characters
+    (see blizzard_stats); `stats_cache` is the cache dict they are read through."""
     season, period_ids = season_periods(client, count=periods)
     realms = connected_realms(client)
     if realm_limit:
@@ -161,11 +166,20 @@ def fetch_entries(client, top_per_spec=50, periods=2, realm_limit=None, progress
         specs_out.update({str(spec_id): list(key) for spec_id, key in names.items()})
     entries = []
     for spec_id in sorted(chosen):
-        players = []
+        players, player_stats = [], []
         for character in chosen[spec_id]:
             worn = read_equipment(client, character)
             if worn:
                 players.append(worn)
+            if stats_out is not None:
+                stats = blizzard_stats.cached_statistics(client, character,
+                                                         stats_cache if stats_cache is not None else {})
+                if stats:
+                    player_stats.append(stats)
+        if stats_out is not None:
+            record = blizzard_stats.stats_for(names[spec_id], player_stats)
+            if record:
+                stats_out.append(record)
         progress(f"{names[spec_id][0]} {names[spec_id][1]}: {len(players)}/{len(chosen[spec_id])} characters read")
         entries.extend(entries_for(names[spec_id], players))
     return entries

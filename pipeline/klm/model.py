@@ -8,7 +8,8 @@ A source hands over one dataset (a plain dict, stored as JSON):
       "entries": [ {class, spec, content, slot, item, share, sample}, ... ],
       "drops":   [ {item, kind, instance, instance_name, encounter, encounter_name}, ... ],
       "items":   [ {item, stats, ilvl, tier}, ... ],           (optional)
-      "specs":   { "66": ["paladin", "protection"], ... }      (optional)
+      "specs":   { "66": ["paladin", "protection"], ... },     (optional)
+      "stats":   [ {class, spec, n, c: [rating, percent], h, m, v, leech, avoidance, speed}, ... ]  (optional)
     }
 
 `entries` say how often the best players of a class and specialization wear
@@ -25,6 +26,7 @@ CONTENTS = ("mplus", "raid")
 DROP_KINDS = ("dungeon", "raid", "catalyst", "crafted", "vendor", "other")
 STAT_LETTERS = "chmv"
 ENTRY_FIELDS = ("class", "spec", "content", "slot", "item", "share", "sample")
+STAT_KEYS = ("c", "h", "m", "v", "leech", "avoidance", "speed")
 DROP_FIELDS = ("item", "kind", "instance", "instance_name", "encounter", "encounter_name")
 
 
@@ -72,6 +74,16 @@ def validate(dataset: dict) -> dict:
             raise DatasetError(f"{where}: stats are letters of {STAT_LETTERS!r}")
         if not isinstance(item["ilvl"], int) or not isinstance(item["tier"], bool):
             raise DatasetError(f"{where}: ilvl is an integer and tier a boolean")
+    for index, record in enumerate(dataset.get("stats", [])):
+        where = f"stats[{index}]"
+        _check_keys(record, ("class", "spec", "n") + STAT_KEYS, where)
+        if not isinstance(record["n"], int) or isinstance(record["n"], bool) or record["n"] <= 0:
+            raise DatasetError(f"{where}: n must be a positive integer")
+        for stat in STAT_KEYS:
+            pair = record[stat]
+            if not (isinstance(pair, list) and len(pair) == 2
+                    and all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in pair)):
+                raise DatasetError(f"{where}: {stat} must be [rating, percent]")
     for spec_id, names in dataset.get("specs", {}).items():
         if not spec_id.isdigit() or not (isinstance(names, list) and len(names) == 2
                                          and all(isinstance(n, str) and n for n in names)):

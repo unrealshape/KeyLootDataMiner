@@ -138,10 +138,10 @@ def fetch_drops(client, expansion, raids, dungeons=None):
     return drops
 
 
-def make_dataset(source, entries=(), drops=(), items=(), specs=None, now=None):
+def make_dataset(source, entries=(), drops=(), items=(), specs=None, now=None, stats=()):
     stamp = (now or datetime.now(timezone.utc)).strftime("%Y-%m-%dT%H:%M:%SZ")
     return {"source": source, "generated": stamp, "entries": list(entries), "drops": list(drops),
-            "items": list(items), "specs": dict(specs or {})}
+            "items": list(items), "specs": dict(specs or {}), "stats": list(stats)}
 
 
 def dataset(drops, now=None):

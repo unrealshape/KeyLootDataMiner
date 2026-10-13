@@ -25,6 +25,8 @@ local SLOT_NAMES = {
 }
 
 local frame, rows, alternatives, widgets = nil, {}, {}, {}
+local statsView = false
+local stat = { main = {}, minor = {} }
 local shownKey, bisSet = nil, {}
 local TRACK_NAMES = { veteran = "Veteran", champion = "Champion", hero = "Hero", myth = "Myth" }
 local TIER_TEXT = { strong = "Good", option = "Decent" }
@@ -189,6 +191,105 @@ local function addBar(row, right, down)
     row.barFill = row:CreateTexture(nil, "OVERLAY")
     row.barFill:SetSize(BAR_WIDTH, 4)
     row.barFill:SetPoint("LEFT", row.barBack, "LEFT", 0, 0)
+end
+
+local function hexColor(color)
+    return tonumber(color:sub(3, 4), 16) / 255, tonumber(color:sub(5, 6), 16) / 255, tonumber(color:sub(7, 8), 16) / 255
+end
+
+-- The color of the n-th stat of a ranking: gold, purple, then white.
+local RANK_COLORS = { "ffffd100", "ffa335ee", "ffffffff", "ffffffff" }
+
+--- One line of the stats page: name, bar, value.
+local function buildStatRow(parent, top)
+    local row = {}
+    row.name = makeText(parent, "GameFontHighlight")
+    row.name:SetPoint("TOPLEFT", parent, "TOPLEFT", 24, top)
+    row.name:SetWidth(150)
+    row.name:SetJustifyH("LEFT")
+    row.back = parent:CreateTexture(nil, "ARTWORK")
+    row.back:SetSize(400, 10)
+    row.back:SetPoint("TOPLEFT", parent, "TOPLEFT", 180, top - 3)
+    row.back:SetColorTexture(1, 1, 1, 0.1)
+    row.fill = parent:CreateTexture(nil, "OVERLAY")
+    row.fill:SetSize(400, 10)
+    row.fill:SetPoint("LEFT", row.back, "LEFT", 0, 0)
+    row.value = makeText(parent, "GameFontHighlight")
+    row.value:SetPoint("TOPLEFT", parent, "TOPLEFT", 596, top)
+    row.value:SetWidth(210)
+    row.value:SetJustifyH("LEFT")
+    return row
+end
+
+local function showStatRows(rowsOut, ranking)
+    local top = 0
+    for _, item in ipairs(ranking) do if item.rating > top then top = item.rating end end
+    for index, row in ipairs(rowsOut) do
+        local item = ranking[index]
+        local color = RANK_COLORS[index] or "ffffffff"
+        local r, g, b = hexColor(color)
+        row.name:SetText("|c" .. color .. L[item.name] .. "|r")
+        row.fill:SetColorTexture(r, g, b, 1)
+        row.fill:SetWidth(top > 0 and math.max(2, 400 * item.rating / top) or 2)
+        row.value:SetText("|c" .. color .. "+" .. item.rating .. "|r   |cff999999" .. string.format("%.1f%%", item.percent) .. "|r")
+    end
+end
+
+local function rankingText(ranking)
+    local parts = {}
+    for index, item in ipairs(ranking) do
+        parts[index] = "|c" .. (RANK_COLORS[index] or "ffffffff") .. L[item.name]:upper() .. "|r"
+    end
+    return table.concat(parts, "  >  ")
+end
+
+local function buildStatsPanel(parent)
+    stat.mainTitle = makeText(parent, "GameFontNormalLarge")
+    stat.mainTitle:SetPoint("TOPLEFT", parent, "TOPLEFT", 24, -112)
+    stat.mainTitle:SetText(L["Optimal secondary stats"])
+    for index = 1, #ns.MAIN_STATS do stat.main[index] = buildStatRow(parent, -146 - (index - 1) * 34) end
+    stat.mainRank = makeText(parent, "GameFontHighlight")
+    stat.mainRank:SetPoint("TOPLEFT", parent, "TOPLEFT", 24, -146 - #ns.MAIN_STATS * 34 - 4)
+    stat.minorTitle = makeText(parent, "GameFontNormalLarge")
+    stat.minorTitle:SetPoint("TOPLEFT", parent, "TOPLEFT", 24, -330)
+    stat.minorTitle:SetText(L["Additional minor stats"])
+    for index = 1, #ns.MINOR_STATS do stat.minor[index] = buildStatRow(parent, -364 - (index - 1) * 34) end
+    stat.minorRank = makeText(parent, "GameFontHighlight")
+    stat.minorRank:SetPoint("TOPLEFT", parent, "TOPLEFT", 24, -364 - #ns.MINOR_STATS * 34 - 4)
+    stat.empty = makeText(parent, "GameFontDisable")
+    stat.empty:SetPoint("TOPLEFT", parent, "TOPLEFT", 24, -124)
+    stat.empty:SetText(L["No stats for this specialization yet."])
+end
+
+--- Fills the stats page for a specialization and shows or hides it, and hides the list and its detail
+--- column while the page is up.
+local function refreshStats(class, spec)
+    local data = class and ns.StatsOf(class, spec)
+    local parts = { stat.mainTitle, stat.mainRank, stat.minorTitle, stat.minorRank }
+    for _, group in ipairs({ stat.main, stat.minor }) do
+        for _, row in ipairs(group) do
+            parts[#parts + 1] = row.name; parts[#parts + 1] = row.back; parts[#parts + 1] = row.fill; parts[#parts + 1] = row.value
+        end
+    end
+    for _, part in ipairs(parts) do part:SetShown(statsView and data ~= nil) end
+    stat.empty:SetShown(statsView and data == nil)
+    if statsView then
+        for _, row in ipairs(rows) do row:Hide() end
+        for _, row in ipairs(alternatives) do row:Hide() end
+        widgets.detailTitle:Hide(); widgets.detailSub:Hide(); widgets.altHeader:Hide(); widgets.guide:Hide()
+        widgets.message:SetText(data and string.format(L["Average of the %d top players"], data.n or 0) or "")
+        if data then
+            local main = ns.StatRanking(data, ns.MAIN_STATS)
+            local minor = ns.StatRanking(data, ns.MINOR_STATS)
+            showStatRows(stat.main, main)
+            showStatRows(stat.minor, minor)
+            stat.mainRank:SetText(rankingText(main))
+            stat.minorRank:SetText(rankingText(minor))
+        end
+    else
+        for _, row in ipairs(rows) do row:Show() end
+        widgets.detailTitle:Show(); widgets.detailSub:Show()
+    end
 end
 
 local function buildRow(parent, index)
@@ -389,6 +490,12 @@ local function build()
     widgets.message:SetPoint("TOPLEFT", frame, "TOPLEFT", 24, LIST_TOP - 12)
     widgets.message:SetWidth(LIST_WIDTH - 20)
     widgets.message:SetJustifyH("LEFT")
+
+    buildStatsPanel(frame)
+    widgets.statsButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    widgets.statsButton:SetSize(120, 24)
+    widgets.statsButton:SetPoint("BOTTOMLEFT", 20, 18)
+    widgets.statsButton:SetScript("OnClick", function() statsView = not statsView; UI.Refresh() end)
 end
 
 -- ------------------------------------------------------------------ refresh
@@ -537,6 +644,13 @@ function UI.Refresh()
             row:Hide()
         end
     end
+    widgets.statsButton:SetText(statsView and L["Items"] or L["Stats"])
+    refreshStats(class, spec)
+end
+
+function UI.ShowStats(on)
+    statsView = on and true or false
+    UI.Refresh()
 end
 
 function UI.Toggle()

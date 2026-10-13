@@ -4,7 +4,8 @@
 
   drops  -> blizzard-journal.json  where the season's items drop (Adventure Journal)
   specs  -> blizzard-specs.json    the game's specialization ids and our names for them
-  mplus  -> blizzard-mplus.json    what the best Mythic+ players wear (leaderboards + profiles)
+  mplus  -> blizzard-mplus.json    what the best Mythic+ players wear and their stats (leaderboards + profiles;
+                                   the stats are cached in cache/stats.json)
 
 Exit status: 0 done, 1 the API or the credentials failed.
 """
@@ -22,6 +23,7 @@ from klm.model import validate  # noqa: E402
 from klm.sources import blizzard, blizzard_gear  # noqa: E402
 
 DEFAULT_CONFIG = Path(__file__).resolve().parent / "config.json"
+DEFAULT_STATS_CACHE = Path(__file__).resolve().parent / "cache" / "stats.json"
 
 
 def write(out: Path, name: str, dataset: dict) -> None:
@@ -34,6 +36,7 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    parser.add_argument("--stats-cache", type=Path, default=DEFAULT_STATS_CACHE)
     parser.add_argument("--part", choices=("drops", "specs", "mplus", "all"), default="all")
     args = parser.parse_args(argv)
     config = json.loads(args.config.read_text(encoding="utf-8"))
@@ -50,11 +53,18 @@ def main(argv=None) -> int:
             print(f"fetch_blizzard: {len(specs)} specialization id(s)")
         if args.part in ("mplus", "all"):
             settings = config.get("mplus", {})
-            specs = {}
-            entries = blizzard_gear.fetch_entries(
-                client, top_per_spec=settings.get("top_per_spec", 50), periods=settings.get("periods", 2),
-                realm_limit=settings.get("realm_limit"), specs_out=specs)
-            write(args.out, "blizzard-mplus.json", blizzard.make_dataset("blizzard-mplus", entries=entries, specs=specs))
+            specs, stats = {}, []
+            cache = json.loads(args.stats_cache.read_text(encoding="utf-8")) if args.stats_cache.exists() else {}
+            try:
+                entries = blizzard_gear.fetch_entries(
+                    client, top_per_spec=settings.get("top_per_spec", 50), periods=settings.get("periods", 2),
+                    realm_limit=settings.get("realm_limit"), specs_out=specs, stats_out=stats, stats_cache=cache)
+            finally:
+                args.stats_cache.parent.mkdir(parents=True, exist_ok=True)
+                args.stats_cache.write_text(json.dumps(cache, indent=0, ensure_ascii=False, sort_keys=True) + "\n",
+                                            encoding="utf-8", newline="\n")
+            write(args.out, "blizzard-mplus.json",
+                  blizzard.make_dataset("blizzard-mplus", entries=entries, specs=specs, stats=stats))
             print(f"fetch_blizzard: {len(entries)} Mythic+ entr(ies) for "
                   f"{len({(e['class'], e['spec']) for e in entries})} specialization(s)")
     except (blizzard.BlizzardError, KeyError, ValueError) as error:

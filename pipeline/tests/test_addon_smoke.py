@@ -236,6 +236,34 @@ class SmokeTest(unittest.TestCase):
         self.assertEqual(db.keyLevel, 8)   # ...and the first one gets its own back
         self.assertEqual(db.stats, "c")
 
+    STATS = ('KeyLootMasterStats = { paladin = { protection = { n = 50, c = {1111, 33.2}, h = {1019, 29.0}, '
+             'm = {521, 23.1}, v = {297, 6.0}, leech = {282, 4.0}, avoidance = {39, 1.0}, speed = {0, 2.0} } } }')
+
+    def test_stats_are_ranked_from_the_highest_rating_down(self):
+        ns = self.boot()
+        self.lua.execute(self.STATS)
+        stats = ns.StatsOf("paladin", "protection")
+        order = [r.key for r in ns.StatRanking(stats, ns.MAIN_STATS).values()]
+        self.assertEqual(order, ["c", "h", "m", "v"])
+        minor = [r.key for r in ns.StatRanking(stats, ns.MINOR_STATS).values()]
+        self.assertEqual(minor, ["leech", "avoidance", "speed"])
+        self.assertIsNone(ns.StatsOf("mage", "fire"))
+
+    def test_the_stats_page_replaces_the_list_and_comes_back(self):
+        ns = self.boot()
+        self.lua.execute(self.STATS)
+        self.open_window()
+        self.assertTrue(len(self.rows()) > 5)
+        button = [w for w in self.g.find_widgets("Button", "UIPanelButtonTemplate").values() if w.text == "Stats"][0]
+        button.scripts.OnClick(button)
+        self.assertEqual(len(self.rows()), 0)
+        texts = [str(w.text) for w in self.g.find_widgets("FontString").values() if w.text and w.shown]
+        self.assertTrue(any("CRIT" in s and "HASTE" in s for s in texts))
+        self.assertTrue(any("+1111" in s for s in texts))
+        self.assertEqual(button.text, "Items")
+        button.scripts.OnClick(button)
+        self.assertTrue(len(self.rows()) > 5)
+
     def test_slash_toggles_and_tooltip_switch(self):
         self.boot()
         self.open_window()

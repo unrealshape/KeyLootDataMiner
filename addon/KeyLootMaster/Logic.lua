@@ -145,6 +145,33 @@ function ns.BisItems(class, spec, content)
     return set
 end
 
+-- The stats page: the secondary stats compete for the player's points, the minor ones come on top.
+ns.MAIN_STATS = { { "c", "Crit" }, { "h", "Haste" }, { "m", "Mastery" }, { "v", "Versatility" } }
+ns.MINOR_STATS = { { "leech", "Leech" }, { "avoidance", "Avoidance" }, { "speed", "Speed" } }
+
+--- The average stats of the top players of a specialization, or nil:
+--- { n = players, c = {rating, percent}, h = ..., m = ..., v = ..., leech = ..., avoidance = ..., speed = ... }
+--- (KeyLootMasterStats[class][spec], Data/Stats.lua).
+function ns.StatsOf(class, spec)
+    local all = KeyLootMasterStats
+    return all and all[class] and all[class][spec] or nil
+end
+
+--- The stats of a group ordered from the highest rating down: { { key, name, rating, percent }, ... }.
+--- Ties keep the order of the group.
+function ns.StatRanking(stats, group)
+    local list = {}
+    for index, pair in ipairs(group) do
+        local value = stats[pair[1]] or { 0, 0 }
+        list[#list + 1] = { key = pair[1], name = pair[2], rating = value[1] or 0, percent = value[2] or 0, order = index }
+    end
+    table.sort(list, function(a, b)
+        if a.rating ~= b.rating then return a.rating > b.rating end
+        return a.order < b.order
+    end)
+    return list
+end
+
 local function tables()
     return KeyLootMasterData or {}, KeyLootMasterDrops or {}, KeyLootMasterItems or {}, KeyLootMasterSpecs or {}
 end
