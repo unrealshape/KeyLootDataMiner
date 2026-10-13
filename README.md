@@ -48,3 +48,7 @@ python pipeline/build.py --datasets build/datasets --out ../KeyLootMaster/KeyLoo
 
 Credentials live in `~/.config/<service>/credentials.env` locally and in the
 repository secrets in Actions. They are never committed.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
