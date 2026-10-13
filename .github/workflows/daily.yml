@@ -1,11 +1,11 @@
-name: Daily data
+name: Data refresh
 
 # A run reads the Mythic+ players of four regions (gear, stats, talents), so it takes well over an hour on a
 # cold cache; the players' stats and talents are cached between runs (actions/cache, never committed).
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 3 * * *"
+    - cron: "17 3 * * 1,4"
 
 permissions:
   contents: write
