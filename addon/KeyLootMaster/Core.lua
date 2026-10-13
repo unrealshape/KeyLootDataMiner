@@ -119,6 +119,40 @@ function ns.CycleMark(specKey, item)
     return mark
 end
 
+--- The enchantment id on what the player wears in a slot of the lists (the first of two for rings),
+--- nil when nothing is worn there.
+function ns.OwnEnchantId(slotKey)
+    for _, slot in ipairs(ns.INVENTORY_SLOTS[slotKey] or {}) do
+        local link = GetInventoryItemLink and GetInventoryItemLink("player", slot)
+        if type(link) == "string" then
+            local id = link:match("item:%d+:(%d*)")
+            return tonumber(id) or 0
+        end
+    end
+    return nil
+end
+
+--- The gems the player wears, counted by color: { meta = 1, green = 2, ... }; nil without any equipment.
+function ns.OwnGemSignature()
+    if not GetInventoryItemLink then return nil end
+    local signature, any = {}, false
+    local gemOf = (C_Item and C_Item.GetItemGem) or GetItemGem
+    for slot = 1, 17 do
+        local link = GetInventoryItemLink("player", slot)
+        if type(link) == "string" then
+            any = true
+            for index = 1, 3 do
+                local name = gemOf and gemOf(link, index)
+                if name then
+                    local color = ns.GemColorOf(name)
+                    signature[color] = (signature[color] or 0) + 1
+                end
+            end
+        end
+    end
+    return any and signature or nil
+end
+
 --- The filters as ns.Rows wants them.
 function ns.Filters()
     local db = ns.Settings()

@@ -115,7 +115,7 @@ def sources(with_data=True):
     if with_data:
         data = ADDON / "Data"
         names += [data / n for n in ("Meta.lua", "Specs.lua", "Drops.lua", "Items.lua", "Bonus.lua", "paladin.lua", "mage.lua")]
-    names += [ADDON / n for n in ("Locales.lua", "Logic.lua", "Core.lua", "UI.lua", "Tooltip.lua", "Minimap.lua")]
+    names += [ADDON / n for n in ("Locales.lua", "Logic.lua", "Core.lua", "UI.lua", "Pages.lua", "Tooltip.lua", "Minimap.lua")]
     return [(p.name, p.read_text(encoding="utf-8")) for p in names]
 
 
@@ -249,44 +249,77 @@ class SmokeTest(unittest.TestCase):
         self.assertEqual(minor, ["leech", "avoidance", "speed"])
         self.assertIsNone(ns.StatsOf("mage", "fire"))
 
+    def page_button(self, label):
+        return [w for w in self.g.find_widgets("Button", "UIPanelButtonTemplate").values() if w.text == label][0]
+
+    def shown_texts(self):
+        return [str(w.text) for w in self.g.find_widgets("FontString").values() if w.text and w.shown]
+
     def test_the_stats_page_replaces_the_list_and_comes_back(self):
         ns = self.boot()
         self.lua.execute(self.STATS)
         self.open_window()
         self.assertTrue(len(self.rows()) > 5)
-        button = [w for w in self.g.find_widgets("Button", "UIPanelButtonTemplate").values() if w.text == "Stats"][0]
-        button.scripts.OnClick(button)
+        stats = self.page_button("Stats")
+        stats.scripts.OnClick(stats)
         self.assertEqual(len(self.rows()), 0)
-        texts = [str(w.text) for w in self.g.find_widgets("FontString").values() if w.text and w.shown]
+        texts = self.shown_texts()
         self.assertTrue(any("CRIT" in s and "HASTE" in s for s in texts))
         self.assertTrue(any("+1111" in s for s in texts))
-        self.assertEqual(button.text, "Items")
-        button.scripts.OnClick(button)
+        items = self.page_button("Items")
+        items.scripts.OnClick(items)
         self.assertTrue(len(self.rows()) > 5)
 
-    def test_the_player_group_chooses_between_the_two_mythic_plus_lists(self):
-        ns = self.boot()
-        self.assertFalse(ns.HasGroups("paladin", "protection"))
-        self.assertEqual(ns.ContentKey("paladin", "protection", "mplus", "all"), "mplus")   # no second list yet
-        self.lua.execute('KeyLootMasterData.paladin.protection.mplus_all = KeyLootMasterData.paladin.protection.raid')
-        self.assertTrue(ns.HasGroups("paladin", "protection"))
-        self.assertEqual(ns.ContentKey("paladin", "protection", "mplus", "all"), "mplus_all")
-        self.assertEqual(ns.ContentKey("paladin", "protection", "mplus", "dungeon"), "mplus")
-        self.assertEqual(ns.ContentKey("paladin", "protection", "raid", "all"), "raid")
+    GEAR = (
+        'KeyLootMasterGear = { paladin = { protection = { mplus = { n = 50, '
+        'enchants = { head = { {id = 8017, name = "Empowered Hex of Leeching", n = 42}, {id = 8018, name = "Hex of Leeching", n = 3} } }, '
+        'gems = { {id = 240898, name = "Flawless Deadly Amethyst", color = "purple", n = 8} }, '
+        'gemSets = { { sig = { meta = 1, green = 2, red = 1 }, n = 21 } }, '
+        'embellishments = { {id = 1, name = "Arcanoweave Lining", n = 41} }, '
+        'builds = { {code = "CYQALMl7AwW51MWzGneuHE3tPCAAAAzMbbzMGjZZ", n = 17, hero = "Lightsmith"} }, '
+        'talents = { {id = 1, name = "Holy Bulwark", n = 50, tree = "spec"} }, '
+        'heroes = { {name = "Lightsmith", n = 48} }, '
+        'players = { {name = "Pinkzilla", realm = "Silvermoon", region = "eu", race = "Dwarf", ilvl = 333, rating = 4042} } '
+        '} } } }')
 
-    def test_only_one_item_per_slot_is_best_in_slot(self):
+    def test_the_gear_talent_and_player_pages_show_their_data(self):
         ns = self.boot()
-        bis = ns.BisItems("paladin", "protection", "mplus")
-        rows = ns.Rows("paladin", "protection", "mplus", None, None)
-        for row in rows.values():
-            ranked = [e["item"] for e in row["items"].values()]
-            self.assertEqual(sum(1 for item in ranked if bis[item]), 1 if ranked else 0)
+        self.lua.execute(self.GEAR)
+        self.open_window()
+        for label, needle in (("Gear", "Empowered Hex of Leeching"), ("Talents", "Holy Bulwark"), ("Players", "Pinkzilla")):
+            button = self.page_button(label)
+            button.scripts.OnClick(button)
+            self.assertEqual(len(self.rows()), 0)
+            self.assertTrue(any(needle in s for s in self.shown_texts()), label)
+            if label == "Gear":
+                self.assertTrue(any("1 Meta, 1 Red, 2 Green" in s for s in self.shown_texts()))
 
-    def test_the_second_best_item_is_shown_small_in_each_row(self):
+    def test_the_pages_say_so_when_there_is_no_data(self):
         self.boot()
         self.open_window()
-        alts = [w for w in self.g.find_widgets("Button").values() if w.itemId is not None and w.name is None and w.shown]
-        self.assertTrue(len(alts) > 3)
+        button = self.page_button("Gear")
+        button.scripts.OnClick(button)
+        self.assertTrue(any("Noch keine" in s or "No gear data" in s for s in self.shown_texts()))
+
+    def test_gem_signatures_read_and_compare(self):
+        ns = self.boot()
+        self.assertEqual(ns.GemColorOf("Flawless Deadly Peridot"), "green")
+        self.assertEqual(ns.GemColorOf("Indecipherable Eversong Diamond"), "meta")
+        top = self.lua.table_from({"meta": 1, "green": 2, "red": 1})
+        own = self.lua.table_from({"meta": 1, "green": 1})
+        self.assertEqual(ns.SigDiff(own, top, None), "+1 Red, +1 Green")
+        self.assertEqual(ns.SigText(top, None), "1 Meta, 1 Red, 2 Green")
+
+    def test_the_copy_button_opens_the_import_string(self):
+        ns = self.boot()
+        self.lua.execute(self.GEAR)
+        self.open_window()
+        button = self.page_button("Talents")
+        button.scripts.OnClick(button)
+        copy = [w for w in self.g.find_widgets("Button", "UIPanelButtonTemplate").values() if w.text == "Build kopieren" or w.text == "Copy build"][0]
+        copy.scripts.OnClick(copy)
+        box = self.g.find_widgets("Frame", "BasicFrameTemplateWithInset")
+        self.assertTrue(len(box) >= 2)
 
     def test_slash_toggles_and_tooltip_switch(self):
         self.boot()

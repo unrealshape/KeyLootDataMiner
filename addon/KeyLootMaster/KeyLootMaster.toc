@@ -16,5 +16,6 @@ Locales.lua
 Logic.lua
 Core.lua
 UI.lua
+Pages.lua
 Tooltip.lua
 Minimap.lua

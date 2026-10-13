@@ -166,6 +166,54 @@ function ns.HasGroups(class, spec)
     return held ~= nil and held.mplus_all ~= nil
 end
 
+--- What the gear pages show for a specialization and player group (KeyLootMasterGear[class][spec], Data/Gear.lua).
+function ns.GearInfo(class, spec, group)
+    local all = KeyLootMasterGear
+    local entry = all and all[class] and all[class][spec]
+    if not entry then return nil end
+    if group == "all" and entry.mplus_all then return entry.mplus_all end
+    return entry.mplus or entry.mplus_all
+end
+
+-- The color of a gem comes from its name (Garnet red, Peridot green, Amethyst purple, Lapis blue, Diamond meta).
+ns.GEM_WORDS = { garnet = "red", peridot = "green", amethyst = "purple", lapis = "blue", diamond = "meta" }
+ns.GEM_ORDER = { "meta", "red", "green", "blue", "purple", "other" }
+
+function ns.GemColorOf(name)
+    local lowered = tostring(name or ""):lower()
+    for word, color in pairs(ns.GEM_WORDS) do
+        if lowered:find(word, 1, true) then return color end
+    end
+    return "other"
+end
+
+local function colorLabel(color, labels)
+    local label = color:sub(1, 1):upper() .. color:sub(2)
+    return labels and labels[label] or label
+end
+
+--- "1 Meta, 2 Green, 1 Red" for a gem signature { meta = 1, green = 2, red = 1 }.
+function ns.SigText(sig, labels)
+    local parts = {}
+    for _, color in ipairs(ns.GEM_ORDER) do
+        local count = sig[color]
+        if count and count > 0 then parts[#parts + 1] = count .. " " .. colorLabel(color, labels) end
+    end
+    return table.concat(parts, ", ")
+end
+
+--- What separates your gems from a signature, as "+1 Green, -1 Red"; "" when they match.
+function ns.SigDiff(own, wanted, labels)
+    local parts = {}
+    for _, color in ipairs(ns.GEM_ORDER) do
+        local delta = (wanted[color] or 0) - (own[color] or 0)
+        if delta ~= 0 then
+            parts[#parts + 1] = (delta > 0 and "+" or "") .. delta .. " " .. colorLabel(color, labels)
+        end
+    end
+    return table.concat(parts, ", ")
+end
+
 --- The average stats of the top players of a specialization, or nil:
 --- { n = players, c = {rating, percent}, h = ..., m = ..., v = ..., leech = ..., avoidance = ..., speed = ... }
 --- (KeyLootMasterStats[class][spec], Data/Stats.lua).

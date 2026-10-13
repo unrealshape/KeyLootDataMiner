@@ -27,9 +27,13 @@ local SLOT_NAMES = {
     wrist = "Wrists", hands = "Hands", waist = "Waist", legs = "Legs", feet = "Feet",
     finger = "Rings", trinket = "Trinkets", main_hand = "Main hand", off_hand = "Off hand",
 }
+ns.SLOT_NAMES = SLOT_NAMES
 
 local frame, rows, alternatives, widgets = nil, {}, {}, {}
-local statsView = false
+local page = "items"
+local registered = {}
+local PAGE_ORDER = { "items", "stats", "gear", "talents", "players" }
+local PAGE_LABELS = { items = "Items", stats = "Stats", gear = "Gear", talents = "Talents", players = "Players" }
 local stat = { main = {}, minor = {} }
 local shownKey, bisSet = nil, {}
 local TRACK_NAMES = { veteran = "Veteran", champion = "Champion", hero = "Hero", myth = "Myth" }
@@ -265,35 +269,57 @@ local function buildStatsPanel(parent)
     stat.empty:SetText(L["No stats for this specialization yet."])
 end
 
---- Fills the stats page for a specialization and shows or hides it, and hides the list and its detail
---- column while the page is up.
-local function refreshStats(class, spec)
-    local data = class and ns.StatsOf(class, spec, ns.Settings().group)
+--- Shows the page that is up and fills it; the item list and its detail column give way to every page but "items".
+local function refreshPages(class, spec)
+    local statsOn = page == "stats"
+    local group = ns.Settings().group
+    local data = class and ns.StatsOf(class, spec, group)
     local parts = { stat.mainTitle, stat.mainRank, stat.minorTitle, stat.minorRank }
-    for _, group in ipairs({ stat.main, stat.minor }) do
-        for _, row in ipairs(group) do
+    for _, list in ipairs({ stat.main, stat.minor }) do
+        for _, row in ipairs(list) do
             parts[#parts + 1] = row.name; parts[#parts + 1] = row.back; parts[#parts + 1] = row.fill; parts[#parts + 1] = row.value
         end
     end
-    for _, part in ipairs(parts) do part:SetShown(statsView and data ~= nil) end
-    stat.empty:SetShown(statsView and data == nil)
-    if statsView then
+    for _, part in ipairs(parts) do part:SetShown(statsOn and data ~= nil) end
+    stat.empty:SetShown(statsOn and data == nil)
+    widgets.note:SetText("")
+    if page ~= "items" then
         for _, row in ipairs(rows) do row:Hide() end
         for _, row in ipairs(alternatives) do row:Hide() end
         widgets.detailTitle:Hide(); widgets.detailSub:Hide(); widgets.altHeader:Hide(); widgets.guide:Hide()
-        widgets.message:SetText(data and string.format(L["Average of the %d top players"], data.n or 0) or "")
-        if data then
-            local main = ns.StatRanking(data, ns.MAIN_STATS)
-            local minor = ns.StatRanking(data, ns.MINOR_STATS)
-            showStatRows(stat.main, main)
-            showStatRows(stat.minor, minor)
-            stat.mainRank:SetText(rankingText(main))
-            stat.minorRank:SetText(rankingText(minor))
-        end
+        widgets.message:SetText("")
     else
         for _, row in ipairs(rows) do row:Show() end
         widgets.detailTitle:Show(); widgets.detailSub:Show()
     end
+    if statsOn and data then
+        local main = ns.StatRanking(data, ns.MAIN_STATS)
+        local minor = ns.StatRanking(data, ns.MINOR_STATS)
+        showStatRows(stat.main, main)
+        showStatRows(stat.minor, minor)
+        stat.mainRank:SetText(rankingText(main))
+        stat.minorRank:SetText(rankingText(minor))
+        widgets.note:SetText(string.format(L["Average of the %d top players"], data.n or 0))
+    end
+    for name, def in pairs(registered) do
+        if page == name then
+            widgets.note:SetText(def.refresh(class, spec, group) or "")
+        else
+            for _, part in ipairs(def.parts or {}) do part:Hide() end
+        end
+    end
+    for _, name in ipairs(PAGE_ORDER) do
+        local button = widgets.pageButtons and widgets.pageButtons[name]
+        if button then
+            if page == name then button:LockHighlight() else button:UnlockHighlight() end
+        end
+    end
+end
+
+--- Pages next to the item list register here (Pages.lua): def.build(frame) returns the parts to hide,
+--- def.refresh(class, spec, group) fills them and may return a note for the foot of the window.
+function UI.RegisterPage(name, def)
+    registered[name] = def
 end
 
 local function buildRow(parent, index)
@@ -517,10 +543,18 @@ local function build()
     widgets.message:SetJustifyH("LEFT")
 
     buildStatsPanel(frame)
-    widgets.statsButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-    widgets.statsButton:SetSize(120, 24)
-    widgets.statsButton:SetPoint("BOTTOMLEFT", 20, 18)
-    widgets.statsButton:SetScript("OnClick", function() statsView = not statsView; UI.Refresh() end)
+    widgets.note = makeText(frame, "GameFontDisableSmall")
+    widgets.note:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 24, 52)
+    for _, def in pairs(registered) do def.parts = def.build(frame) end
+    widgets.pageButtons = {}
+    for index, name in ipairs(PAGE_ORDER) do
+        local button = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+        button:SetSize(92, 24)
+        button:SetPoint("BOTTOMLEFT", 20 + (index - 1) * 96, 18)
+        button:SetText(L[PAGE_LABELS[name]])
+        button:SetScript("OnClick", function() page = name; UI.Refresh() end)
+        widgets.pageButtons[name] = button
+    end
 end
 
 -- ------------------------------------------------------------------ refresh
@@ -693,12 +727,12 @@ function UI.Refresh()
             row:Hide()
         end
     end
-    widgets.statsButton:SetText(statsView and L["Items"] or L["Stats"])
-    refreshStats(class, spec)
+    refreshPages(class, spec)
 end
 
-function UI.ShowStats(on)
-    statsView = on and true or false
+--- Shows one of the pages ("items", "stats", "gear", "talents", "players").
+function UI.SetPage(name)
+    page = name
     UI.Refresh()
 end
 
