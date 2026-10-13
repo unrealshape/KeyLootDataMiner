@@ -172,3 +172,22 @@ def derive_mplus(merged: dict, group_size: int, max_raid_items: int) -> dict:
         extra = _group_stats(group) if group else None
         stats.append({**record, "mplus": extra} if extra else record)
     return {**merged, "entries": entries, "stats": stats}
+
+
+def gear_groups(merged: dict, group_size: int, max_raid_items: int) -> dict:
+    """(class, spec) -> {"mplus": players, "mplus_all": players} for the gear file, only for the
+    specializations whose players carry gear details (`enchants`).
+
+    With a group of pure Mythic+ players "mplus" is that group and "mplus_all" the mixed top group
+    (the first `group_size` of the pool), as derive_mplus names the item lists; without such a group
+    "mplus" is the mixed top group and there is no "mplus_all"."""
+    result = {}
+    for key, found in mplus_groups(merged, group_size, max_raid_items).items():
+        if not any("enchants" in p for p in found["pool"]):
+            continue
+        mixed = found["pool"][:group_size]
+        if found["group"] and any(p.get("gear") for p in found["group"]):
+            result[key] = {"mplus": found["group"], "mplus_all": mixed}
+        else:
+            result[key] = {"mplus": mixed}
+    return result

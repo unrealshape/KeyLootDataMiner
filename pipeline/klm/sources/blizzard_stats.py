@@ -78,11 +78,26 @@ def read_statistics(client, character):
         return None
 
 
+def cache_key(character):
+    """region/realm/name for a character that knows its region, else realm/name (one-region runs)."""
+    key = character["realm"] + "/" + character["name"].lower()
+    return character["region"] + "/" + key if character.get("region") else key
+
+
+def lookup_cached(cache, character):
+    """The cache entry of a character. Entries written before the region was part of the key
+    (realm/name) were all European: they still serve a European character."""
+    held = cache.get(cache_key(character))
+    if held is None and character.get("region") == "eu":
+        held = cache.get(character["realm"] + "/" + character["name"].lower())
+    return held
+
+
 def cached_statistics(client, character, cache, today=None):
     """Stats from the cache while fresh, else read (and cached); None when unreadable."""
     today = today or date.today()
-    key = character["realm"] + "/" + character["name"].lower()
-    held = cache.get(key)
+    key = cache_key(character)
+    held = lookup_cached(cache, character)
     if held and (today - date.fromisoformat(held["day"])).days <= MAX_AGE_DAYS:
         return held["stats"]
     stats = read_statistics(client, character)

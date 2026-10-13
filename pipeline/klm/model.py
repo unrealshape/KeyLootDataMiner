@@ -10,7 +10,10 @@ A source hands over one dataset (a plain dict, stored as JSON):
       "items":   [ {item, stats, ilvl, tier}, ... ],           (optional)
       "specs":   { "66": ["paladin", "protection"], ... },     (optional)
       "stats":   [ {class, spec, n, c: [rating, percent], h, m, v, leech, avoidance, speed}, ... ]  (optional)
-      "players": [ {class, spec, rank, items: [ids], gear: {slot: [ids]}, stats: {c: [..], ...}}, ... ]  (optional)
+      "players": [ {class, spec, rank, items: [ids], gear: {slot: [ids]}, stats: {c: [..], ...},
+                    name, realm, region, key, ilvl, race?, enchants: {slot: [{id, name}]},
+                    gems: [{id, name, color}], embellishments: [{id, name, item}],
+                    talents: {code, hero, selected: [{id, name, spell, rank, tree}]}}, ... ]  (optional)
     }
 
 `entries` say how often the best players of a class and specialization wear
@@ -34,6 +37,10 @@ STAT_KEYS = ("c", "h", "m", "v", "leech", "avoidance", "speed")
 DROP_FIELDS = ("item", "kind", "instance", "instance_name", "encounter", "encounter_name")
 
 
+GEM_COLORS = ("red", "green", "purple", "blue", "meta", "other")
+TALENT_TREES = ("class", "spec", "hero")
+
+
 class DatasetError(ValueError):
     pass
 
@@ -42,6 +49,36 @@ def _check_keys(record: dict, fields: tuple, where: str) -> None:
     missing = [f for f in fields if f not in record]
     if missing:
         raise DatasetError(f"{where}: missing {', '.join(missing)}")
+
+
+def _is_id(value) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value > 0
+
+
+def _check_player_gear(player: dict, where: str) -> None:
+    """The optional gear and talent details of a player (all fields optional)."""
+    for field in ("name", "realm", "region", "race"):
+        if field in player and not (isinstance(player[field], str) and player[field]):
+            raise DatasetError(f"{where}: {field} must be a text")
+    enchants = player.get("enchants", {})
+    if not isinstance(enchants, dict):
+        raise DatasetError(f"{where}: enchants must map slots to lists")
+    for slot, rows in enchants.items():
+        if not (isinstance(rows, list) and all(isinstance(r, dict) and _is_id(r.get("id")) for r in rows)):
+            raise DatasetError(f"{where}: enchants[{slot!r}] must be a list of {{id, name}}")
+    for field in ("gems", "embellishments"):
+        rows = player.get(field, [])
+        if not (isinstance(rows, list) and all(isinstance(r, dict) and _is_id(r.get("id")) for r in rows)):
+            raise DatasetError(f"{where}: {field} must be a list of records with an id")
+    if any(g.get("color") not in GEM_COLORS for g in player.get("gems", [])):
+        raise DatasetError(f"{where}: a gem colour is not one of {GEM_COLORS}")
+    if "talents" in player:
+        talents = player["talents"]
+        if not (isinstance(talents, dict) and isinstance(talents.get("code"), str) and talents["code"]
+                and isinstance(talents.get("selected"), list)
+                and all(isinstance(t, dict) and _is_id(t.get("id")) and t.get("tree") in TALENT_TREES
+                        for t in talents["selected"])):
+            raise DatasetError(f"{where}: talents need a code and picks {{id, name, tree}}")
 
 
 def validate(dataset: dict) -> dict:
@@ -105,6 +142,7 @@ def validate(dataset: dict) -> dict:
                 if not (isinstance(pair, list) and len(pair) == 2
                         and all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in pair)):
                     raise DatasetError(f"{where}: stats.{stat} must be [rating, percent]")
+        _check_player_gear(player, where)
     for spec_id, names in dataset.get("specs", {}).items():
         if not spec_id.isdigit() or not (isinstance(names, list) and len(names) == 2
                                          and all(isinstance(n, str) and n for n in names)):

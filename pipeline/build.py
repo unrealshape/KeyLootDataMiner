@@ -43,6 +43,7 @@ def load_datasets(folder: Path) -> list:
 
 
 def render(merged: dict, top: int, group_size: int = 50, max_raid_items: int = DEFAULT_MAX_RAID_ITEMS) -> dict:
+    gear_source = merged
     merged = derive_mplus(merged, group_size, max_raid_items)
     files = lua.class_files(merged, top)
     files["Drops.lua"] = lua.drops_file(merged)
@@ -51,6 +52,9 @@ def render(merged: dict, top: int, group_size: int = 50, max_raid_items: int = D
     files["Meta.lua"] = lua.meta_file(merged, top)
     if merged.get("stats"):
         files["Stats.lua"] = lua.stats_file(merged)
+    gear_text = lua.gear_file(gear_source, group_size, max_raid_items)
+    if gear_text:
+        files["Gear.lua"] = gear_text
     if BONUS_PATH.is_file():
         files["Bonus.lua"] = lua.bonus_file(json.loads(BONUS_PATH.read_text(encoding="utf-8"))["bonus"])
     files["Data.xml"] = lua.manifest(sorted(files))

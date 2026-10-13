@@ -1,6 +1,7 @@
 name: Daily data
 
-# A run takes about half an hour: the Mythic+ part reads ~2,000 characters.
+# A run reads the Mythic+ players of four regions (gear, stats, talents), so it takes well over an hour on a
+# cold cache; the players' stats and talents are cached between runs (actions/cache, never committed).
 on:
   workflow_dispatch:
   schedule:
@@ -12,8 +13,17 @@ permissions:
 jobs:
   data:
     runs-on: ubuntu-latest
+    timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
+      - name: Restore the character caches
+        uses: actions/cache@v4
+        with:
+          path: |
+            pipeline/cache/stats.json
+            pipeline/cache/talents.json
+          key: character-cache-${{ github.run_id }}
+          restore-keys: character-cache-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
