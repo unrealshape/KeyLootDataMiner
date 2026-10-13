@@ -73,3 +73,16 @@ jobs:
             git commit -m "Data: daily update"
             git push
           fi
+      # The addon as a download: KeyLootMaster.zip on the release "latest", replaced after every run.
+      - name: Publish the addon as a release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          (cd addon && zip -qr ../KeyLootMaster.zip KeyLootMaster)
+          if gh release view latest >/dev/null 2>&1; then
+            gh release upload latest KeyLootMaster.zip --clobber
+          else
+            gh release create latest KeyLootMaster.zip --title "KeyLootMaster (latest data)" \
+              --notes "The addon with the newest data."
+          fi
+          gh release edit latest --notes "Data of $(date -u +%Y-%m-%d). Unzip into World of Warcraft/_retail_/Interface/AddOns."
