@@ -49,6 +49,17 @@ class ParseGearTest(unittest.TestCase):
     def setUp(self):
         self.worn, self.extras = blizzard_gear.parse_gear(EQUIPMENT)
 
+    def test_an_enchant_keeps_the_item_that_applies_it(self):
+        data = {"equipped_items": [{"slot": {"type": "FINGER_1"}, "item": {"id": 102}, "enchantments": [
+            {"enchantment_id": 7001, "display_string": "Enchanted: Cursed Devotion",
+             "source_item": {"id": 223456, "name": "Enchant Ring - Cursed Devotion"}}]}]}
+        _, extras = blizzard_gear.parse_gear(data)
+        self.assertEqual(extras["enchants"]["finger"], [{"id": 7001, "name": "Cursed Devotion", "item": 223456}])
+        summary = gear.summarize([{"enchants": extras["enchants"]}])
+        self.assertEqual(summary["enchants"]["finger"][0]["item"], 223456)
+        self.assertIn("item=223456", lua._cells(summary["enchants"]["finger"],
+                                              [("id", "n"), ("name", "s"), ("item", "n"), ("n", "n")]))
+
     def test_items_are_unchanged(self):
         self.assertEqual(self.worn["finger"], {102, 103})
         self.assertEqual(self.worn["head"], {100})

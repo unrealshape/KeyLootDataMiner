@@ -48,7 +48,7 @@ def summarize(players: list) -> dict:
         for slot, rows in player.get("enchants", {}).items():
             counter, info = enchants.setdefault(slot, (Counter(), {}))
             for row in rows:
-                info.setdefault(row["id"], row.get("name", ""))
+                info.setdefault(row["id"], (row.get("name", ""), row.get("item")))
             counter.update({row["id"] for row in rows})
         for gem in player.get("gems", []):
             gem_info.setdefault(gem["id"], gem)
@@ -77,7 +77,8 @@ def summarize(players: list) -> dict:
                 talent_info.setdefault(key, talent)
     return {
         "n": len(players),
-        "enchants": {slot: [{"id": i, "name": info[i], "n": n} for i, n in _ranked(counter, LIMITS["enchants"])]
+        "enchants": {slot: [dict({"id": i, "name": info[i][0], "n": n}, **({"item": info[i][1]} if info[i][1] else {}))
+                            for i, n in _ranked(counter, LIMITS["enchants"])]
                      for slot, (counter, info) in sorted(enchants.items())},
         "gems": [{"id": i, "name": gem_info[i].get("name", ""), "color": gem_info[i]["color"], "n": n}
                  for i, n in _ranked(gems, LIMITS["gems"])],

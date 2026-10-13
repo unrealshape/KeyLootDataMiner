@@ -4,7 +4,7 @@ Data/<class>.lua   KeyLootMasterData["paladin"]["protection"]["mplus"]["head"] =
 Data/Drops.lua     KeyLootMasterDrops[itemId] = { {kind, instance, instanceName, encounter, encounterName}, ... }
 Data/Stats.lua     KeyLootMasterStats[class][spec] = { n = players, c = {rating, percent}, h, m, v, leech, avoidance, speed,
                    mplus = { n, c, h, ... } }   (mplus: the means of the pure Mythic+ players, optional)
-Data/Gear.lua      KeyLootMasterGear[class][spec].mplus = { n, enchants = {slot = {{id, name, n}}}, gems, gemSets, embellishments,
+Data/Gear.lua      KeyLootMasterGear[class][spec].mplus = { n, enchants = {slot = {{id, name, item?, n}}}, gems, gemSets, embellishments,
                    races, builds, talents, heroes, players } (and mplus_all of the same form)
 Data/Meta.lua      KeyLootMasterMeta = { generated = "...", sources = { ... }, top = N }
 
@@ -166,7 +166,7 @@ def _cells(rows: list, fields: list) -> str:
 def _gear_group(summary: dict, indent: str) -> list:
     inner = indent + "  "
     lines = [inner + "n = %d,\n" % summary["n"]]
-    slots = ", ".join("%s = { %s }" % (slot, _cells(rows, [("id", "n"), ("name", "s"), ("n", "n")]))
+    slots = ", ".join("%s = { %s }" % (slot, _cells(rows, [("id", "n"), ("name", "s"), ("item", "n"), ("n", "n")]))
                       for slot, rows in summary["enchants"].items() if rows)
     lines.append(inner + "enchants = { " + slots + " },\n")
     lines.append(inner + "gems = { " + _cells(summary["gems"], [("id", "n"), ("name", "s"), ("color", "s"), ("n", "n")]) + " },\n")

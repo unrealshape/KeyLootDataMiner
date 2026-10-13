@@ -191,8 +191,11 @@ def parse_gear(data):
             levels[slot_type] = level
         for enchant in entry.get("enchantments", []):
             if isinstance(enchant.get("enchantment_id"), int):
-                enchants.setdefault(slot, []).append(
-                    {"id": enchant["enchantment_id"], "name": clean_enchant(enchant.get("display_string", ""))})
+                row = {"id": enchant["enchantment_id"], "name": clean_enchant(enchant.get("display_string", ""))}
+                source = enchant.get("source_item", {}).get("id")
+                if isinstance(source, int):
+                    row["item"] = source        # the item that applies it, so the addon can link it
+                enchants.setdefault(slot, []).append(row)
         for socket in entry.get("sockets", []):
             gem = socket.get("item", {})
             if isinstance(gem.get("id"), int):
