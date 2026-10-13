@@ -1,17 +1,30 @@
 -- The button on the minimap: click opens the window, dragging moves it around the rim.
+--
+-- It hangs on UIParent and is only anchored to the minimap. A frame parented to the minimap is
+-- picked up by minimap-button collectors (EllesmereUI's flyout, ElvUI's button bar) and hidden from
+-- the map; one parented elsewhere is left where it is.
 local _, ns = ...
 
 local L = ns.L
 
 local ICON = "Interface/Icons/inv_cullingofstratholme_keystone"
-local RADIUS = 80
+local MARGIN = 6
 
 local button
 
+--- How far from the center of the minimap the button sits, in units of the button's own scale.
+local function radius()
+    local width = tonumber(Minimap:GetWidth()) or 140
+    local mapScale = tonumber(Minimap:GetEffectiveScale()) or 1
+    local ownScale = tonumber(UIParent:GetEffectiveScale()) or 1
+    return width / 2 * (mapScale / ownScale) + MARGIN
+end
+
 local function place(angle)
     local radians = math.rad(angle)
+    local distance = radius()
     button:ClearAllPoints()
-    button:SetPoint("CENTER", Minimap, "CENTER", math.cos(radians) * RADIUS, math.sin(radians) * RADIUS)
+    button:SetPoint("CENTER", Minimap, "CENTER", math.cos(radians) * distance, math.sin(radians) * distance)
 end
 
 local function drag()
@@ -24,10 +37,11 @@ local function drag()
 end
 
 local function create()
-    button = CreateFrame("Button", "KeyLootMasterMinimapButton", Minimap)
+    button = CreateFrame("Button", "KeyLootMasterMinimapButton", UIParent)
     button:SetSize(31, 31)
     button:SetFrameStrata("MEDIUM")
-    button:SetFrameLevel(8)
+    button:SetFrameLevel(20)
+    button:SetClampedToScreen(true)
     button:RegisterForClicks("LeftButtonUp")
     button:RegisterForDrag("LeftButton")
     button:SetHighlightTexture("Interface/Minimap/UI-Minimap-ZoomButton-Highlight")
