@@ -11,7 +11,7 @@ A source hands over one dataset (a plain dict, stored as JSON):
       "specs":   { "66": ["paladin", "protection"], ... },     (optional)
       "stats":   [ {class, spec, n, c: [rating, percent], h, m, v, leech, avoidance, speed}, ... ]  (optional)
       "players": [ {class, spec, rank, items: [ids], gear: {slot: [ids]}, stats: {c: [..], ...},
-                    name, realm, region, key, ilvl, race?, enchants: {slot: [{id, name}]},
+                    name, realm, slug?, region, key, ilvl, race?, rating?, enchants: {slot: [{id, name}]},
                     gems: [{id, name, color}], embellishments: [{id, name, item}],
                     talents: {code, hero, selected: [{id, name, spell, rank, tree}]}}, ... ]  (optional)
     }
@@ -57,9 +57,12 @@ def _is_id(value) -> bool:
 
 def _check_player_gear(player: dict, where: str) -> None:
     """The optional gear and talent details of a player (all fields optional)."""
-    for field in ("name", "realm", "region", "race"):
+    for field in ("name", "realm", "slug", "region", "race"):
         if field in player and not (isinstance(player[field], str) and player[field]):
             raise DatasetError(f"{where}: {field} must be a text")
+    if "rating" in player and (not isinstance(player["rating"], int) or isinstance(player["rating"], bool)
+                               or player["rating"] < 0):
+        raise DatasetError(f"{where}: rating must be a non-negative integer")
     enchants = player.get("enchants", {})
     if not isinstance(enchants, dict):
         raise DatasetError(f"{where}: enchants must map slots to lists")

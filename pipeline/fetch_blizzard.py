@@ -5,7 +5,9 @@
   drops  -> blizzard-journal.json  where the season's items drop (Adventure Journal)
   specs  -> blizzard-specs.json    the game's specialization ids and our names for them
   mplus  -> blizzard-mplus.json    what the best Mythic+ players wear, their stats and talent builds (leaderboards of
-                                   every region in --regions + profiles; cached in cache/stats.json and cache/talents.json)
+                                   every region in --regions + profiles; cached in cache/stats.json and cache/talents.json);
+                                   afterwards the race and Mythic+ rating of the first --profile-limit players of each
+                                   specialization's Mythic+ groups (cache/profiles.json, 3 days)
 
 Exit status: 0 done, 1 the API or the credentials failed.
 """
@@ -20,11 +22,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from klm.model import validate  # noqa: E402
-from klm.sources import blizzard, blizzard_gear  # noqa: E402
+from klm.sources import blizzard, blizzard_gear, blizzard_profile  # noqa: E402
 
 DEFAULT_CONFIG = Path(__file__).resolve().parent / "config.json"
 DEFAULT_STATS_CACHE = Path(__file__).resolve().parent / "cache" / "stats.json"
 DEFAULT_TALENTS_CACHE = Path(__file__).resolve().parent / "cache" / "talents.json"
+DEFAULT_PROFILES_CACHE = Path(__file__).resolve().parent / "cache" / "profiles.json"
+MAX_RAID_ITEMS = 1   # build.py DEFAULT_MAX_RAID_ITEMS: the same group as the build forms
 DEFAULT_REGIONS = "eu,us,kr,tw"
 
 
@@ -50,6 +54,15 @@ def write(out: Path, name: str, dataset: dict) -> None:
                             encoding="utf-8", newline="\n")
 
 
+def journal_drops(out: Path, fetched):
+    """The drops of this run, else those of an earlier run's blizzard-journal.json (they tell the
+    pure Mythic+ players from the raiders), else none."""
+    if fetched:
+        return fetched
+    path = out / "blizzard-journal.json"
+    return json.loads(path.read_text(encoding="utf-8")).get("drops", []) if path.exists() else []
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--out", type=Path, required=True)
@@ -61,11 +74,15 @@ def main(argv=None) -> int:
                              "empty: the config's `region`); a failing region is reported and skipped")
     parser.add_argument("--pool", type=int, default=150,
                         help="Mythic+ players read per specialization over all regions (default 150); the best top_per_spec of them are the mixed group")
+    parser.add_argument("--profiles-cache", type=Path, default=DEFAULT_PROFILES_CACHE)
+    parser.add_argument("--profile-limit", type=int, default=blizzard_profile.DEFAULT_LIMIT,
+                        help="players per specialization and group whose race and rating are read (default 10; 0: none)")
     parser.add_argument("--specs", default=None,
                         help="limit the mplus part to these specializations, e.g. paladin/protection,druid/guardian")
     parser.add_argument("--part", choices=("drops", "specs", "mplus", "all"), default="all")
     args = parser.parse_args(argv)
     config = json.loads(args.config.read_text(encoding="utf-8"))
+    drops = []
     try:
         client_id, secret = blizzard.read_credentials()
         client = blizzard.Client(client_id, secret, region=config.get("region", "eu"))
@@ -92,6 +109,14 @@ def main(argv=None) -> int:
             finally:
                 save_cache(args.stats_cache, cache)
                 save_cache(args.talents_cache, talents)
+            if args.profile_limit > 0 and players:
+                profiles = load_cache(args.profiles_cache)
+                try:
+                    blizzard_profile.enrich_players(
+                        clients, players, journal_drops(args.out, drops), settings.get("top_per_spec", 50), MAX_RAID_ITEMS,
+                        profiles, limit=args.profile_limit, progress=blizzard_gear.log)
+                finally:
+                    save_cache(args.profiles_cache, profiles)
             for problem in problems:
                 print(f"fetch_blizzard: region skipped: {problem}", file=sys.stderr)
             write(args.out, "blizzard-mplus.json",

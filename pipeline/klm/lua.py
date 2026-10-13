@@ -182,7 +182,7 @@ def _gear_group(summary: dict, indent: str) -> list:
     lines.append(inner + "},\n")
     lines.append(inner + "heroes = { " + _cells(summary["heroes"], [("name", "s"), ("n", "n")]) + " },\n")
     lines.append(inner + "players = { " + _cells(summary["players"], [
-        ("name", "s"), ("realm", "s"), ("region", "s"), ("race", "s"), ("ilvl", "n"), ("key", "n")]) + " },\n")
+        ("name", "s"), ("realm", "s"), ("region", "s"), ("race", "s"), ("rating", "n"), ("ilvl", "n"), ("key", "n")]) + " },\n")
     return lines
 
 

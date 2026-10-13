@@ -7,3 +7,6 @@ build/
 # Cache of the players' character statistics (holds character names)
 pipeline/cache/stats.json
 pipeline/cache/talents.json
+
+# Cache of the players' race and rating (holds character names)
+pipeline/cache/profiles.json

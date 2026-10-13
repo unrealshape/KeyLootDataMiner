@@ -13,6 +13,7 @@ from __future__ import annotations
 from collections import Counter
 
 LIMITS = {"enchants": 5, "gems": 10, "gemSets": 3, "embellishments": 5, "races": 5, "builds": 3, "players": 10}
+MIN_RACES = 10   # fewer players with a known race make no meaningful distribution
 COLOR_ORDER = ("meta", "red", "green", "blue", "purple", "other")
 
 
@@ -24,6 +25,16 @@ def gem_signature(gems: list) -> dict:
 def _ranked(counter: Counter, limit=None) -> list:
     rows = sorted(counter.items(), key=lambda kv: (-kv[1], kv[0]))
     return rows[:limit] if limit else rows
+
+
+def best_players(players: list, limit: int) -> list:
+    """The listed players: the rated ones first by rating (a tie: higher key level, then name), then the
+    rest by rank. Without any rating this is the ranking order."""
+    named = [p for p in players if p.get("name")]
+    rated = sorted((p for p in named if isinstance(p.get("rating"), int)),
+                   key=lambda p: (-p["rating"], -(p.get("key") or 0), p["name"], p.get("rank", 0)))
+    rest = sorted((p for p in named if not isinstance(p.get("rating"), int)), key=lambda p: p.get("rank", 0))
+    return (rated + rest)[:limit]
 
 
 def summarize(players: list) -> dict:
@@ -73,12 +84,12 @@ def summarize(players: list) -> dict:
         "gemSets": [{"sig": dict(sig), "n": n} for sig, n in _ranked(sets, LIMITS["gemSets"])],
         "embellishments": [{"id": i, "name": emb_info[i].get("name", ""), "n": n}
                            for i, n in _ranked(embellishments, LIMITS["embellishments"])],
-        "races": [{"name": r, "n": n} for r, n in _ranked(races, LIMITS["races"])],
+        "races": ([{"name": r, "n": n} for r, n in _ranked(races, LIMITS["races"])]
+                  if sum(races.values()) >= MIN_RACES else []),
         "builds": [{"code": c, "n": n, "hero": build_hero.get(c)} for c, n in _ranked(builds, LIMITS["builds"])],
         "talents": [{"id": talent_info[k]["id"], "name": talent_info[k]["name"], "n": n, "tree": k[0]}
                     for k, n in sorted(talents.items(), key=lambda kv: (-kv[1], kv[0][1], kv[0][0]))],
         "heroes": [{"name": h, "n": n} for h, n in _ranked(heroes)],
-        "players": [{k: p[k] for k in ("name", "realm", "region", "race", "ilvl", "key") if k in p}
-                    for p in sorted((p for p in players if p.get("name")), key=lambda p: p.get("rank", 0))
-                    [:LIMITS["players"]]],
+        "players": [{k: p[k] for k in ("name", "realm", "region", "race", "rating", "ilvl", "key") if k in p}
+                    for p in best_players(players, LIMITS["players"])],
     }

@@ -320,7 +320,7 @@ class OutputTest(unittest.TestCase):
         self.assertIn('gems = { {id=5, name="Peridot", color="green", n=4}, {id=6, name="Garnet", color="red", n=4} },', text)
         self.assertIn("gemSets = { { sig = {red=1, green=2}, n = 4 } },", text)
         self.assertIn('embellishments = { {id=1283697, name="Arcanoweave Lining", n=4} },', text)
-        self.assertIn('races = { {name="Dwarf", n=2} },', text)
+        self.assertIn("races = {  },", text)   # two known races are too few for a distribution
         self.assertIn('builds = { {code="A", n=4, hero="Lightsmith"} },', text)
         self.assertIn('{id=1, name="T1", n=4, tree="class"},', text)
         self.assertIn('heroes = { {name="Lightsmith", n=4} },', text)

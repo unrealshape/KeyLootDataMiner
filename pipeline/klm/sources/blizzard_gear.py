@@ -245,6 +245,8 @@ def player_record(spec_key, rank, worn, stats=None, character=None, extras=None,
         record["realm"] = extras.get("realm") or character.get("realm", "")
         if character.get("region"):
             record["region"] = character["region"]
+        if character.get("realm"):
+            record["slug"] = character["realm"]
         if character.get("level") is not None:
             record["key"] = character["level"]
         if extras.get("ilvl"):
