@@ -74,11 +74,17 @@ def scan_leaderboards(client, realms, dungeons, periods, progress=log):
                 except BlizzardError as error:
                     if error.status != 404:
                         raise
-        return boards
+        # Only the groups are kept: the rest of a board is the larger part of its size.
+        return [{"leading_groups": board.get("leading_groups", [])} for board in boards]
+
+    def in_order(executor):
+        # A few realm groups at a time, so that the answers waiting to be merged stay few.
+        for start in range(0, len(realms), WORKERS * 2):
+            yield from executor.map(read_board, realms[start:start + WORKERS * 2])
 
     # The realm groups are read side by side; they are merged in realm order, so the result is the same.
     with ThreadPoolExecutor(WORKERS) as executor:
-        for number, boards in enumerate(executor.map(read_board, realms), 1):
+        for number, boards in enumerate(in_order(executor), 1):
             for board in boards:
                 for group in board.get("leading_groups", []):
                     level, completed = group.get("keystone_level", 0), group.get("completed_timestamp", 0)

@@ -36,7 +36,7 @@ jobs:
       # Credentials come from the repository secrets, never from the repo:
       #   BLIZZARD_CLIENT_ID, BLIZZARD_CLIENT_SECRET, WCL_CLIENT_ID, WCL_CLIENT_SECRET
       - name: Source - Blizzard (drop locations, best Mythic+ players' gear)
-        run: python pipeline/fetch_blizzard.py --out build/datasets
+        run: python pipeline/fetch_blizzard.py --out build/datasets --pool 300 --profile-limit 50
         env:
           BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
           BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
@@ -61,7 +61,7 @@ jobs:
           BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
           BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
       - name: Merge into the addon's Lua data
-        run: python pipeline/build.py --datasets build/datasets --out addon/KeyLootMaster/Data
+        run: python pipeline/build.py --datasets build/datasets --out addon/KeyLootMaster/Data --max-raid-items 3
       - name: Commit the data when it changed
         run: |
           git config user.name "unrealshape"
