@@ -18,9 +18,13 @@ import re
 import sys
 import urllib.parse
 from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor
 
 from . import blizzard_stats, blizzard_talents
 from .blizzard import BlizzardError
+
+# Requests in flight at once; Blizzard allows 100 per second and 36,000 per hour per client.
+WORKERS = 8
 
 # The API's slot names, folded to the addon's: a ring or trinket counts for
 # whoever wears the item in either of the two places.
@@ -59,16 +63,23 @@ def scan_leaderboards(client, realms, dungeons, periods, progress=log):
     """(realm slug, lower-case name) -> {name, realm, spec, level, completed}: each
     character's best group."""
     found = {}
-    for number, realm in enumerate(realms, 1):
+
+    def read_board(realm):
+        boards = []
         for dungeon in dungeons:
             for period in periods:
                 try:
-                    board = client.get(f"/data/wow/connected-realm/{realm}/mythic-leaderboard/{dungeon}/period/{period}",
-                                       "dynamic")
+                    boards.append(client.get(
+                        f"/data/wow/connected-realm/{realm}/mythic-leaderboard/{dungeon}/period/{period}", "dynamic"))
                 except BlizzardError as error:
-                    if error.status == 404:
-                        continue
-                    raise
+                    if error.status != 404:
+                        raise
+        return boards
+
+    # The realm groups are read side by side; they are merged in realm order, so the result is the same.
+    with ThreadPoolExecutor(WORKERS) as executor:
+        for number, boards in enumerate(executor.map(read_board, realms), 1):
+            for board in boards:
                 for group in board.get("leading_groups", []):
                     level, completed = group.get("keystone_level", 0), group.get("completed_timestamp", 0)
                     for member in group.get("members", []):
@@ -81,8 +92,8 @@ def scan_leaderboards(client, realms, dungeons, periods, progress=log):
                         if held is None or (level, completed) > (held["level"], held["completed"]):
                             found[key] = {"name": profile["name"], "realm": slug, "spec": spec["id"],
                                           "level": level, "completed": completed}
-        if number % 10 == 0:
-            progress(f"leaderboards: {number}/{len(realms)} realm groups, {len(found)} characters")
+            if number % 10 == 0:
+                progress(f"leaderboards: {number}/{len(realms)} realm groups, {len(found)} characters")
     return found
 
 
@@ -341,10 +352,9 @@ def fetch_entries(client, top_per_spec=50, periods=2, realm_limit=None, progress
     entries = []
     for spec_id in sorted(chosen):
         players, player_stats = [], []
-        for rank, character in enumerate(chosen[spec_id], 1):
-            in_top = rank <= top_per_spec
-            if not in_top and players_out is None:
-                break
+        wanted_rows = chosen[spec_id] if players_out is not None else chosen[spec_id][:top_per_spec]
+
+        def read_character(character):
             regional = live[character.get("region")]
             read = read_gear(regional, character)
             worn, extras = read if read else (None, None)
@@ -355,6 +365,13 @@ def fetch_entries(client, top_per_spec=50, periods=2, realm_limit=None, progress
             talents = None
             if talents_cache is not None and worn:
                 talents = blizzard_talents.cached_talents(regional, character, talents_cache)
+            return worn, extras, stats, talents
+
+        # The characters are read side by side and used in ranking order.
+        with ThreadPoolExecutor(WORKERS) as executor:
+            reads = list(executor.map(read_character, wanted_rows))
+        for rank, (character, (worn, extras, stats, talents)) in enumerate(zip(wanted_rows, reads), 1):
+            in_top = rank <= top_per_spec
             if worn and in_top:
                 players.append(worn)
             if stats and in_top:
