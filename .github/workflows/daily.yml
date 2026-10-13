@@ -16,6 +16,14 @@ jobs:
     timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
+      # The addon lives in its own repository; the DataMiner writes its data files there (deploy key with
+      # write access, stored as the secret ADDON_DEPLOY_KEY). That push makes KeyStoneMaster release a version.
+      - name: Check out the addon repository
+        uses: actions/checkout@v4
+        with:
+          repository: unrealshape/KeyStoneMaster
+          ssh-key: ${{ secrets.ADDON_DEPLOY_KEY }}
+          path: master
       - name: Restore the character caches
         uses: actions/cache/restore@v4
         with:
@@ -61,28 +69,28 @@ jobs:
           BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
           BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
       - name: Merge into the addon's Lua data
-        run: python pipeline/build.py --datasets build/datasets --out addon/KeyLootMaster/Data --max-raid-items 3
-      - name: Commit the data when it changed
+        run: python pipeline/build.py --datasets build/datasets --out master/KeyLootMaster/Data --max-raid-items 3
+      - name: Commit the character caches when they changed
         run: |
           git config user.name "unrealshape"
           git config user.email "18093073+unrealshape@users.noreply.github.com"
-          git add addon/KeyLootMaster/Data pipeline/cache
+          git add pipeline/cache
           if git diff --cached --quiet; then
-            echo "No new data."
+            echo "No new cache."
           else
             git commit -m "Data: daily update"
             git push
           fi
-      # The addon as a download: KeyLootMaster.zip on the release "latest", replaced after every run.
-      - name: Publish the addon as a release
-        env:
-          GH_TOKEN: ${{ github.token }}
+      # The push to KeyStoneMaster starts its release workflow: tests, a new version, the zip.
+      - name: Push the data to KeyStoneMaster
+        working-directory: master
         run: |
-          (cd addon && zip -qr ../KeyLootMaster.zip KeyLootMaster)
-          if gh release view latest >/dev/null 2>&1; then
-            gh release upload latest KeyLootMaster.zip --clobber
+          git config user.name "unrealshape"
+          git config user.email "18093073+unrealshape@users.noreply.github.com"
+          git add KeyLootMaster/Data
+          if git diff --cached --quiet; then
+            echo "No new data."
           else
-            gh release create latest KeyLootMaster.zip --title "KeyLootMaster (latest data)" \
-              --notes "The addon with the newest data."
+            git commit -m "Data: update from KeyStoneDataMiner"
+            git push
           fi
-          gh release edit latest --notes "Data of $(date -u +%Y-%m-%d). Unzip into World of Warcraft/_retail_/Interface/AddOns."

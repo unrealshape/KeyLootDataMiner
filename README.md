@@ -1,15 +1,13 @@
-# KeyLootMaster
+# KeyStoneDataMiner
 
-A World of Warcraft addon (Retail 12.x) that shows where the best gear of your
-class and specialization drops, for Mythic+ and the current raid.
-
-The data comes from a daily pipeline, not from the addon itself:
+The data miner of the World of Warcraft addon KeyStoneMaster, which shows where the best gear of your
+class and specialization drops, for Mythic+ and the current raid. The data comes from this pipeline:
 
 ```
 sources (Blizzard API, Warcraft Logs, ...)
    -> one normalized JSON dataset per source      build/datasets/*.json
    -> pipeline/build.py merges and validates
-   -> Lua data files in addon/KeyLootMaster/Data/ (one file per class)
+   -> Lua data files for the addon (one file per class), pushed to the KeyStoneMaster repository
 ```
 
 - **entries**: how often the best players of a class and specialization wear an item, per content and slot.
@@ -31,29 +29,21 @@ Season, raid and sample sizes are set in `pipeline/config.json`.
 
 ## The addon
 
-`/klm` (or the addon list button next to the minimap) opens the window:
+The addon itself lives in its own repository, [KeyStoneMaster](https://github.com/unrealshape/KeyStoneMaster)
+(what it can do, install, releases). This repository only produces its data.
 
-- the best items per slot for your specialization (or any other), Mythic+ or raid;
-- where each drops (dungeon and boss, raid boss, Catalyst, crafted, other) and a button into the Adventure Guide;
-- **filters**: by source, by secondary stats (Crit, Haste, Mastery, Versatility; an item must carry all that are ticked), and "only missing" (hides what you wear);
-- a line in every item tooltip with the share of top players who wear it; `/klm tooltip` switches it off.
+## How a run ends in a release
 
-## Status
-
-Pipeline, sources and the addon are in place and tested outside the game (the addon against a
-stub of the game API with the real data). It has not been run in the game yet.
-Tier pieces are named by the set they belong to; items of other classes' sets may show as
-"other source".
-
-## Install for testing
-
-Copy `addon/KeyLootMaster` into `World of Warcraft/_retail_/Interface/AddOns/`.
+`.github/workflows/daily.yml` (twice a week and on demand) reads the sources, merges them and writes the Lua
+files into a checkout of KeyStoneMaster (`master/KeyLootMaster/Data`). The run pushes them there with a deploy
+key (secret `ADDON_DEPLOY_KEY`). The push starts the release workflow of KeyStoneMaster: addon tests, a new
+version `vYYYY.MM.DD.<run>`, the zip as a release asset.
 
 ## Develop
 
 ```
 python -m unittest discover -s pipeline/tests -v
-python pipeline/build.py --datasets build/datasets --out addon/KeyLootMaster/Data
+python pipeline/build.py --datasets build/datasets --out ../KeyStoneMaster/KeyLootMaster/Data
 ```
 
 Credentials live in `~/.config/<service>/credentials.env` locally and in the

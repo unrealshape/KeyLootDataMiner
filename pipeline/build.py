@@ -1,6 +1,6 @@
 """Merges the sources' datasets and writes the addon's Lua data files.
 
-    python pipeline/build.py --datasets build/datasets --out addon/KeyLootMaster/Data
+    python pipeline/build.py --datasets build/datasets --out ../KeyStoneMaster/KeyLootMaster/Data
 
 `--datasets` holds one JSON file per source (shape: klm/model.py). Every
 dataset is validated first; one that is not well formed stops the build before
