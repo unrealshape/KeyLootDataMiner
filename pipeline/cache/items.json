@@ -1238,6 +1238,13 @@
 "set": null,
 "stats": "hv"
 },
+"240951": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Signet",
+"set": null,
+"stats": "hv"
+},
 "240952": {
 "day": "2026-10-13",
 "ilvl": 197,
@@ -1258,6 +1265,13 @@
 "name": "Knight-Commander's Palisade",
 "set": null,
 "stats": "cv"
+},
+"244560": {
+"day": "2026-10-13",
+"ilvl": 197,
+"name": "Thalassian Competitor's Leather Wristwraps",
+"set": null,
+"stats": "hm"
 },
 "244565": {
 "day": "2026-10-13",
@@ -2953,6 +2967,13 @@
 "set": null,
 "stats": "mv"
 },
+"270503": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Aspirant's Leather Belt",
+"set": null,
+"stats": "mv"
+},
 "270511": {
 "day": "2026-10-13",
 "ilvl": 259,
@@ -2987,6 +3008,13 @@
 "name": "Venomous Aspirant's Cloak",
 "set": null,
 "stats": "hv"
+},
+"270556": {
+"day": "2026-10-13",
+"ilvl": 259,
+"name": "Venomous Aspirant's Medallion",
+"set": "Gladiator's Distinction",
+"stats": ""
 },
 "270580": {
 "day": "2026-10-13",
