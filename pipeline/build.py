@@ -20,10 +20,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from klm import lua  # noqa: E402
-from klm.merge import merge  # noqa: E402
+from klm.merge import derive_mplus, merge  # noqa: E402
 from klm.model import DatasetError, validate  # noqa: E402
 
 DEFAULT_TOP = 8
+DEFAULT_MAX_RAID_ITEMS = 1
+CONFIG_PATH = Path(__file__).resolve().parent / "config.json"
 BONUS_PATH = Path(__file__).resolve().parent / "data" / "item_level_bonus.json"
 
 
@@ -40,7 +42,8 @@ def load_datasets(folder: Path) -> list:
     return datasets
 
 
-def render(merged: dict, top: int) -> dict:
+def render(merged: dict, top: int, group_size: int = 50, max_raid_items: int = DEFAULT_MAX_RAID_ITEMS) -> dict:
+    merged = derive_mplus(merged, group_size, max_raid_items)
     files = lua.class_files(merged, top)
     files["Drops.lua"] = lua.drops_file(merged)
     files["Items.lua"] = lua.items_file(merged, top)
@@ -76,7 +79,15 @@ def main(argv=None) -> int:
     parser.add_argument("--datasets", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--top", type=int, default=DEFAULT_TOP)
+    parser.add_argument("--max-raid-items", type=int, default=DEFAULT_MAX_RAID_ITEMS,
+                        help="a pure Mythic+ player wears at most this many raid items (default 1)")
+    parser.add_argument("--group-size", type=int, default=None,
+                        help="players in the Mythic+ group (default: mplus.top_per_spec of the config, 50)")
     args = parser.parse_args(argv)
+    group_size = args.group_size
+    if group_size is None:
+        config = json.loads(CONFIG_PATH.read_text(encoding="utf-8")) if CONFIG_PATH.is_file() else {}
+        group_size = config.get("mplus", {}).get("top_per_spec", 50)
     try:
         datasets = load_datasets(args.datasets)
     except (DatasetError, OSError, json.JSONDecodeError) as error:
@@ -85,7 +96,7 @@ def main(argv=None) -> int:
     if not datasets:
         print(f"build: no dataset in {args.datasets}", file=sys.stderr)
         return 1
-    changed = write_changed(args.out, render(merge(datasets), args.top))
+    changed = write_changed(args.out, render(merge(datasets), args.top, group_size, args.max_raid_items))
     print(f"build: {len(datasets)} dataset(s), {len(changed)} file(s) changed")
     for name in changed:
         print(f"  {name}")

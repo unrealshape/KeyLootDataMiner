@@ -2,10 +2,12 @@
 
 Data/<class>.lua   KeyLootMasterData["paladin"]["protection"]["mplus"]["head"] = { {item, share, sample}, ... }
 Data/Drops.lua     KeyLootMasterDrops[itemId] = { {kind, instance, instanceName, encounter, encounterName}, ... }
-Data/Stats.lua     KeyLootMasterStats[class][spec] = { n = players, c = {rating, percent}, h, m, v, leech, avoidance, speed }
+Data/Stats.lua     KeyLootMasterStats[class][spec] = { n = players, c = {rating, percent}, h, m, v, leech, avoidance, speed,
+                   mplus = { n, c, h, ... } }   (mplus: the means of the pure Mythic+ players, optional)
 Data/Meta.lua      KeyLootMasterMeta = { generated = "...", sources = { ... }, top = N }
 
-One file per class keeps each load small. The output is deterministic: the
+Content "mplus" is the group of pure Mythic+ players (few raid items), "mplus_all"
+the mixed top group, "raid" the raiders. One file per class keeps each load small. The output is deterministic: the
 same dataset gives the same bytes, so a day without new data changes nothing.
 """
 
@@ -113,6 +115,10 @@ def bonus_file(bonus: dict) -> str:
     return HEADER + "KeyLootMasterBonus = {\n" + rows + "}\n"
 
 
+def stat_cells(source: dict) -> str:
+    return ", ".join("%s = {%d, %.1f}" % (stat, round(source[stat][0]), source[stat][1]) for stat in STAT_KEYS)
+
+
 def stats_file(dataset: dict) -> str:
     """Data/Stats.lua: the average stats of the best players per class and specialization."""
     by_class: dict = {}
@@ -123,8 +129,10 @@ def stats_file(dataset: dict) -> str:
         lines.append("  " + key(cls) + " = {\n")
         for spec in sorted(by_class[cls]):
             record = by_class[cls][spec]
-            cells = ", ".join("%s = {%d, %.1f}" % (stat, round(record[stat][0]), record[stat][1]) for stat in STAT_KEYS)
-            lines.append("    " + key(spec) + " = { n = %d, %s },\n" % (record["n"], cells))
+            extra = ""
+            if record.get("mplus"):
+                extra = ", mplus = { n = %d, %s }" % (record["mplus"]["n"], stat_cells(record["mplus"]))
+            lines.append("    " + key(spec) + " = { n = %d, %s%s },\n" % (record["n"], stat_cells(record), extra))
         lines.append("  },\n")
     lines.append("}\n")
     return "".join(lines)

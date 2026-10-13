@@ -3,3 +3,6 @@ __pycache__/
 .cache/
 build/
 *.env
+
+# Cache of the players' character statistics (holds character names)
+pipeline/cache/stats.json

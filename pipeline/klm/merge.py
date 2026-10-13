@@ -9,7 +9,7 @@ sources arrive in.
 
 from __future__ import annotations
 
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 from .model import STAT_KEYS, validate
 
@@ -20,6 +20,7 @@ def merge(datasets: list) -> dict:
     items: dict = {}
     specs: dict = {}
     stats: dict = {}
+    players: list = []
     sources: list = []
     generated = ""
     for dataset in datasets:
@@ -43,6 +44,11 @@ def merge(datasets: list) -> dict:
             items.setdefault(item["item"], item)
         for spec_id, names in dataset.get("specs", {}).items():
             specs.setdefault(spec_id, names)
+        seen: dict = {}
+        for player in dataset.get("players", []):
+            where = (player["class"], player["spec"])
+            seen[where] = seen.get(where, 0) + 1
+            players.append({**player, "rank": player.get("rank", seen[where]), "items": sorted(set(player["items"]))})
         for record in dataset.get("stats", []):
             held = stats.setdefault((record["class"], record["spec"]),
                                     {"n": 0, "sum": {k: [0.0, 0.0] for k in STAT_KEYS}})
@@ -71,7 +77,8 @@ def merge(datasets: list) -> dict:
     return {"source": "merged", "generated": generated, "sources": sorted(set(sources)),
             "entries": merged_entries, "drops": merged_drops,
             "items": [items[i] for i in sorted(items)], "specs": dict(sorted(specs.items(), key=lambda kv: int(kv[0]))),
-            "stats": merged_stats}
+            "stats": merged_stats,
+            "players": sorted(players, key=lambda p: (p["class"], p["spec"], p["rank"], p["items"]))}
 
 
 MIN_PLAYERS = 2
@@ -92,3 +99,76 @@ def top_per_slot(entries: list, limit: int, min_players: int = MIN_PLAYERS) -> d
         kept = [r for index, r in enumerate(ordered) if index == 0 or round(r["share"] * r["sample"]) >= min_players]
         result[key] = kept[:limit]
     return result
+
+
+def raid_items(drops: list) -> set:
+    """Items that drop in a raid and in no dungeon: wearing one means the player raids."""
+    kinds: dict = defaultdict(set)
+    for drop in drops:
+        kinds[drop["item"]].add(drop["kind"])
+    return {item for item, found in kinds.items() if "raid" in found and "dungeon" not in found}
+
+
+def mplus_groups(merged: dict, group_size: int, max_raid_items: int) -> dict:
+    """(class, spec) -> {"pool": all players, "eligible": those with at most `max_raid_items`
+    raid items, "group": the first `group_size` of them by rank}. Specializations without players
+    do not appear."""
+    raids = raid_items(merged.get("drops", []))
+    pools: dict = defaultdict(list)
+    for player in merged.get("players", []):
+        pools[(player["class"], player["spec"])].append(player)
+    result = {}
+    for key, pool in pools.items():
+        pool = sorted(pool, key=lambda p: p["rank"])
+        eligible = [p for p in pool if len(raids.intersection(p["items"])) <= max_raid_items]
+        result[key] = {"pool": pool, "eligible": eligible, "group": eligible[:group_size]}
+    return result
+
+
+def _group_entries(key: tuple, group: list) -> list:
+    counts: dict = defaultdict(Counter)
+    for player in group:
+        for slot, ids in player.get("gear", {}).items():
+            for item in set(ids):
+                counts[slot][item] += 1
+    return [{"class": key[0], "spec": key[1], "content": "mplus", "slot": slot, "item": item,
+             "share": round(count / len(group), 4), "sample": len(group), "sources": ["players"]}
+            for slot in sorted(counts) for item, count in sorted(counts[slot].items())]
+
+
+def _group_stats(group: list):
+    rows = [p["stats"] for p in group if "stats" in p]
+    if not rows:
+        return None
+    record = {"n": len(rows)}
+    for stat in STAT_KEYS:
+        record[stat] = [int(sum(r[stat][0] for r in rows) / len(rows) + 0.5),
+                        round(sum(r[stat][1] for r in rows) / len(rows), 1)]
+    return record
+
+
+def derive_mplus(merged: dict, group_size: int, max_raid_items: int) -> dict:
+    """The merged dataset with the Mythic+ figures split in two groups.
+
+    For every specialization that has players and a non-empty group of "pure"
+    Mythic+ players the entries of content "mplus" become "mplus_all" (the mixed
+    top group, as before) and the group's entries take the name "mplus"; the stats
+    record gets a `mplus` sub-record with the group's means. Without players (an
+    old dataset) or without any eligible player the specialization stays as it was."""
+    groups = {key: g["group"] for key, g in mplus_groups(merged, group_size, max_raid_items).items()
+              if g["group"] and any(p.get("gear") for p in g["group"])}
+    if not groups:
+        return merged
+    entries = []
+    for entry in merged["entries"]:
+        if entry["content"] == "mplus" and (entry["class"], entry["spec"]) in groups:
+            entry = {**entry, "content": "mplus_all"}
+        entries.append(entry)
+    for key in sorted(groups):
+        entries.extend(_group_entries(key, groups[key]))
+    stats = []
+    for record in merged.get("stats", []):
+        group = groups.get((record["class"], record["spec"]))
+        extra = _group_stats(group) if group else None
+        stats.append({**record, "mplus": extra} if extra else record)
+    return {**merged, "entries": entries, "stats": stats}

@@ -10,6 +10,7 @@ A source hands over one dataset (a plain dict, stored as JSON):
       "items":   [ {item, stats, ilvl, tier}, ... ],           (optional)
       "specs":   { "66": ["paladin", "protection"], ... },     (optional)
       "stats":   [ {class, spec, n, c: [rating, percent], h, m, v, leech, avoidance, speed}, ... ]  (optional)
+      "players": [ {class, spec, rank, items: [ids], gear: {slot: [ids]}, stats: {c: [..], ...}}, ... ]  (optional)
     }
 
 `entries` say how often the best players of a class and specialization wear
@@ -17,7 +18,10 @@ an item (`share`, 0-1, out of `sample` players) in one content; `drops` say
 where an item comes from (a drop without an instance, such as the Catalyst or
 a craft, has instance 0); `items` carry what filters need (secondary stats as
 letters of "chmv", item level, tier piece); `specs` map the game's specialization
-ids to our class and specialization names. A source may deliver any of them.
+ids to our class and specialization names; `players` are the individual Mythic+
+players of the pool in ranking order (`rank` 1 is the best; `gear` and `stats`
+are optional): the merge step uses them to tell the players who raid from the
+players who only run Mythic+. A source may deliver any of them.
 """
 
 from __future__ import annotations
@@ -84,6 +88,23 @@ def validate(dataset: dict) -> dict:
             if not (isinstance(pair, list) and len(pair) == 2
                     and all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in pair)):
                 raise DatasetError(f"{where}: {stat} must be [rating, percent]")
+    for index, player in enumerate(dataset.get("players", [])):
+        where = f"players[{index}]"
+        _check_keys(player, ("class", "spec", "items"), where)
+        if not (isinstance(player["items"], list)
+                and all(isinstance(i, int) and not isinstance(i, bool) and i > 0 for i in player["items"])):
+            raise DatasetError(f"{where}: items must be a list of positive integers")
+        if "rank" in player and (not isinstance(player["rank"], int) or player["rank"] <= 0):
+            raise DatasetError(f"{where}: rank must be a positive integer")
+        for slot, ids in player.get("gear", {}).items():
+            if not (isinstance(ids, list) and all(isinstance(i, int) and i > 0 for i in ids)):
+                raise DatasetError(f"{where}: gear[{slot!r}] must be a list of item ids")
+        if "stats" in player:
+            for stat in STAT_KEYS:
+                pair = player["stats"].get(stat)
+                if not (isinstance(pair, list) and len(pair) == 2
+                        and all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in pair)):
+                    raise DatasetError(f"{where}: stats.{stat} must be [rating, percent]")
     for spec_id, names in dataset.get("specs", {}).items():
         if not spec_id.isdigit() or not (isinstance(names, list) and len(names) == 2
                                          and all(isinstance(n, str) and n for n in names)):

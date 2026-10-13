@@ -147,9 +147,25 @@ def entries_for(spec_key, players):
             for slot in sorted(counts) for item, count in sorted(counts[slot].items())]
 
 
+def player_record(spec_key, rank, worn, stats=None):
+    """One `players` record (klm/model.py) of a character read."""
+    record = {"class": spec_key[0], "spec": spec_key[1], "rank": rank,
+              "items": sorted({i for ids in worn.values() for i in ids}),
+              "gear": {slot: sorted(ids) for slot, ids in sorted(worn.items())}}
+    if stats:
+        record["stats"] = stats
+    return record
+
+
 def fetch_entries(client, top_per_spec=50, periods=2, realm_limit=None, progress=log, specs_out=None,
-                  stats_out=None, stats_cache=None):
+                  stats_out=None, stats_cache=None, pool=None, players_out=None, only_specs=None):
     """The entries; `specs_out`, when given, receives {"66": ["paladin", "protection"], ...}.
+
+    The entries and `stats_out` describe the best `top_per_spec` characters of each
+    specialization (the mixed group). `pool` (default: `top_per_spec`) is how many of
+    the leaderboard are read; `players_out`, when given, receives a record per character
+    read, in ranking order, so the build can pick the pure Mythic+ players among them.
+    `only_specs` is a collection of "class/spec" names that limits the run.
 
     `stats_out`, when given, receives the `stats` records of the same characters
     (see blizzard_stats); `stats_cache` is the cache dict they are read through."""
@@ -160,26 +176,38 @@ def fetch_entries(client, top_per_spec=50, periods=2, realm_limit=None, progress
     dungeons = season_dungeons(client, realms[0])
     progress(f"season {season}, periods {period_ids}, {len(realms)} realm groups, {len(dungeons)} dungeons")
     characters = scan_leaderboards(client, realms, dungeons, period_ids, progress)
-    chosen = pick_best(characters, top_per_spec)
+    pool = max(pool or top_per_spec, top_per_spec)
+    chosen = pick_best(characters, pool)
     names = spec_names(client, chosen)
+    if only_specs:
+        wanted = {w.lower() for w in only_specs}
+        names = {i: k for i, k in names.items() if "/".join(k) in wanted}
+        chosen = {i: rows for i, rows in chosen.items() if i in names}
     if specs_out is not None:
         specs_out.update({str(spec_id): list(key) for spec_id, key in names.items()})
     entries = []
     for spec_id in sorted(chosen):
         players, player_stats = [], []
-        for character in chosen[spec_id]:
+        for rank, character in enumerate(chosen[spec_id], 1):
+            in_top = rank <= top_per_spec
+            if not in_top and players_out is None:
+                break
             worn = read_equipment(client, character)
-            if worn:
-                players.append(worn)
+            stats = None
             if stats_out is not None:
                 stats = blizzard_stats.cached_statistics(client, character,
                                                          stats_cache if stats_cache is not None else {})
-                if stats:
-                    player_stats.append(stats)
+            if worn and in_top:
+                players.append(worn)
+            if stats and in_top:
+                player_stats.append(stats)
+            if worn and players_out is not None:
+                players_out.append(player_record(names[spec_id], rank, worn, stats))
         if stats_out is not None:
             record = blizzard_stats.stats_for(names[spec_id], player_stats)
             if record:
                 stats_out.append(record)
-        progress(f"{names[spec_id][0]} {names[spec_id][1]}: {len(players)}/{len(chosen[spec_id])} characters read")
+        progress(f"{names[spec_id][0]} {names[spec_id][1]}: {len(players)}/{min(len(chosen[spec_id]), top_per_spec)} characters read"
+            + (f", pool {len(chosen[spec_id])}" if pool > top_per_spec else ""))
         entries.extend(entries_for(names[spec_id], players))
     return entries
