@@ -17,6 +17,10 @@ local SOURCE_CHOICES = {
     { value = "crafted", label = "Crafted" },
     { value = "other", label = "Other source" },
 }
+local GROUP_CHOICES = {
+    { value = "dungeon", label = "Dungeon players" },
+    { value = "all", label = "All top players" },
+}
 local STAT_NAMES = { c = "Crit", h = "Haste", m = "Mastery", v = "Versatility" }
 local SLOT_NAMES = {
     head = "Head", neck = "Neck", shoulder = "Shoulders", back = "Back", chest = "Chest",
@@ -264,7 +268,7 @@ end
 --- Fills the stats page for a specialization and shows or hides it, and hides the list and its detail
 --- column while the page is up.
 local function refreshStats(class, spec)
-    local data = class and ns.StatsOf(class, spec)
+    local data = class and ns.StatsOf(class, spec, ns.Settings().group)
     local parts = { stat.mainTitle, stat.mainRank, stat.minorTitle, stat.minorRank }
     for _, group in ipairs({ stat.main, stat.minor }) do
         for _, row in ipairs(group) do
@@ -324,6 +328,23 @@ local function buildRow(parent, index)
     row.share:SetWidth(SHARE_WIDTH)
     row.share:SetJustifyH("RIGHT")
     addBar(row, -8, -8)
+    -- the next best item of the slot, small, so the alternative is seen without a click
+    row.alt = CreateFrame("Button", nil, row)
+    row.alt:SetSize(22, 22)
+    row.alt:SetPoint("RIGHT", row, "RIGHT", -(SHARE_WIDTH + 20), 0)
+    row.alt.icon = row.alt:CreateTexture(nil, "ARTWORK")
+    row.alt.icon:SetAllPoints()
+    row.alt:SetScript("OnEnter", function(self) showItemTooltip(self, self.itemId) end)
+    row.alt:SetScript("OnLeave", hideTooltip)
+    row.alt:SetScript("OnClick", function(self)
+        if self.itemId and IsModifiedClick and IsModifiedClick("CHATLINK") then
+            local _, link = getItemInfo(self.itemId)
+            if link and HandleModifiedItemClick then HandleModifiedItemClick(link) return end
+        end
+        selectedSlot = row.slotKey
+        UI.Refresh()
+    end)
+    row.alt:Hide()
     row:SetScript("OnEnter", function(self)
         self.highlight:Show()
         showItemTooltip(self, self.itemId)
@@ -466,6 +487,10 @@ local function build()
 
     widgets.farmable = makeCheck(frame, L["Only farmable here"], function(on) ns.Settings().farmable = on; UI.Refresh() end)
     widgets.farmable:SetPoint("LEFT", widgets.missing, "RIGHT", 96, 0)
+    widgets.group, widgets.setGroupText = makeChoice(frame, 118, GROUP_CHOICES,
+        function() return ns.Settings().group end,
+        function(value) ns.Settings().group = value; UI.Refresh() end)
+    widgets.group:SetPoint("LEFT", widgets.farmable, "RIGHT", 96, 0)
 
     for index = 1, #ns.SLOT_ORDER do rows[index] = buildRow(frame, index) end
 
@@ -499,6 +524,14 @@ local function build()
 end
 
 -- ------------------------------------------------------------------ refresh
+
+--- "42 of 50 top players (84%)": how many of the players of the shown group wear the item.
+local function holdTextOf(entry)
+    local db = ns.Settings()
+    local format = (db.content == "mplus" and db.group == "dungeon") and L["%d of %d dungeon players (%s)"]
+        or L["%d of %d top players (%s)"]
+    return string.format(format, math.floor(entry.share * entry.sample + 0.5), entry.sample, ns.Percent(entry.share))
+end
 
 --- "292 Champion  +13" for an item that drops at a key level; the difference to what is worn.
 local function levelText(id, slotKey)
@@ -548,7 +581,7 @@ local function fillItem(target, entry, worn, slotKey)
     target.barFill:SetColorTexture(red, green, blue, 1)
     target.barFill:SetWidth(math.max(2, BAR_WIDTH * entry.share))
     target.barBack:Show(); target.barFill:Show()
-    target.holdText = string.format(L["%d of %d top players (%s)"], count, entry.sample, ns.Percent(entry.share))
+    target.holdText = holdTextOf(entry)
 end
 
 function UI.Refresh()
@@ -558,8 +591,9 @@ function UI.Refresh()
     local db = ns.Settings()
     local worn = ns.EquippedItems()
     shownKey = class and (class .. "-" .. spec) or nil
-    bisSet = ns.BisItems(class or "", spec or "", db.content)
-    local data = ns.Rows(class or "", spec or "", db.content, ns.Filters(), db.missing and worn or nil)
+    local contentKey = ns.ContentKey(class or "", spec or "", db.content, db.group)
+    bisSet = ns.BisItems(class or "", spec or "", contentKey)
+    local data = ns.Rows(class or "", spec or "", contentKey, ns.Filters(), db.missing and worn or nil)
 
     widgets.setSpecText(class and (ns.Title(class) .. " - " .. ns.Title(spec) .. (db.spec and "" or "  (you)"))
         or L["No data for this specialization."])
@@ -578,6 +612,11 @@ function UI.Refresh()
     for letter, check in pairs(widgets.stats) do check:SetChecked(db.stats:find(letter, 1, true) ~= nil) end
     widgets.missing:SetChecked(db.missing)
     widgets.farmable:SetChecked(db.farmable)
+    local groups = class and db.content == "mplus" and ns.HasGroups(class, spec)
+    widgets.group:SetShown(groups and true or false)
+    for _, choice in ipairs(GROUP_CHOICES) do
+        if choice.value == db.group then widgets.setGroupText(L[choice.label]) end
+    end
     widgets.stamp:SetText(KeyLootMasterMeta and (L["Data of"] .. " " .. KeyLootMasterMeta.generated:sub(1, 10)) or "")
 
     local any, firstWithItems = false, nil
@@ -591,9 +630,19 @@ function UI.Refresh()
             firstWithItems = firstWithItems or entry.slot
             row.icon:Show(); row.where:Show(); row.share:Show()
             fillItem(row, top, worn, entry.slot)
+            local second = entry.items[2]
+            if second then
+                row.alt.itemId = second.item
+                row.alt.icon:SetTexture(getItemIcon(second.item))
+                row.alt.holdText = holdTextOf(second)
+                row.alt:Show()
+            else
+                row.alt.itemId = nil
+                row.alt:Hide()
+            end
         else
             row.itemId = nil
-            row.icon:Hide(); row.where:Hide(); row.share:Hide(); row.barBack:Hide(); row.barFill:Hide()
+            row.icon:Hide(); row.where:Hide(); row.share:Hide(); row.barBack:Hide(); row.barFill:Hide(); row.alt.itemId = nil; row.alt:Hide()
             row.name:SetTextColor(0.5, 0.5, 0.5)
             row.name:SetText("-")
         end

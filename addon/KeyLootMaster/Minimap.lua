@@ -55,18 +55,37 @@ local function create()
     button:SetScript("OnLeave", function() GameTooltip:Hide() end)
 end
 
---- Shows or hides the button as the saved setting says, creating it on first use.
+local function say(text) print("|cffd9a24fKeyLootMaster|r " .. text) end
+
+--- Shows or hides the button as the saved setting says, creating it on first use. A failure is
+--- said in the chat instead of leaving the minimap empty without a word.
 function ns.RefreshMinimapButton()
     local db = ns.Settings()
     if db.minimapHide then
         if button then button:Hide() end
         return
     end
-    if not button then create() end
+    if not button then
+        local ok, failure = pcall(create)
+        if not ok then
+            button = nil
+            say("minimap button could not be created: " .. tostring(failure))
+            return
+        end
+    end
     place(db.minimapAngle)
     button:Show()
 end
 
+--- What /klm minimap says: whether the button exists, where it sits and how big its parent is.
+function ns.DescribeMinimapButton()
+    if not button then return "no button" end
+    local point, _, _, x, y = button:GetPoint()
+    return string.format("%s, %s %.0f/%.0f, minimap %.0fx%.0f, strata %s", button:IsShown() and "shown" or "hidden",
+        tostring(point), tonumber(x) or 0, tonumber(y) or 0, tonumber(Minimap:GetWidth()) or 0,
+        tonumber(Minimap:GetHeight()) or 0, tostring(button:GetFrameStrata()))
+end
+
 local events = CreateFrame("Frame")
 events:RegisterEvent("PLAYER_LOGIN")
-events:SetScript("OnEvent", ns.RefreshMinimapButton)
+events:SetScript("OnEvent", function() ns.RefreshMinimapButton() end)

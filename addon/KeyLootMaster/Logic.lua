@@ -134,13 +134,12 @@ function ns.KeyTable(item)
     return ns.KindsOf(item).dungeon
 end
 
---- The items that count as best in slot: the most worn one per slot, the two most worn for rings
---- and trinkets (set of item ids). Judged on the whole list, not on what the filters leave.
+--- The items that count as best in slot: the most worn one of each slot (set of item ids). Judged on the
+--- whole list, not on what the filters leave.
 function ns.BisItems(class, spec, content)
     local set = {}
     for _, row in ipairs(ns.Rows(class, spec, content, nil, nil)) do
-        local count = (row.slot == "finger" or row.slot == "trinket") and 2 or 1
-        for index = 1, math.min(count, #row.items) do set[row.items[index].item] = true end
+        if row.items[1] then set[row.items[1].item] = true end
     end
     return set
 end
@@ -149,12 +148,32 @@ end
 ns.MAIN_STATS = { { "c", "Crit" }, { "h", "Haste" }, { "m", "Mastery" }, { "v", "Versatility" } }
 ns.MINOR_STATS = { { "leech", "Leech" }, { "avoidance", "Avoidance" }, { "speed", "Speed" } }
 
+--- The key of the item lists to read for a content and a player group: "mplus" lists the players who
+--- do dungeons ("dungeon") and "mplus_all" every top player ("all"), when the data holds that second list.
+function ns.ContentKey(class, spec, content, group)
+    if content == "mplus" and group == "all" then
+        local data = KeyLootMasterData
+        local held = data and data[class] and data[class][spec]
+        if held and held.mplus_all then return "mplus_all" end
+    end
+    return content
+end
+
+--- Whether the data holds both player groups for a specialization (then the window offers the choice).
+function ns.HasGroups(class, spec)
+    local data = KeyLootMasterData
+    local held = data and data[class] and data[class][spec]
+    return held ~= nil and held.mplus_all ~= nil
+end
+
 --- The average stats of the top players of a specialization, or nil:
 --- { n = players, c = {rating, percent}, h = ..., m = ..., v = ..., leech = ..., avoidance = ..., speed = ... }
 --- (KeyLootMasterStats[class][spec], Data/Stats.lua).
-function ns.StatsOf(class, spec)
+function ns.StatsOf(class, spec, group)
     local all = KeyLootMasterStats
-    return all and all[class] and all[class][spec] or nil
+    local entry = all and all[class] and all[class][spec]
+    if entry and group == "dungeon" and entry.mplus then return entry.mplus end
+    return entry
 end
 
 --- The stats of a group ordered from the highest rating down: { { key, name, rating, percent }, ... }.

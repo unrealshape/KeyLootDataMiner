@@ -13,6 +13,7 @@ local DEFAULTS = {
     spec = nil,                 -- a specialization id, or nil for the player's own
     tooltip = true,             -- the KeyLootMaster line in item tooltips
     farmable = true,            -- only items that drop in the shown content (dungeon for Mythic+, raid for Raid)
+    group = "dungeon",         -- the players the Mythic+ lists come from: "dungeon" (do dungeons) or "all" (every top player)
     keyLevel = 0,               -- the key level the item levels show (one of ns.KEY_LEVELS)
     vault = false,              -- show the Great Vault reward of that key level instead of the end of the dungeon
     minimapHide = false,        -- hide the minimap button
@@ -31,11 +32,12 @@ function ns.Settings()
     for _, level in ipairs(ns.KEY_LEVELS) do if level == db.keyLevel then known = true end end
     if not known then db.keyLevel = 0 end
     if type(db.marks) ~= "table" then db.marks = {} end
+    if db.group ~= "dungeon" and db.group ~= "all" then db.group = "dungeon" end
     return db
 end
 
 -- The settings that belong to one specialization (everything that filters the list).
-local PROFILE_KEYS = { "content", "source", "stats", "missing", "farmable", "keyLevel", "vault" }
+local PROFILE_KEYS = { "content", "source", "stats", "missing", "farmable", "keyLevel", "vault", "group" }
 
 --- Makes the filters those of a specialization ("paladin-holy"): the ones in use are put away for the
 --- specialization shown before, and the saved ones of this one are brought back. A specialization
@@ -135,7 +137,7 @@ local function slash(message)
         local db = ns.Settings()
         db.minimapHide = not db.minimapHide
         if ns.RefreshMinimapButton then ns.RefreshMinimapButton() end
-        print("|cffd9a24fKeyLootMaster|r minimap button: " .. (db.minimapHide and "hidden" or "shown"))
+        print("|cffd9a24fKeyLootMaster|r minimap button: " .. (db.minimapHide and "hidden" or ("shown - " .. (ns.DescribeMinimapButton and ns.DescribeMinimapButton() or "?"))))
         return
     end
     if (message or ""):lower():match("^%s*tooltip%s*$") then

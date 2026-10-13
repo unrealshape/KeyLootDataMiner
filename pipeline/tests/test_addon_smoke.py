@@ -264,6 +264,30 @@ class SmokeTest(unittest.TestCase):
         button.scripts.OnClick(button)
         self.assertTrue(len(self.rows()) > 5)
 
+    def test_the_player_group_chooses_between_the_two_mythic_plus_lists(self):
+        ns = self.boot()
+        self.assertFalse(ns.HasGroups("paladin", "protection"))
+        self.assertEqual(ns.ContentKey("paladin", "protection", "mplus", "all"), "mplus")   # no second list yet
+        self.lua.execute('KeyLootMasterData.paladin.protection.mplus_all = KeyLootMasterData.paladin.protection.raid')
+        self.assertTrue(ns.HasGroups("paladin", "protection"))
+        self.assertEqual(ns.ContentKey("paladin", "protection", "mplus", "all"), "mplus_all")
+        self.assertEqual(ns.ContentKey("paladin", "protection", "mplus", "dungeon"), "mplus")
+        self.assertEqual(ns.ContentKey("paladin", "protection", "raid", "all"), "raid")
+
+    def test_only_one_item_per_slot_is_best_in_slot(self):
+        ns = self.boot()
+        bis = ns.BisItems("paladin", "protection", "mplus")
+        rows = ns.Rows("paladin", "protection", "mplus", None, None)
+        for row in rows.values():
+            ranked = [e["item"] for e in row["items"].values()]
+            self.assertEqual(sum(1 for item in ranked if bis[item]), 1 if ranked else 0)
+
+    def test_the_second_best_item_is_shown_small_in_each_row(self):
+        self.boot()
+        self.open_window()
+        alts = [w for w in self.g.find_widgets("Button").values() if w.itemId is not None and w.name is None and w.shown]
+        self.assertTrue(len(alts) > 3)
+
     def test_slash_toggles_and_tooltip_switch(self):
         self.boot()
         self.open_window()
