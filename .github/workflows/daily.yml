@@ -17,11 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # The addon lives in its own repository; the DataMiner writes its data files there (deploy key with
-      # write access, stored as the secret ADDON_DEPLOY_KEY). That push makes KeyStoneMaster release a version.
+      # write access, stored as the secret ADDON_DEPLOY_KEY). That push makes KeyLootMaster release a version.
       - name: Check out the addon repository
         uses: actions/checkout@v4
         with:
-          repository: unrealshape/KeyStoneMaster
+          repository: unrealshape/KeyLootMaster
           ssh-key: ${{ secrets.ADDON_DEPLOY_KEY }}
           path: master
       - name: Restore the character caches
@@ -81,8 +81,8 @@ jobs:
             git commit -m "Data: daily update"
             git push
           fi
-      # The push to KeyStoneMaster starts its release workflow: tests, a new version, the zip.
-      - name: Push the data to KeyStoneMaster
+      # The push to KeyLootMaster starts its release workflow: tests, a new version, the zip.
+      - name: Push the data to KeyLootMaster
         working-directory: master
         run: |
           git config user.name "unrealshape"
@@ -91,6 +91,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No new data."
           else
-            git commit -m "Data: update from KeyStoneDataMiner"
+            git commit -m "Data: update from KeyLootDataMiner"
             git push
           fi
