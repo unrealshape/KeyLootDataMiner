@@ -26,6 +26,125 @@ ns.INVENTORY_SLOTS = {
 ns.SOURCE_ORDER = { "dungeon", "raid", "catalyst", "crafted", "vendor", "other" }
 ns.STATS = { { "c", "crit" }, { "h", "haste" }, { "m", "mastery" }, { "v", "versatility" } }
 
+-- The upgrade tracks of the season: the item level of each of the six ranks.
+ns.UPGRADE_TRACKS = {
+    veteran = { 279, 282, 285, 289, 292, 295 },
+    champion = { 292, 295, 298, 302, 305, 308 },
+    hero = { 305, 308, 311, 315, 318, 321 },
+    myth = { 318, 321, 324, 328, 331, 334 },
+}
+ns.TRACK_RANKS = 6
+
+-- What a Mythic+ key level rewards: the track and rank of the item at the end of the dungeon and of
+-- the Great Vault slot. Every level above the last one rewards the same as the last one.
+ns.KEY_LEVELS = { 0, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
+ns.KEY_REWARDS = {
+    run = {
+        [0] = { "champion", 1 }, [2] = { "champion", 2 }, [3] = { "champion", 2 }, [4] = { "champion", 3 },
+        [5] = { "champion", 4 }, [6] = { "hero", 1 }, [7] = { "hero", 1 }, [8] = { "hero", 2 },
+        [9] = { "hero", 2 }, [10] = { "hero", 3 },
+    },
+    vault = {
+        [2] = { "hero", 1 }, [3] = { "hero", 1 }, [4] = { "hero", 2 }, [5] = { "hero", 2 },
+        [6] = { "hero", 3 }, [7] = { "hero", 4 }, [8] = { "hero", 4 }, [9] = { "hero", 4 },
+        [10] = { "myth", 1 },
+    },
+}
+
+--- "M0", "+4", "+10+" for the key levels of ns.KEY_LEVELS.
+function ns.KeyLabel(level)
+    if level == 0 then return "M0" end
+    if level >= ns.KEY_LEVELS[#ns.KEY_LEVELS] then return "+" .. level .. "+" end
+    return "+" .. level
+end
+
+--- The item level, track and rank a key level rewards; nil when it rewards nothing (a vault at M0).
+function ns.KeyReward(level, vault)
+    local entry = ns.KEY_REWARDS[vault and "vault" or "run"][math.min(level, ns.KEY_LEVELS[#ns.KEY_LEVELS])]
+    if not entry then return nil end
+    return ns.UPGRADE_TRACKS[entry[1]][entry[2]], entry[1], entry[2]
+end
+
+--- The item level, track and rank a Mythic+ dungeon item drops at for a key level. nil for everything
+--- else: the raid list and items that do not drop in a dungeon.
+function ns.DungeonLevel(item, content, level, vault)
+    if content ~= "mplus" or not ns.KindsOf(item).dungeon then return nil end
+    return ns.KeyReward(level, vault)
+end
+
+--- The key levels that reward the same, grouped: { { label = "+2-+3", ilvl, track, rank }, ... }.
+function ns.KeyGroups(vault)
+    local groups = {}
+    for _, level in ipairs(ns.KEY_LEVELS) do
+        local ilvl, track, rank = ns.KeyReward(level, vault)
+        if ilvl then
+            local last = groups[#groups]
+            if last and last.ilvl == ilvl and last.track == track and last.rank == rank then
+                last.to = level
+            else
+                groups[#groups + 1] = { from = level, to = level, ilvl = ilvl, track = track, rank = rank }
+            end
+        end
+    end
+    for _, group in ipairs(groups) do
+        group.label = ns.KeyLabel(group.from)
+        if group.to ~= group.from then group.label = group.label .. "-" .. ns.KeyLabel(group.to) end
+    end
+    return groups
+end
+
+-- Marks a player puts on items, in the order a right-click cycles through them.
+ns.MARKS = { "must", "nice" }
+
+--- The mark after `current` (nil = none): none -> must -> nice -> none.
+function ns.NextMark(current)
+    if not current then return ns.MARKS[1] end
+    for index, mark in ipairs(ns.MARKS) do
+        if mark == current then return ns.MARKS[index + 1] end
+    end
+    return nil
+end
+
+--- The bonus list ID that makes an item show the item level `target` (from the game's own level-step
+--- table, Data/Bonus.lua), or nil when the item's own level or that step is unknown.
+function ns.LevelBonus(item, target)
+    local _, _, base = ns.FactsOf(item)
+    local steps = KeyLootMasterBonus
+    if not steps or not base or base <= 0 then return nil end
+    return steps[target - base]
+end
+
+--- The item link of an item at an item level, for the tooltip; nil when no bonus is known.
+function ns.LinkAtLevel(item, target)
+    local bonus = ns.LevelBonus(item, target)
+    if not bonus then return nil end
+    return "item:" .. item .. string.rep(":", 11) .. ":1:" .. bonus
+end
+
+--- The tier below best in slot: how strongly the top players favour an item.
+ns.STRONG_SHARE, ns.OPTION_SHARE = 0.4, 0.15
+function ns.TierOf(share)
+    if share >= ns.STRONG_SHARE then return "strong" end
+    if share >= ns.OPTION_SHARE then return "option" end
+    return nil
+end
+
+--- True for an item that drops in a Mythic+ dungeon (its tooltip lists what each key level rewards).
+function ns.KeyTable(item)
+    return ns.KindsOf(item).dungeon
+end
+
+--- The items that count as best in slot: the most worn one per slot, the two most worn for rings
+--- and trinkets (set of item ids). Judged on the whole list, not on what the filters leave.
+function ns.BisItems(class, spec, content)
+    local set = {}
+    for _, row in ipairs(ns.Rows(class, spec, content, nil, nil)) do
+        local count = (row.slot == "finger" or row.slot == "trinket") and 2 or 1
+        for index = 1, math.min(count, #row.items) do set[row.items[index].item] = true end
+    end
+    return set
+end
+
 local function tables()
     return KeyLootMasterData or {}, KeyLootMasterDrops or {}, KeyLootMasterItems or {}, KeyLootMasterSpecs or {}
 end
@@ -109,6 +228,7 @@ function ns.Passes(item, filters, equipped)
             if not have:find(letter, 1, true) then return false end
         end
     end
+    if filters.farmable and not ns.KindsOf(item)[filters.farmable] then return false end
     if filters.missing and equipped and equipped[item] then return false end
     return true
 end

@@ -25,6 +25,14 @@ local SLOT_NAMES = {
 }
 
 local frame, rows, alternatives, widgets = nil, {}, {}, {}
+local shownKey, bisSet = nil, {}
+local TRACK_NAMES = { veteran = "Veteran", champion = "Champion", hero = "Hero", myth = "Myth" }
+local TIER_TEXT = { strong = "Good", option = "Decent" }
+local TIER_COLOR = { strong = "ffa335ee", option = "ff0070dd" }
+local MARK_STYLE = {
+    must = { text = "Important", color = "ffff8c1a" },
+    nice = { text = "Interesting", color = "ff52b7a8" },
+}
 local selectedSlot = nil
 local pending = false
 
@@ -62,7 +70,21 @@ end
 local function showItemTooltip(owner, id)
     if not (GameTooltip and id) then return end
     GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
-    GameTooltip:SetItemByID(id)
+    local db = ns.Settings()
+    local lo = ns.DungeonLevel(id, db.content, db.keyLevel, db.vault)
+    local link = lo and ns.LinkAtLevel(id, lo)
+    if link then GameTooltip:SetHyperlink(link) else GameTooltip:SetItemByID(id) end
+    if ns.KeyTable(id) then
+        for _, vault in ipairs({ false, true }) do
+            GameTooltip:AddLine(" ")
+            GameTooltip:AddLine(vault and L["Great Vault"] or L["End of the dungeon"], 1, 0.82, 0)
+            for _, group in ipairs(ns.KeyGroups(vault)) do
+                GameTooltip:AddDoubleLine(group.label, group.ilvl .. " " .. L[TRACK_NAMES[group.track]] .. " " .. group.rank
+                    .. "/" .. ns.TRACK_RANKS, 0.8, 0.8, 0.8, 0.64, 0.21, 0.93)
+            end
+        end
+    end
+    GameTooltip:AddLine(L["Right-click marks the item."], 0.6, 0.6, 0.6)
     GameTooltip:Show()
 end
 
@@ -190,7 +212,12 @@ local function buildRow(parent, index)
         showItemTooltip(self, self.itemId)
     end)
     row:SetScript("OnLeave", function(self) self.highlight:Hide(); hideTooltip() end)
-    row:SetScript("OnClick", function(self)
+    row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    row:SetScript("OnClick", function(self, button)
+        if button == "RightButton" then
+            if self.itemId and shownKey then ns.CycleMark(shownKey, self.itemId); UI.Refresh() end
+            return
+        end
         if self.itemId and IsModifiedClick and IsModifiedClick("CHATLINK") then
             local _, link = getItemInfo(self.itemId)
             if link and HandleModifiedItemClick then HandleModifiedItemClick(link) return end
@@ -222,7 +249,12 @@ local function buildAlternative(parent, index)
     row.share:SetJustifyH("RIGHT")
     row:SetScript("OnEnter", function(self) showItemTooltip(self, self.itemId) end)
     row:SetScript("OnLeave", hideTooltip)
-    row:SetScript("OnClick", function(self)
+    row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    row:SetScript("OnClick", function(self, button)
+        if button == "RightButton" then
+            if self.itemId and shownKey then ns.CycleMark(shownKey, self.itemId); UI.Refresh() end
+            return
+        end
         if self.itemId and IsModifiedClick and IsModifiedClick("CHATLINK") then
             local _, link = getItemInfo(self.itemId)
             if link and HandleModifiedItemClick then HandleModifiedItemClick(link) end
@@ -276,6 +308,15 @@ local function build()
     widgets.raid:SetText(L["Raid"])
     widgets.raid:SetScript("OnClick", function() ns.Settings().content = "raid"; UI.Refresh() end)
 
+    local keyChoices = {}
+    for _, level in ipairs(ns.KEY_LEVELS) do keyChoices[#keyChoices + 1] = { value = level, label = ns.KeyLabel(level) } end
+    widgets.key, widgets.setKeyText = makeChoice(frame, 110, keyChoices,
+        function() return ns.Settings().keyLevel end,
+        function(value) ns.Settings().keyLevel = value; UI.Refresh() end)
+    widgets.key:SetPoint("LEFT", widgets.raid, "RIGHT", 16, 0)
+    widgets.vault = makeCheck(frame, L["Great Vault"], function(on) ns.Settings().vault = on; UI.Refresh() end)
+    widgets.vault:SetPoint("LEFT", widgets.key, "RIGHT", 6, 0)
+
     widgets.stamp = makeText(frame, "GameFontDisableSmall")
     widgets.stamp:SetPoint("TOPRIGHT", -16, -40)
 
@@ -305,6 +346,9 @@ local function build()
     widgets.missing = makeCheck(frame, L["Only missing"], function(on) ns.Settings().missing = on; UI.Refresh() end)
     widgets.missing:SetPoint("LEFT", previous, "RIGHT", 84, 0)
 
+    widgets.farmable = makeCheck(frame, L["Only farmable here"], function(on) ns.Settings().farmable = on; UI.Refresh() end)
+    widgets.farmable:SetPoint("LEFT", widgets.missing, "RIGHT", 96, 0)
+
     for index = 1, #ns.SLOT_ORDER do rows[index] = buildRow(frame, index) end
 
     widgets.detailTitle = makeText(frame, "GameFontNormalLarge")
@@ -332,23 +376,58 @@ end
 
 -- ------------------------------------------------------------------ refresh
 
-local function fillItem(target, entry, worn)
+--- "292 Champion  +13" for an item that drops at a key level; the difference to what is worn.
+local function levelText(id, slotKey)
+    local db = ns.Settings()
+    local ilvl, track, rank = ns.DungeonLevel(id, db.content, db.keyLevel, db.vault)
+    if not ilvl then return nil end
+    local text = "|cffa335ee" .. ilvl .. " " .. L[TRACK_NAMES[track]] .. " " .. rank .. "/" .. ns.TRACK_RANKS .. "|r"
+    local have = ns.WornItemLevel(slotKey)
+    if have > 0 then
+        local diff = ilvl - have
+        if diff > 0 then text = text .. "  |cff52e052+" .. diff .. "|r"
+        elseif diff < 0 then text = text .. "  |cffe05252" .. diff .. "|r"
+        else text = text .. "  |cff999999=|r" end
+    end
+    return text
+end
+
+--- The BiS or tier tag and the player's own mark behind an item name.
+local function tagsOf(id, share)
+    local text = ""
+    if bisSet[id] then
+        text = text .. "  |cffffd100[" .. L["BiS"] .. "]|r"
+    else
+        local tier = share and ns.TierOf(share)
+        if tier then text = text .. "  |c" .. TIER_COLOR[tier] .. "[" .. L[TIER_TEXT[tier]] .. "]|r" end
+    end
+    local mark = shownKey and ns.MarkOf(shownKey, id)
+    local style = mark and MARK_STYLE[mark]
+    if style then text = text .. "  |c" .. style.color .. "* " .. L[style.text] .. "|r" end
+    return text
+end
+
+local function fillItem(target, entry, worn, slotKey)
     local id = entry.item
     target.itemId = id
     target.icon:SetTexture(getItemIcon(id))
     local name, quality = itemNameOf(id)
-    local r, g, b = colorFor(quality)
+    local levelLine = levelText(id, slotKey)
+    local r, g, b = colorFor(levelLine and 4 or quality)
     target.name:SetTextColor(r, g, b)
-    target.name:SetText((name or ("[" .. id .. "]")) .. (worn[id] and ("  |cff52b7a8" .. L["Worn"] .. "|r") or ""))
-    target.where:SetText(sourceText(id))
+    target.name:SetText((name or ("[" .. id .. "]")) .. (worn[id] and ("  |cff52b7a8" .. L["Worn"] .. "|r") or "") .. tagsOf(id, entry.share))
+    target.where:SetText(levelLine and (levelLine .. "   " .. sourceText(id)) or sourceText(id))
     target.share:SetText(ns.Percent(entry.share))
 end
 
 function UI.Refresh()
     if not frame or not frame:IsShown() then return end
-    local db = ns.Settings()
     local _, class, spec = ns.ShownSpec()
+    if class then ns.UseProfile(class .. "-" .. spec) end
+    local db = ns.Settings()
     local worn = ns.EquippedItems()
+    shownKey = class and (class .. "-" .. spec) or nil
+    bisSet = ns.BisItems(class or "", spec or "", db.content)
     local data = ns.Rows(class or "", spec or "", db.content, ns.Filters(), db.missing and worn or nil)
 
     widgets.setSpecText(class and (ns.Title(class) .. " - " .. ns.Title(spec) .. (db.spec and "" or "  (you)"))
@@ -358,11 +437,16 @@ function UI.Refresh()
     else
         widgets.raid:LockHighlight(); widgets.mplus:UnlockHighlight()
     end
+    widgets.key:SetShown(db.content == "mplus")
+    widgets.vault:SetShown(db.content == "mplus")
+    widgets.vault:SetChecked(db.vault)
+    widgets.setKeyText(L["Key level"] .. ": " .. ns.KeyLabel(db.keyLevel))
     for _, choice in ipairs(SOURCE_CHOICES) do
         if choice.value == db.source then widgets.setSourceText(L[choice.label]) end
     end
     for letter, check in pairs(widgets.stats) do check:SetChecked(db.stats:find(letter, 1, true) ~= nil) end
     widgets.missing:SetChecked(db.missing)
+    widgets.farmable:SetChecked(db.farmable)
     widgets.stamp:SetText(KeyLootMasterMeta and (L["Data of"] .. " " .. KeyLootMasterMeta.generated:sub(1, 10)) or "")
 
     local any, firstWithItems = false, nil
@@ -375,7 +459,7 @@ function UI.Refresh()
             any = true
             firstWithItems = firstWithItems or entry.slot
             row.icon:Show(); row.where:Show(); row.share:Show()
-            fillItem(row, top, worn)
+            fillItem(row, top, worn, entry.slot)
         else
             row.itemId = nil
             row.icon:Hide(); row.where:Hide(); row.share:Hide()
@@ -412,7 +496,7 @@ function UI.Refresh()
             local entry = selected.items[index + 1]
             if entry then
                 row:Show()
-                fillItem(row, entry, worn)
+                fillItem(row, entry, worn, selected.slot)
             else
                 row.itemId = nil
                 row:Hide()

@@ -57,6 +57,7 @@ UIParent = Widget.new("Frame", "UIParent")
 UISpecialFrames = {}
 SlashCmdList = {}
 GameTooltip = Widget.new("Frame", "GameTooltip")
+Minimap = Widget.new("Frame", "Minimap")
 printed = {}
 function print(...) printed[#printed + 1] = table.concat({ ... }, " ") end
 function GetLocale() return "enUS" end
@@ -113,8 +114,8 @@ def sources(with_data=True):
     names = []
     if with_data:
         data = ADDON / "Data"
-        names += [data / n for n in ("Meta.lua", "Specs.lua", "Drops.lua", "Items.lua", "paladin.lua", "mage.lua")]
-    names += [ADDON / n for n in ("Locales.lua", "Logic.lua", "Core.lua", "UI.lua", "Tooltip.lua")]
+        names += [data / n for n in ("Meta.lua", "Specs.lua", "Drops.lua", "Items.lua", "Bonus.lua", "paladin.lua", "mage.lua")]
+    names += [ADDON / n for n in ("Locales.lua", "Logic.lua", "Core.lua", "UI.lua", "Tooltip.lua", "Minimap.lua")]
     return [(p.name, p.read_text(encoding="utf-8")) for p in names]
 
 
@@ -151,6 +152,90 @@ class SmokeTest(unittest.TestCase):
         self.assertTrue(any("Paladin - Protection" in str(t) for t in texts) or
                         any("Paladin - Protection" in str(w.defaultText) for w in self.g.find_widgets("DropdownButton").values()))
 
+    def test_the_minimap_button_shows_opens_the_window_and_hides_by_slash(self):
+        ns = self.boot()
+        ns.RefreshMinimapButton()
+        buttons = self.g.find_widgets("Button")
+        button = [w for w in buttons.values() if w.name == "KeyLootMasterMinimapButton"][0]
+        self.assertTrue(button.shown)
+        button.scripts["OnClick"](button)
+        self.assertTrue(self.g.find_widgets("Frame", "BasicFrameTemplateWithInset")[1].shown)
+        self.g.SlashCmdList["KEYLOOTMASTER"]("minimap")
+        self.assertFalse(button.shown)
+        self.assertTrue(self.g.KeyLootMasterDB.minimapHide)
+        self.g.SlashCmdList["KEYLOOTMASTER"]("minimap")
+        self.assertTrue(button.shown)
+
+    def test_the_top_item_per_slot_carries_a_bis_tag(self):
+        self.boot()
+        self.open_window()
+        rows = self.rows()
+        self.assertTrue(any("[BiS]" in str(r.name.text) for r in rows))
+
+    def test_right_click_cycles_the_players_own_mark(self):
+        self.boot()
+        self.open_window()
+        row = self.rows()[0]
+        row.scripts.OnClick(row, "RightButton")
+        self.assertIn("* Important", str(self.rows()[0].name.text))
+        row = self.rows()[0]
+        row.scripts.OnClick(row, "RightButton")
+        self.assertIn("* Interesting", str(self.rows()[0].name.text))
+        row = self.rows()[0]
+        row.scripts.OnClick(row, "RightButton")
+        self.assertNotIn("* ", str(self.rows()[0].name.text))
+
+    def test_the_mythic_plus_button_lists_only_dungeon_items(self):
+        ns = self.boot()
+        self.open_window()
+        buttons = {w.text: w for w in self.g.find_widgets("Button", "UIPanelButtonTemplate").values()}
+        for row in self.rows():
+            self.assertTrue(ns.KindsOf(row.itemId).dungeon)
+        buttons["Raid"].scripts.OnClick(buttons["Raid"])
+        for row in self.rows():
+            self.assertTrue(ns.KindsOf(row.itemId).raid)
+        buttons["Mythic+"].scripts.OnClick(buttons["Mythic+"])
+        # the filter can be switched off, and the choice is saved
+        self.assertTrue(self.g.KeyLootMasterDB.farmable)
+        checks = list(self.g.find_widgets("CheckButton").values())
+        checks[-1].checked = False
+        checks[-1].scripts.OnClick(checks[-1])
+        self.assertFalse(self.g.KeyLootMasterDB.farmable)
+        self.assertTrue(any(not ns.KindsOf(r.itemId).dungeon for r in self.rows()))
+
+    def test_dungeon_items_show_what_the_chosen_key_level_rewards(self):
+        ns = self.boot()
+        self.open_window()
+        self.assertIn("292 Champion 1/6", str(self.rows()[0].where.text))
+        self.g.KeyLootMasterDB.keyLevel = 8
+        self.g.SlashCmdList["KEYLOOTMASTER"]("")
+        self.g.SlashCmdList["KEYLOOTMASTER"]("")
+        self.assertIn("308 Hero 2/6", str(self.rows()[0].where.text))
+        self.g.KeyLootMasterDB.vault = True
+        self.g.SlashCmdList["KEYLOOTMASTER"]("")
+        self.g.SlashCmdList["KEYLOOTMASTER"]("")
+        self.assertIn("315 Hero 4/6", str(self.rows()[0].where.text))
+
+    def test_the_key_levels_group_what_rewards_the_same(self):
+        ns = self.boot()
+        groups = ns.KeyGroups(False)
+        self.assertEqual(groups[2].label, "+2-+3")
+        self.assertEqual(groups[2].ilvl, 295)
+        self.assertEqual(groups[len(groups)].label, "+10+")
+
+    def test_filters_are_kept_per_specialization(self):
+        ns = self.boot()
+        self.open_window()
+        db = self.g.KeyLootMasterDB
+        db.keyLevel = 8
+        db.stats = "c"
+        ns.UseProfile("mage-fire")        # the filters of the first one are put away
+        self.assertEqual(db.keyLevel, 8)   # a specialization without saved filters keeps the ones in use
+        db.keyLevel = 2
+        ns.UseProfile("paladin-protection")
+        self.assertEqual(db.keyLevel, 8)   # ...and the first one gets its own back
+        self.assertEqual(db.stats, "c")
+
     def test_slash_toggles_and_tooltip_switch(self):
         self.boot()
         self.open_window()
@@ -168,7 +253,7 @@ class SmokeTest(unittest.TestCase):
         self.assertEqual(self.g.KeyLootMasterDB.content, "raid")
         # source filter through the dropdown menu
         dropdowns = list(self.g.find_widgets("DropdownButton").values())
-        source = dropdowns[1]
+        source = dropdowns[2]  # specialization, key level, source
         menu = self.g.open_menu(source)
         crafted = next(m for m in menu.values() if m.text == "Crafted")
         crafted.set()
@@ -177,11 +262,11 @@ class SmokeTest(unittest.TestCase):
             self.assertIn("Crafted", row.where.text)
         # a stat checkbox and "only missing"
         checks = list(self.g.find_widgets("CheckButton").values())
-        checks[0].checked = True
-        checks[0].scripts.OnClick(checks[0])
+        checks[1].checked = True  # checks[0] is the Great Vault box
+        checks[1].scripts.OnClick(checks[1])
         self.assertEqual(self.g.KeyLootMasterDB.stats, "c")
-        checks[-1].checked = True
-        checks[-1].scripts.OnClick(checks[-1])
+        checks[-2].checked = True
+        checks[-2].scripts.OnClick(checks[-2])
         self.assertTrue(self.g.KeyLootMasterDB.missing)
 
     def test_every_specialization_can_be_chosen_without_error(self):

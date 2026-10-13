@@ -4,6 +4,7 @@
   <Script file="Specs.lua"/>
   <Script file="Drops.lua"/>
   <Script file="Items.lua"/>
+  <Script file="Bonus.lua"/>
   <Script file="death-knight.lua"/>
   <Script file="demon-hunter.lua"/>
   <Script file="druid.lua"/>

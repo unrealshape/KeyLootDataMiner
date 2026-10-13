@@ -12,6 +12,11 @@ local DEFAULTS = {
     missing = false,            -- hide what the player wears already
     spec = nil,                 -- a specialization id, or nil for the player's own
     tooltip = true,             -- the KeyLootMaster line in item tooltips
+    farmable = true,            -- only items that drop in the shown content (dungeon for Mythic+, raid for Raid)
+    keyLevel = 0,               -- the key level the item levels show (one of ns.KEY_LEVELS)
+    vault = false,              -- show the Great Vault reward of that key level instead of the end of the dungeon
+    minimapHide = false,        -- hide the minimap button
+    minimapAngle = 215,         -- where the minimap button sits on the rim, in degrees
 }
 ns.DEFAULTS = DEFAULTS
 
@@ -22,7 +27,34 @@ function ns.Settings()
         if db[key] == nil then db[key] = value end
     end
     if db.content ~= "mplus" and db.content ~= "raid" then db.content = "mplus" end
+    local known = false
+    for _, level in ipairs(ns.KEY_LEVELS) do if level == db.keyLevel then known = true end end
+    if not known then db.keyLevel = 0 end
+    if type(db.marks) ~= "table" then db.marks = {} end
     return db
+end
+
+-- The settings that belong to one specialization (everything that filters the list).
+local PROFILE_KEYS = { "content", "source", "stats", "missing", "farmable", "keyLevel", "vault" }
+
+--- Makes the filters those of a specialization ("paladin-holy"): the ones in use are put away for the
+--- specialization shown before, and the saved ones of this one are brought back. A specialization
+--- without saved filters keeps the ones in use.
+function ns.UseProfile(specKey)
+    local db = ns.Settings()
+    if not specKey or db.profileKey == specKey then return end
+    db.profiles = db.profiles or {}
+    if db.profileKey then
+        local saved = {}
+        for _, key in ipairs(PROFILE_KEYS) do saved[key] = db[key] end
+        db.profiles[db.profileKey] = saved
+    end
+    local wanted = db.profiles[specKey]
+    if wanted then
+        for _, key in ipairs(PROFILE_KEYS) do db[key] = wanted[key] end
+    end
+    db.profileKey = specKey
+    ns.Settings()
 end
 
 --- The player's current specialization id, or nil (no specialization yet).
@@ -54,18 +86,58 @@ function ns.EquippedItems()
     return worn
 end
 
+--- The item level of what the player wears in a slot of the lists (the lower of two for rings and
+--- trinkets); 0 when the slot is empty.
+function ns.WornItemLevel(slotKey)
+    local lowest
+    for _, slot in ipairs(ns.INVENTORY_SLOTS[slotKey] or {}) do
+        local link = GetInventoryItemLink and GetInventoryItemLink("player", slot)
+        local level = 0
+        if link then
+            local detailed = (C_Item and C_Item.GetDetailedItemLevelInfo) or GetDetailedItemLevelInfo
+            level = detailed and detailed(link) or 0
+        end
+        lowest = lowest and math.min(lowest, level) or level
+    end
+    return lowest or 0
+end
+
+--- The mark the player put on an item for a specialization key ("paladin-holy"), or nil.
+function ns.MarkOf(specKey, item)
+    local held = ns.Settings().marks[specKey]
+    return held and held[item] or nil
+end
+
+--- Moves an item to its next mark (see ns.NextMark) and returns it.
+function ns.CycleMark(specKey, item)
+    local marks = ns.Settings().marks
+    marks[specKey] = marks[specKey] or {}
+    local mark = ns.NextMark(marks[specKey][item])
+    marks[specKey][item] = mark
+    return mark
+end
+
 --- The filters as ns.Rows wants them.
 function ns.Filters()
     local db = ns.Settings()
-    return { source = db.source, stats = db.stats, missing = db.missing }
+    return { source = db.source, stats = db.stats, missing = db.missing,
+        farmable = db.farmable and (db.content == "mplus" and "dungeon" or "raid") or nil }
 end
 
 local function toggle()
     if ns.UI and ns.UI.Toggle then ns.UI.Toggle() end
 end
 
---- /klm opens the window; /klm tooltip switches the line in item tooltips on or off.
+--- /klm opens the window; /klm tooltip switches the line in item tooltips on or off;
+--- /klm minimap shows or hides the minimap button.
 local function slash(message)
+    if (message or ""):lower():match("^%s*minimap%s*$") then
+        local db = ns.Settings()
+        db.minimapHide = not db.minimapHide
+        if ns.RefreshMinimapButton then ns.RefreshMinimapButton() end
+        print("|cffd9a24fKeyLootMaster|r minimap button: " .. (db.minimapHide and "hidden" or "shown"))
+        return
+    end
     if (message or ""):lower():match("^%s*tooltip%s*$") then
         local db = ns.Settings()
         db.tooltip = not db.tooltip

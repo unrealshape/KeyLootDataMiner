@@ -24,6 +24,7 @@ from klm.merge import merge  # noqa: E402
 from klm.model import DatasetError, validate  # noqa: E402
 
 DEFAULT_TOP = 8
+BONUS_PATH = Path(__file__).resolve().parent / "data" / "item_level_bonus.json"
 
 
 def load_datasets(folder: Path) -> list:
@@ -45,6 +46,8 @@ def render(merged: dict, top: int) -> dict:
     files["Items.lua"] = lua.items_file(merged, top)
     files["Specs.lua"] = lua.specs_file(merged)
     files["Meta.lua"] = lua.meta_file(merged, top)
+    if BONUS_PATH.is_file():
+        files["Bonus.lua"] = lua.bonus_file(json.loads(BONUS_PATH.read_text(encoding="utf-8"))["bonus"])
     files["Data.xml"] = lua.manifest(sorted(files))
     return files
 

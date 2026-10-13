@@ -3,7 +3,7 @@
 ## Notes: Where the best gear of your class and specialization drops, from Mythic+ and the raid. Filter by source and secondary stats.
 ## Author: unrealshape
 ## Version: 0.1.0
-## IconTexture: Interface\Icons\INV_Misc_Bag_10_Blue
+## IconTexture: Interface\Icons\inv_cullingofstratholme_keystone
 ## Category-enUS: Dungeons & Raids
 ## Category-deDE: Dungeons & Schlachtzüge
 ## SavedVariables: KeyLootMasterDB
@@ -17,3 +17,4 @@ Logic.lua
 Core.lua
 UI.lua
 Tooltip.lua
+Minimap.lua
