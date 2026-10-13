@@ -82,9 +82,11 @@ class Client:
                     raise BlizzardError(f"HTTP {error.code} for {request.full_url.split('?')[0]}",
                                         status=error.code) from error
                 self.sleep(2 ** attempt)
-            except urllib.error.URLError as error:
+            except (OSError, ValueError) as error:
+                # URLError, a reset or timed-out connection while reading, a cut-off JSON body
                 if attempt == RETRIES - 1:
-                    raise BlizzardError(f"no answer from {request.full_url.split('?')[0]}: {error.reason}") from error
+                    reason = getattr(error, "reason", error)
+                    raise BlizzardError(f"no answer from {request.full_url.split('?')[0]}: {reason}") from error
                 self.sleep(2 ** attempt)
 
     def authenticate(self):

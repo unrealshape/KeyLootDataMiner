@@ -105,6 +105,34 @@ class ClientTest(unittest.TestCase):
         self.assertEqual(len(attempts), 1)
 
 
+class ConnectionResetTest(unittest.TestCase):
+    def test_a_reset_connection_is_retried_then_succeeds(self):
+        attempts = []
+
+        def opener(request):
+            if request.full_url == blizzard.TOKEN_URL:
+                return {"access_token": "t"}
+            attempts.append(1)
+            if len(attempts) < 3:
+                raise ConnectionResetError(104, "Connection reset by peer")
+            return {"ok": True}
+
+        client = blizzard.Client("i", "s", opener=opener, sleep=lambda s: None)
+        self.assertEqual(client.get("/x"), {"ok": True})
+        self.assertEqual(len(attempts), 3)
+
+    def test_a_connection_that_never_answers_is_a_blizzard_error_without_status(self):
+        def opener(request):
+            if request.full_url == blizzard.TOKEN_URL:
+                return {"access_token": "t"}
+            raise ConnectionResetError(104, "Connection reset by peer")
+
+        client = blizzard.Client("i", "s", opener=opener, sleep=lambda s: None)
+        with self.assertRaises(blizzard.BlizzardError) as caught:
+            client.get("/x")
+        self.assertIsNone(caught.exception.status)
+
+
 class CredentialsTest(unittest.TestCase):
     def test_environment_wins_over_the_file(self):
         with tempfile.TemporaryDirectory() as home:

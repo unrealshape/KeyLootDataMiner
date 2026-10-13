@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Restore the character caches
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: |
             pipeline/cache/stats.json
@@ -40,6 +40,16 @@ jobs:
         env:
           BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
           BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
+      # Saved even when the source fails, so a long run keeps what it already read.
+      - name: Save the character caches
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            pipeline/cache/stats.json
+            pipeline/cache/talents.json
+            pipeline/cache/profiles.json
+          key: character-cache-${{ github.run_id }}
       - name: Source - Warcraft Logs (best raiders' gear)
         run: python pipeline/fetch_wcl.py --out build/datasets
         env:

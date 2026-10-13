@@ -204,7 +204,8 @@ def read_gear(client, character):
     try:
         data = client.get(path, "profile")
     except BlizzardError as error:
-        if error.status in (403, 404):
+        if error.status in (403, 404) or error.status is None:
+            # unreadable, or no answer after the retries: one character must not end a two-hour run
             return None
         raise
     return parse_gear(data)
