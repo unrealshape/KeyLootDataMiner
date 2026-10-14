@@ -1560,6 +1560,13 @@
 "set": null,
 "stats": "hm"
 },
+"249342": {
+"day": "2026-10-14",
+"ilvl": 197,
+"name": "Heart of Ancient Hunger",
+"set": null,
+"stats": ""
+},
 "249343": {
 "day": "2026-10-13",
 "ilvl": 197,
@@ -1671,6 +1678,13 @@
 "name": "Idol of the War Loa",
 "set": null,
 "stats": "c"
+},
+"250238": {
+"day": "2026-10-14",
+"ilvl": 108,
+"name": "Seed of the Devouring Wild",
+"set": null,
+"stats": ""
 },
 "250245": {
 "day": "2026-10-13",
@@ -4590,5 +4604,33 @@
 "name": "Venom-Cursed Dragonhawk's Plumage",
 "set": null,
 "stats": "ch"
+},
+"281029": {
+"day": "2026-10-14",
+"ilvl": 0,
+"name": "",
+"set": null,
+"stats": ""
+},
+"281215": {
+"day": "2026-10-14",
+"ilvl": 0,
+"name": "",
+"set": null,
+"stats": ""
+},
+"281235": {
+"day": "2026-10-14",
+"ilvl": 0,
+"name": "",
+"set": null,
+"stats": ""
+},
+"281236": {
+"day": "2026-10-14",
+"ilvl": 0,
+"name": "",
+"set": null,
+"stats": ""
 }
 }
