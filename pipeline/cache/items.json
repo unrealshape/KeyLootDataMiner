@@ -517,6 +517,13 @@
 "set": null,
 "stats": "ch"
 },
+"159642": {
+"day": "2026-10-15",
+"ilvl": 59,
+"name": "Royal Purifier's Spade",
+"set": null,
+"stats": "cm"
+},
 "159644": {
 "day": "2026-10-13",
 "ilvl": 59,
@@ -1483,6 +1490,13 @@
 "set": null,
 "stats": "c"
 },
+"244771": {
+"day": "2026-10-15",
+"ilvl": 197,
+"name": "Aetherlume Softsteppers",
+"set": null,
+"stats": "c"
+},
 "244772": {
 "day": "2026-10-13",
 "ilvl": 197,
@@ -2203,6 +2217,13 @@
 "name": "Visor of the Predator",
 "set": null,
 "stats": "cm"
+},
+"251230": {
+"day": "2026-10-15",
+"ilvl": 108,
+"name": "Charonic Crescent",
+"set": null,
+"stats": "mv"
 },
 "251231": {
 "day": "2026-10-13",
@@ -4605,12 +4626,33 @@
 "set": null,
 "stats": "ch"
 },
+"280799": {
+"day": "2026-10-15",
+"ilvl": 219,
+"name": "Lu'selama, Light's Justice",
+"set": null,
+"stats": ""
+},
+"280835": {
+"day": "2026-10-15",
+"ilvl": 219,
+"name": "Sigil of the Impending Eclipse",
+"set": null,
+"stats": ""
+},
 "281029": {
 "day": "2026-10-14",
 "ilvl": 0,
 "name": "",
 "set": null,
 "stats": ""
+},
+"281056": {
+"day": "2026-10-15",
+"ilvl": 219,
+"name": "Sanctified Knight's Phoenixblade",
+"set": null,
+"stats": "cm"
 },
 "281215": {
 "day": "2026-10-14",
@@ -4632,5 +4674,19 @@
 "name": "",
 "set": null,
 "stats": ""
+},
+"281238": {
+"day": "2026-10-15",
+"ilvl": 219,
+"name": "Aberrant Commander's Gauntlets",
+"set": null,
+"stats": "cm"
+},
+"281239": {
+"day": "2026-10-15",
+"ilvl": 219,
+"name": "Corroded Hulk's Skullcap",
+"set": null,
+"stats": "hm"
 }
 }
