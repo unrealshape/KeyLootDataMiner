@@ -96,10 +96,10 @@ class Client:
             headers={"Authorization": "Basic " + basic, "Content-Type": "application/x-www-form-urlencoded"})
         self.token = self._send(request)["access_token"]
 
-    def get(self, path, namespace="static"):
+    def get(self, path, namespace="static", locale="en_US"):
         if self.token is None:
             self.authenticate()
-        query = urllib.parse.urlencode({"namespace": f"{namespace}-{self.region}", "locale": "en_US"})
+        query = urllib.parse.urlencode({"namespace": f"{namespace}-{self.region}", "locale": locale})
         request = urllib.request.Request(
             API_HOST.format(region=self.region) + path + "?" + query,
             headers={"Authorization": "Bearer " + self.token})

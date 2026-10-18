@@ -24,9 +24,24 @@ from build import DEFAULT_TOP, load_datasets  # noqa: E402
 from klm.merge import merge  # noqa: E402
 from klm.lua import shown_items  # noqa: E402
 from klm.model import DatasetError, validate  # noqa: E402
-from klm.sources import blizzard, blizzard_items  # noqa: E402
+from klm.sources import blizzard, blizzard_catalyst, blizzard_items  # noqa: E402
 
 DEFAULT_CACHE = Path(__file__).resolve().parent / "cache" / "items.json"
+
+
+def new_sections(client, merged, shown, cache):
+    """The Catalyst sources and the tier sets. They are extras: whatever goes wrong here is reported and leaves
+    the rest of the run alone (the addon shows them only when the data has them)."""
+    try:
+        dungeon = {d["item"] for d in merged["drops"] if d["kind"] == "dungeon"}
+        blizzard_items.refresh(client, dungeon - shown, cache)
+        sections = {"catalyst": blizzard_catalyst.catalyst_records(merged["drops"], cache),
+                    "tierset": blizzard_catalyst.tierset_records(client, merged["entries"], cache)}
+        validate({"source": "check", "generated": "check", **sections})
+        return sections
+    except (blizzard.BlizzardError, DatasetError, KeyError, ValueError, TypeError, AttributeError) as error:
+        print(f"fetch_items: Catalyst sources and tier sets skipped: {error}", file=sys.stderr)
+        return {}
 
 
 def main(argv=None) -> int:
@@ -46,13 +61,13 @@ def main(argv=None) -> int:
         client_id, secret = blizzard.read_credentials()
         client = blizzard.Client(client_id, secret)
         read = blizzard_items.refresh(client, shown, cache)
-        recipes = blizzard_items.recipe_names(client)
+        recipes = blizzard_items.recipe_professions(client)
         journal = {d["item"] for d in merged["drops"]}
         drops = blizzard_items.other_drops(shown, journal, cache, recipes)
         items = blizzard_items.item_records(shown, cache, blizzard_items.themes(cache))
         stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         dataset = validate({"source": "blizzard-items", "generated": stamp, "entries": [], "drops": drops,
-                            "items": items, "specs": {}})
+                            "items": items, "specs": {}, **new_sections(client, merged, shown, cache)})
     except (blizzard.BlizzardError, DatasetError, KeyError, ValueError, OSError) as error:
         print(f"fetch_items: {error}", file=sys.stderr)
         return 1

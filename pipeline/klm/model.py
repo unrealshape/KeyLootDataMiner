@@ -8,6 +8,9 @@ A source hands over one dataset (a plain dict, stored as JSON):
       "entries": [ {class, spec, content, slot, item, share, sample}, ... ],
       "drops":   [ {item, kind, instance, instance_name, encounter, encounter_name}, ... ],
       "items":   [ {item, stats, ilvl, tier}, ... ],           (optional)
+      "catalyst": [ {slot, armor, item, instance, instance_name, encounter, encounter_name}, ... ]  (optional:
+                    the dungeon drops a tier piece of that slot and armor type can be made from)
+      "tierset": [ {class, name, name_de?, bonuses: {"2": {en, de?}, "4": ...}}, ... ]  (optional)
       "specs":   { "66": ["paladin", "protection"], ... },     (optional)
       "stats":   [ {class, spec, n, c: [rating, percent], h, m, v, leech, avoidance, speed}, ... ]  (optional)
       "players": [ {class, spec, rank, items: [ids], gear: {slot: [ids]}, stats: {c: [..], ...},
@@ -35,6 +38,9 @@ STAT_LETTERS = "chmv"
 ENTRY_FIELDS = ("class", "spec", "content", "slot", "item", "share", "sample")
 STAT_KEYS = ("c", "h", "m", "v", "leech", "avoidance", "speed")
 DROP_FIELDS = ("item", "kind", "instance", "instance_name", "encounter", "encounter_name")
+TIER_SLOTS = ("head", "shoulder", "chest", "hands", "legs")
+ARMOR_TYPES = ("cloth", "leather", "mail", "plate")
+CATALYST_FIELDS = ("slot", "armor", "item", "instance", "instance_name", "encounter", "encounter_name")
 
 
 GEM_COLORS = ("red", "green", "purple", "blue", "meta", "other")
@@ -118,6 +124,29 @@ def validate(dataset: dict) -> dict:
             raise DatasetError(f"{where}: stats are letters of {STAT_LETTERS!r}")
         if not isinstance(item["ilvl"], int) or not isinstance(item["tier"], bool):
             raise DatasetError(f"{where}: ilvl is an integer and tier a boolean")
+    for index, record in enumerate(dataset.get("catalyst", [])):
+        where = f"catalyst[{index}]"
+        _check_keys(record, CATALYST_FIELDS, where)
+        if record["slot"] not in TIER_SLOTS or record["armor"] not in ARMOR_TYPES:
+            raise DatasetError(f"{where}: slot is one of {TIER_SLOTS}, armor one of {ARMOR_TYPES}")
+        if not _is_id(record["item"]):
+            raise DatasetError(f"{where}: item must be a positive integer")
+        if not all(isinstance(record[f], int) and not isinstance(record[f], bool) for f in ("instance", "encounter")):
+            raise DatasetError(f"{where}: instance and encounter must be integers")
+        if not all(isinstance(record[f], str) for f in ("instance_name", "encounter_name")):
+            raise DatasetError(f"{where}: instance_name and encounter_name must be texts")
+    for index, record in enumerate(dataset.get("tierset", [])):
+        where = f"tierset[{index}]"
+        _check_keys(record, ("class", "name", "bonuses"), where)
+        for field in ("class", "name", "name_de"):
+            if field in record and not (isinstance(record[field], str) and record[field]):
+                raise DatasetError(f"{where}: {field} must be a text")
+        bonuses = record["bonuses"]
+        if not (isinstance(bonuses, dict) and bonuses and all(
+                count.isdigit() and isinstance(bonus, dict) and isinstance(bonus.get("en"), str) and bonus["en"]
+                and ("de" not in bonus or (isinstance(bonus["de"], str) and bonus["de"]))
+                for count, bonus in bonuses.items())):
+            raise DatasetError(f"{where}: bonuses map a piece count to {{en, de?}}")
     for index, record in enumerate(dataset.get("stats", [])):
         where = f"stats[{index}]"
         _check_keys(record, ("class", "spec", "n") + STAT_KEYS, where)

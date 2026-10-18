@@ -18,6 +18,8 @@ def merge(datasets: list) -> dict:
     entries: dict = {}
     drops: dict = {}
     items: dict = {}
+    catalyst: dict = {}
+    tiersets: dict = {}
     specs: dict = {}
     stats: dict = {}
     players: list = []
@@ -42,6 +44,11 @@ def merge(datasets: list) -> dict:
             drops.setdefault(key, {**drop, "sources": set()})["sources"].add(dataset["source"])
         for item in dataset.get("items", []):
             items.setdefault(item["item"], item)
+        for record in dataset.get("catalyst", []):
+            catalyst.setdefault((record["slot"], record["armor"], record["item"], record["instance"],
+                                 record["encounter"]), record)
+        for record in dataset.get("tierset", []):
+            tiersets.setdefault(record["class"], record)
         for spec_id, names in dataset.get("specs", {}).items():
             specs.setdefault(spec_id, names)
         seen: dict = {}
@@ -77,6 +84,7 @@ def merge(datasets: list) -> dict:
     return {"source": "merged", "generated": generated, "sources": sorted(set(sources)),
             "entries": merged_entries, "drops": merged_drops,
             "items": [items[i] for i in sorted(items)], "specs": dict(sorted(specs.items(), key=lambda kv: int(kv[0]))),
+            "catalyst": [catalyst[k] for k in sorted(catalyst)], "tierset": [tiersets[c] for c in sorted(tiersets)],
             "stats": merged_stats,
             "players": sorted(players, key=lambda p: (p["class"], p["spec"], p["rank"], p["items"]))}
 

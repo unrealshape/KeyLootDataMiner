@@ -69,8 +69,8 @@ class FactsTest(unittest.TestCase):
 class RefreshTest(unittest.TestCase):
     def test_reads_only_new_or_stale_items_and_records_unknown_ones(self):
         client, calls = api(ITEMS, [], [])
-        cache = {"1": {"name": "x", "ilvl": 1, "set": None, "stats": "", "day": "2026-10-10"},
-                 "2": {"name": "old", "ilvl": 1, "set": None, "stats": "", "day": "2026-08-01"}}
+        cache = {"1": {"name": "x", "ilvl": 1, "set": None, "stats": "", "slot": "", "day": "2026-10-10"},
+                 "2": {"name": "old", "ilvl": 1, "set": None, "stats": "", "slot": "", "day": "2026-08-01"}}
         read = bi.refresh(client, {1, 2, 3, 99}, cache, today=date(2026, 10, 13), progress=lambda m: None)
         self.assertEqual(read, 3)  # 2 is stale, 3 and 99 are new
         self.assertNotIn("/data/wow/item/1", calls)

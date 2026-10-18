@@ -48,6 +48,9 @@ def render(merged: dict, top: int, group_size: int = 50, max_raid_items: int = D
     files = lua.class_files(merged, top)
     files["Drops.lua"] = lua.drops_file(merged)
     files["Items.lua"] = lua.items_file(merged, top)
+    for name, text in (("Catalyst.lua", lua.catalyst_file(merged)), ("TierSet.lua", lua.tierset_file(merged))):
+        if text:
+            files[name] = text
     files["Specs.lua"] = lua.specs_file(merged)
     files["Meta.lua"] = lua.meta_file(merged, top)
     if merged.get("stats"):

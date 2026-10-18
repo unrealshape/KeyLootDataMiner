@@ -28,15 +28,20 @@ CRAFT_PROFESSIONS = (164, 165, 197, 755, 202, 773, 171)
 EXPANSION = "Midnight"
 MAX_AGE_DAYS = 30
 STAT_LETTERS = (("CRIT", "c"), ("HASTE", "h"), ("MASTERY", "m"), ("VERSATILITY", "v"))
+# The slots a tier set has, by the item API's inventory type (a robe is a chest piece), and the armor types.
+TIER_SLOTS = {"HEAD": "head", "SHOULDER": "shoulder", "CHEST": "chest", "ROBE": "chest", "HANDS": "hands", "LEGS": "legs"}
+ARMOR_TYPES = ("cloth", "leather", "mail", "plate")
+ARMOR_CLASS = 4
+SET_BONUS = re.compile(r"^\s*\(\d+\)\s*(?:Set\s*:\s*)?", re.IGNORECASE)
 
 
 def log(message):
     print(message, file=sys.stderr, flush=True)
 
 
-def recipe_names(client, progress=log):
-    """Lower-case names of every recipe in the current expansion's craft tiers."""
-    names = set()
+def recipe_professions(client, progress=log):
+    """Lower-case recipe name -> profession name, for every recipe in the current expansion's craft tiers."""
+    names = {}
     for profession in CRAFT_PROFESSIONS:
         info = client.get(f"/data/wow/profession/{profession}", "static")
         for tier in info.get("skill_tiers", []):
@@ -45,9 +50,14 @@ def recipe_names(client, progress=log):
             detail = client.get(f"/data/wow/profession/{profession}/skill-tier/{tier['id']}", "static")
             for category in detail.get("categories", []):
                 for recipe in category.get("recipes", []):
-                    names.add(recipe["name"].strip().lower())
+                    names[recipe["name"].strip().lower()] = info.get("name", "")
     progress(f"{len(names)} recipe names")
     return names
+
+
+def recipe_names(client, progress=log):
+    """Lower-case names of every recipe in the current expansion's craft tiers."""
+    return set(recipe_professions(client, progress))
 
 
 def stat_letters(preview):
@@ -62,13 +72,36 @@ def stat_letters(preview):
     return "".join(letter for _, letter in STAT_LETTERS if letter in found)
 
 
-def read_item(client, item_id, today=None):
+def set_effects(preview):
+    """{"2": text, "4": text}: the set bonuses a tier piece shows, by the number of pieces they need."""
+    effects = {}
+    for effect in (preview.get("set") or {}).get("effects") or []:
+        count, text = effect.get("required_count"), SET_BONUS.sub("", effect.get("display_string") or "").strip()
+        if isinstance(count, int) and text:
+            effects[str(count)] = text
+    return effects
+
+
+def slot_and_armor(data):
+    """("head", "plate") for a piece of a tier slot; "" for what does not apply (a ring, a weapon)."""
+    slot = TIER_SLOTS.get((data.get("inventory_type") or {}).get("type", ""), "")
+    armor = ""
+    if (data.get("item_class") or {}).get("id") == ARMOR_CLASS:
+        found = (data.get("item_subclass") or {}).get("name", "").strip().lower()
+        armor = found if found in ARMOR_TYPES else ""
+    return slot, armor
+
+
+def read_item(client, item_id, today=None, locale="en_US"):
     """The facts the addon needs about one item, from the item API."""
-    data = client.get(f"/data/wow/item/{item_id}", "static")
+    data = client.get(f"/data/wow/item/{item_id}", "static", locale) if locale != "en_US" \
+        else client.get(f"/data/wow/item/{item_id}", "static")
     preview = data.get("preview_item") or {}
+    slot, armor = slot_and_armor(data)
     return {"name": data.get("name", ""), "ilvl": data.get("level", 0),
             "set": (preview.get("set") or {}).get("item_set", {}).get("name"),
-            "stats": stat_letters(preview), "day": (today or date.today()).isoformat()}
+            "stats": stat_letters(preview), "slot": slot, "armor": armor, "effects": set_effects(preview),
+            "day": (today or date.today()).isoformat()}
 
 
 def refresh(client, item_ids, cache, today=None, progress=log):
@@ -81,14 +114,16 @@ def refresh(client, item_ids, cache, today=None, progress=log):
     read = 0
     for item_id in sorted(item_ids):
         held = cache.get(str(item_id))
-        if held and (today - date.fromisoformat(held["day"])).days <= MAX_AGE_DAYS:
+        # an entry from before the slot and the set bonuses were kept is read again
+        if held and "slot" in held and (today - date.fromisoformat(held["day"])).days <= MAX_AGE_DAYS:
             continue
         try:
             cache[str(item_id)] = read_item(client, item_id, today)
         except BlizzardError as error:
             if error.status != 404:
                 raise
-            cache[str(item_id)] = {"name": "", "ilvl": 0, "set": None, "stats": "", "day": today.isoformat()}
+            cache[str(item_id)] = {"name": "", "ilvl": 0, "set": None, "stats": "", "slot": "", "armor": "",
+                                   "effects": {}, "day": today.isoformat()}
         read += 1
         if read % 200 == 0:
             progress(f"items: {read} read")
@@ -131,7 +166,8 @@ def source_of(facts, recipes, tier_themes):
 
 
 def other_drops(item_ids, journal_items, cache, recipes):
-    """Drop records (no instance) for the items the journal does not list."""
+    """Drop records (no instance) for the items the journal does not list. `recipes` is the recipe names, or
+    a dict of them to their profession: a crafted piece then carries the profession as its encounter name."""
     tier_themes = themes(cache)
     labels = {"catalyst": "Catalyst / tier", "crafted": "Crafted", "other": "Other source"}
     drops = []
@@ -142,8 +178,11 @@ def other_drops(item_ids, journal_items, cache, recipes):
         if facts is None:
             continue
         kind = source_of(facts, recipes, tier_themes)
+        profession = ""
+        if kind == "crafted" and isinstance(recipes, dict):
+            profession = recipes.get(facts.get("name", "").strip().lower(), "")
         drops.append({"item": item_id, "kind": kind, "instance": 0, "instance_name": labels[kind],
-                      "encounter": 0, "encounter_name": ""})
+                      "encounter": 0, "encounter_name": profession})
     return drops
 
 

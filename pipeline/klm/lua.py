@@ -101,7 +101,46 @@ def specs_file(dataset: dict) -> str:
     return "".join(lines)
 
 
-LOAD_ORDER = ("Meta.lua", "Specs.lua", "Drops.lua", "Items.lua", "Stats.lua", "Gear.lua", "Bonus.lua")
+def catalyst_file(dataset: dict) -> str:
+    """Data/Catalyst.lua: KeyLootMasterCatalyst[slot][armorType] = { {item, instance, instanceName, encounter,
+    encounterName}, ... }, the dungeon drops a tier piece of that slot and armor type can be made from at the
+    Catalyst. Empty text when the dataset has none."""
+    by_slot: dict = {}
+    for record in dataset.get("catalyst", []):
+        by_slot.setdefault(record["slot"], {}).setdefault(record["armor"], []).append(record)
+    if not by_slot:
+        return ""
+    lines = [HEADER, "KeyLootMasterCatalyst = {\n"]
+    for slot in sorted(by_slot):
+        armors = ", ".join(
+            key(armor) + " = { " + ", ".join(
+                "{%d, %d, %s, %d, %s}" % (r["item"], r["instance"], quote(r["instance_name"]),
+                                          r["encounter"], quote(r["encounter_name"]))
+                for r in by_slot[slot][armor]) + " }"
+            for armor in sorted(by_slot[slot]))
+        lines.append("  " + key(slot) + " = { " + armors + " },\n")
+    lines.append("}\n")
+    return "".join(lines)
+
+
+def tierset_file(dataset: dict) -> str:
+    """Data/TierSet.lua: KeyLootMasterTierSet[class] = { name = {en, de}, bonus = { [2] = {en, de}, ... } }, the
+    class's tier set and what 2 and 4 pieces give ("" where there is no German text). Empty text without any."""
+    records = dataset.get("tierset", [])
+    if not records:
+        return ""
+    lines = [HEADER, "KeyLootMasterTierSet = {\n"]
+    for record in sorted(records, key=lambda r: r["class"]):
+        bonus = ", ".join("[%d] = {%s, %s}" % (int(count), quote(text["en"]), quote(text.get("de", "")))
+                          for count, text in sorted(record["bonuses"].items(), key=lambda kv: int(kv[0])))
+        lines.append("  %s = { name = {%s, %s}, bonus = { %s } },\n" % (
+            key(record["class"]), quote(record["name"]), quote(record.get("name_de", "")), bonus))
+    lines.append("}\n")
+    return "".join(lines)
+
+
+LOAD_ORDER = ("Meta.lua", "Specs.lua", "Drops.lua", "Items.lua", "Catalyst.lua", "TierSet.lua", "Stats.lua",
+              "Gear.lua", "Bonus.lua")
 
 
 def manifest(lua_files: list) -> str:
