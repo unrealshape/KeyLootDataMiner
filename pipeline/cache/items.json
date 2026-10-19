@@ -1560,11 +1560,14 @@
 "stats": "cv"
 },
 "237849": {
-"day": "2026-10-13",
+"armor": "",
+"day": "2026-10-19",
+"effects": {},
 "ilvl": 197,
 "name": "Magister's Valediction",
 "set": null,
-"stats": "cm"
+"slot": "",
+"stats": "hm"
 },
 "237850": {
 "armor": "",
@@ -1787,11 +1790,14 @@
 "stats": "hm"
 },
 "239652": {
-"day": "2026-10-13",
+"armor": "cloth",
+"day": "2026-10-19",
+"effects": {},
 "ilvl": 197,
 "name": "Martyr's Crown",
 "set": null,
-"stats": "cv"
+"slot": "head",
+"stats": "cm"
 },
 "239653": {
 "armor": "cloth",
@@ -3852,10 +3858,13 @@
 "stats": "hm"
 },
 "268223": {
-"day": "2026-10-13",
+"armor": "mail",
+"day": "2026-10-19",
+"effects": {},
 "ilvl": 219,
 "name": "Ophidian Fangmail",
 "set": null,
+"slot": "chest",
 "stats": "ch"
 },
 "268224": {
@@ -6560,10 +6569,13 @@
 "stats": "mv"
 },
 "272275": {
-"day": "2026-10-13",
+"armor": "",
+"day": "2026-10-19",
+"effects": {},
 "ilvl": 206,
 "name": "Soulsinger's Horn",
 "set": null,
+"slot": "",
 "stats": "cv"
 },
 "272276": {
@@ -7013,6 +7025,13 @@
 "set": null,
 "slot": "head",
 "stats": "hm"
+},
+"de:244609": {
+"day": "2026-10-19",
+"effects": {
+"2": "Mit Euren Zaubern und Fähigkeiten könnt Ihr die Weltenbäume anrufen, Euch einen kleinen Teil ihrer Macht zu gewähren und Euch 15 Sek. lang 35 eines zufälligen Sekundärwerts zu verleihen."
+},
+"set": "Wurzelwächterornat"
 },
 "de:268209": {
 "day": "2026-10-18",
