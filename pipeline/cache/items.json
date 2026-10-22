@@ -1108,6 +1108,16 @@
 "set": null,
 "stats": "ch"
 },
+"171853": {
+"armor": "",
+"day": "2026-10-22",
+"effects": {},
+"ilvl": 60,
+"name": "Signet of the Fifth Circle",
+"set": null,
+"slot": "",
+"stats": "hm"
+},
 "171878": {
 "day": "2026-10-13",
 "ilvl": 60,
@@ -1609,6 +1619,16 @@
 "slot": "",
 "stats": "ch"
 },
+"237920": {
+"armor": "",
+"day": "2026-10-22",
+"effects": {},
+"ilvl": 197,
+"name": "Blood-Tempered Bulwark",
+"set": null,
+"slot": "",
+"stats": "hv"
+},
 "239031": {
 "armor": "cloth",
 "day": "2026-10-18",
@@ -2084,11 +2104,14 @@
 "stats": "hm"
 },
 "244578": {
-"day": "2026-10-13",
+"armor": "mail",
+"day": "2026-10-22",
+"effects": {},
 "ilvl": 197,
 "name": "Farstrider's Scouting Vest",
 "set": null,
-"stats": "hm"
+"slot": "chest",
+"stats": "cm"
 },
 "244579": {
 "armor": "mail",
@@ -2214,10 +2237,13 @@
 "stats": "v"
 },
 "244746": {
-"day": "2026-10-13",
+"armor": "plate",
+"day": "2026-10-22",
+"effects": {},
 "ilvl": 197,
 "name": "Aetherlume Sun Guard",
 "set": null,
+"slot": "head",
 "stats": "c"
 },
 "244747": {
@@ -2335,10 +2361,13 @@
 "stats": ""
 },
 "246305": {
-"day": "2026-10-13",
+"armor": "",
+"day": "2026-10-22",
+"effects": {},
 "ilvl": 90,
 "name": "Darkmoon Dominion: Blood",
 "set": null,
+"slot": "",
 "stats": ""
 },
 "248583": {
@@ -6273,10 +6302,13 @@
 "stats": "ch"
 },
 "272233": {
-"day": "2026-10-13",
+"armor": "cloth",
+"day": "2026-10-22",
+"effects": {},
 "ilvl": 206,
 "name": "Pyrewalker's Gloves",
 "set": null,
+"slot": "",
 "stats": "cm"
 },
 "272235": {
@@ -6320,10 +6352,13 @@
 "stats": "mv"
 },
 "272239": {
-"day": "2026-10-13",
+"armor": "leather",
+"day": "2026-10-22",
+"effects": {},
 "ilvl": 206,
 "name": "Miststalker's Brigandine",
 "set": null,
+"slot": "chest",
 "stats": "cm"
 },
 "272240": {
@@ -6936,6 +6971,18 @@
 "slot": "",
 "stats": ""
 },
+"280118": {
+"armor": "",
+"day": "2026-10-22",
+"effects": {
+"2": "Increases your Intellect by 20% and your Stamina by 5% when in Arenas, Battlegrounds, and War Mode."
+},
+"ilvl": 259,
+"name": "Venomous Aspirant's Medallion",
+"set": "Gladiator's Distinction",
+"slot": "",
+"stats": ""
+},
 "280799": {
 "armor": "",
 "day": "2026-10-18",
@@ -7056,6 +7103,21 @@
 },
 "de:270605": {
 "day": "2026-10-18",
+"effects": {
+"2": "Erhöht in Arenen, auf Schlachtfeldern und im Kriegsmodus Eure Intelligenz um 20% und Eure Ausdauer um 5%."
+},
+"set": "Auszeichnung des Gladiators"
+},
+"de:271562": {
+"day": "2026-10-22",
+"effects": {
+"2": "'Arkane Geschosse' feuert 1 zusätzliches Geschoss ab und verursacht um 5% erhöhten Schaden.",
+"4": "Jede Welle von 'Arkane Geschosse' erhöht den Schaden Eures nächsten Einsatzes von 'Arkanschlag', 'Arkaner Puls' oder 'Prismatischer Blitz' um 3%, bis zu 24%."
+},
+"set": "Gewand des urweltlichen Leyhüters"
+},
+"de:280118": {
+"day": "2026-10-22",
 "effects": {
 "2": "Erhöht in Arenen, auf Schlachtfeldern und im Kriegsmodus Eure Intelligenz um 20% und Eure Ausdauer um 5%."
 },
