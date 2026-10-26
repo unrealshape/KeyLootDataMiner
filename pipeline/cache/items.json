@@ -1884,11 +1884,14 @@
 "stats": "cv"
 },
 "239678": {
-"day": "2026-10-13",
+"armor": "cloth",
+"day": "2026-10-26",
+"effects": {},
 "ilvl": 197,
 "name": "Thalassian Competitor's Cloth Cloak",
 "set": null,
-"stats": "mv"
+"slot": "",
+"stats": "ch"
 },
 "239680": {
 "day": "2026-10-13",
@@ -1905,11 +1908,14 @@
 "stats": "ch"
 },
 "239684": {
-"day": "2026-10-13",
+"armor": "cloth",
+"day": "2026-10-26",
+"effects": {},
 "ilvl": 197,
 "name": "Thalassian Competitor's Cloth Treads",
 "set": null,
-"stats": "hv"
+"slot": "",
+"stats": "mv"
 },
 "240949": {
 "armor": "",
@@ -1932,11 +1938,14 @@
 "stats": "hm"
 },
 "240951": {
-"day": "2026-10-13",
+"armor": "",
+"day": "2026-10-26",
+"effects": {},
 "ilvl": 197,
 "name": "Thalassian Competitor's Signet",
 "set": null,
-"stats": "hv"
+"slot": "",
+"stats": "cm"
 },
 "240952": {
 "armor": "",
@@ -1972,12 +1981,32 @@
 "set": null,
 "stats": "cv"
 },
+"244557": {
+"armor": "leather",
+"day": "2026-10-26",
+"effects": {},
+"ilvl": 197,
+"name": "Thalassian Competitor's Leather Belt",
+"set": null,
+"slot": "",
+"stats": "ch"
+},
 "244560": {
 "day": "2026-10-13",
 "ilvl": 197,
 "name": "Thalassian Competitor's Leather Wristwraps",
 "set": null,
 "stats": "hm"
+},
+"244561": {
+"armor": "mail",
+"day": "2026-10-26",
+"effects": {},
+"ilvl": 197,
+"name": "Thalassian Competitor's Chain Stompers",
+"set": null,
+"slot": "",
+"stats": "cm"
 },
 "244565": {
 "armor": "mail",
@@ -2007,11 +2036,14 @@
 "stats": "hm"
 },
 "244568": {
-"day": "2026-10-13",
+"armor": "mail",
+"day": "2026-10-26",
+"effects": {},
 "ilvl": 197,
 "name": "Thalassian Competitor's Chain Cuffs",
 "set": null,
-"stats": "mv"
+"slot": "",
+"stats": "hm"
 },
 "244569": {
 "armor": "leather",
@@ -2226,6 +2258,16 @@
 "slot": "head",
 "stats": "v"
 },
+"244740": {
+"armor": "leather",
+"day": "2026-10-26",
+"effects": {},
+"ilvl": 197,
+"name": "Thalassian Competitor's Leather Bands",
+"set": null,
+"slot": "",
+"stats": "h"
+},
 "244745": {
 "armor": "mail",
 "day": "2026-10-18",
@@ -2247,11 +2289,14 @@
 "stats": "c"
 },
 "244747": {
-"day": "2026-10-13",
+"armor": "cloth",
+"day": "2026-10-26",
+"effects": {},
 "ilvl": 197,
 "name": "Aetherlume Silken Cuffs",
 "set": null,
-"stats": "h"
+"slot": "",
+"stats": "m"
 },
 "244748": {
 "armor": "leather",
@@ -4622,15 +4667,42 @@
 "stats": "hv"
 },
 "270556": {
-"day": "2026-10-13",
+"armor": "",
+"day": "2026-10-26",
+"effects": {
+"2": "Increases your Intellect by 20% and your Stamina by 5% when in Arenas, Battlegrounds, and War Mode."
+},
 "ilvl": 259,
 "name": "Venomous Aspirant's Medallion",
 "set": "Gladiator's Distinction",
+"slot": "",
 "stats": ""
+},
+"270558": {
+"armor": "",
+"day": "2026-10-26",
+"effects": {
+"2": "Increases your Intellect by 20% and your Stamina by 5% when in Arenas, Battlegrounds, and War Mode."
+},
+"ilvl": 259,
+"name": "Venomous Aspirant's Insignia of Alacrity",
+"set": "Gladiator's Distinction",
+"slot": "",
+"stats": "h"
 },
 "270564": {
 "armor": "cloth",
 "day": "2026-10-18",
+"effects": {},
+"ilvl": 298,
+"name": "Venomous Gladiator's Drape",
+"set": null,
+"slot": "",
+"stats": "hv"
+},
+"270573": {
+"armor": "cloth",
+"day": "2026-10-26",
 "effects": {},
 "ilvl": 298,
 "name": "Venomous Gladiator's Drape",
@@ -4701,10 +4773,13 @@
 "stats": "hv"
 },
 "270644": {
-"day": "2026-10-13",
+"armor": "cloth",
+"day": "2026-10-26",
+"effects": {},
 "ilvl": 298,
 "name": "Venomous Gladiator's Silk Armbands",
 "set": null,
+"slot": "",
 "stats": "hv"
 },
 "270660": {
@@ -4727,6 +4802,36 @@
 "name": "Venomous Gladiator's Leather Shoulderpads",
 "set": null,
 "stats": "mv"
+},
+"270727": {
+"armor": "mail",
+"day": "2026-10-26",
+"effects": {},
+"ilvl": 298,
+"name": "Venomous Gladiator's Chain Sabatons",
+"set": null,
+"slot": "",
+"stats": "hv"
+},
+"270737": {
+"armor": "mail",
+"day": "2026-10-26",
+"effects": {},
+"ilvl": 298,
+"name": "Venomous Gladiator's Chain Belt",
+"set": null,
+"slot": "",
+"stats": "hv"
+},
+"270740": {
+"armor": "mail",
+"day": "2026-10-26",
+"effects": {},
+"ilvl": 298,
+"name": "Venomous Gladiator's Chain Bracers",
+"set": null,
+"slot": "",
+"stats": "hv"
 },
 "270755": {
 "day": "2026-10-13",
@@ -4783,10 +4888,13 @@
 "stats": "mv"
 },
 "270845": {
-"day": "2026-10-13",
+"armor": "",
+"day": "2026-10-26",
+"effects": {},
 "ilvl": 298,
 "name": "Venomous Gladiator's Staff",
 "set": null,
+"slot": "",
 "stats": "hv"
 },
 "270846": {
@@ -6523,10 +6631,13 @@
 "stats": "hm"
 },
 "272258": {
-"day": "2026-10-13",
+"armor": "plate",
+"day": "2026-10-26",
+"effects": {},
 "ilvl": 206,
 "name": "Pledgebearer's Mask",
 "set": null,
+"slot": "head",
 "stats": "cm"
 },
 "272259": {
@@ -7093,6 +7204,13 @@
 "2": "Perfektioniert Eure Technik mit der 'Guillotine', damit diese einen zweiten Gegner in der Nähe erfasst, ihm so 100% des Schadens zufügt und beide Ziele mit 'Giftzahn' belegt."
 },
 "set": "Biss von Zul'jan"
+},
+"de:270556": {
+"day": "2026-10-26",
+"effects": {
+"2": "Erhöht in Arenen, auf Schlachtfeldern und im Kriegsmodus Eure Intelligenz um 20% und Eure Ausdauer um 5%."
+},
+"set": "Auszeichnung des Gladiators"
 },
 "de:270603": {
 "day": "2026-10-18",
