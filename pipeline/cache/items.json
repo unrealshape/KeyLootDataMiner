@@ -4870,6 +4870,16 @@
 "slot": "",
 "stats": "hv"
 },
+"270834": {
+"armor": "",
+"day": "2026-10-29",
+"effects": {},
+"ilvl": 298,
+"name": "Venomous Gladiator's Edge",
+"set": null,
+"slot": "",
+"stats": "mv"
+},
 "270839": {
 "day": "2026-10-13",
 "ilvl": 298,
@@ -6557,10 +6567,13 @@
 "stats": "ch"
 },
 "272250": {
-"day": "2026-10-13",
+"armor": "mail",
+"day": "2026-10-29",
+"effects": {},
 "ilvl": 206,
 "name": "Galerider's Gaze",
 "set": null,
+"slot": "head",
 "stats": "mv"
 },
 "272251": {
@@ -6690,6 +6703,16 @@
 "effects": {},
 "ilvl": 206,
 "name": "Mask-Etcher",
+"set": null,
+"slot": "",
+"stats": "hm"
+},
+"272269": {
+"armor": "",
+"day": "2026-10-29",
+"effects": {},
+"ilvl": 206,
+"name": "Soulsealer's Headstone",
 "set": null,
 "slot": "",
 "stats": "hm"
@@ -7091,6 +7114,16 @@
 "ilvl": 259,
 "name": "Venomous Aspirant's Medallion",
 "set": "Gladiator's Distinction",
+"slot": "",
+"stats": ""
+},
+"280617": {
+"armor": "",
+"day": "2026-10-29",
+"effects": {},
+"ilvl": 219,
+"name": "Lightbearer's Shield Fragment",
+"set": null,
 "slot": "",
 "stats": ""
 },
